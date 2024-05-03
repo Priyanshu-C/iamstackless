@@ -52,7 +52,7 @@ export function BackgroundGradientAnimationDemo() {
         <div ref={ref} className="relative h-screen">
             <div className="absolute top-4 left-1/2 transform -translate-x-1/2 flex z-10">
                 {SocialLinks.map((link) => (
-                    <Link href={link.link} key={link.name}>
+                    <Link href={link.link} key={link.name} target="_blank">
                         <img
                             src={link.icon}
                             alt={link.name}
@@ -113,7 +113,7 @@ export function BackgroundGradientAnimationDemo() {
             </BackgroundGradientAnimation>
             <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex">
                 {HomePageNavLinks.map((link) => (
-                    <Link href={link.link} key={link.name}>
+                    <Link href={link.link} key={link.name} target="_blank">
                         <div className="bg-clip-text mr-3 text-transparent drop-shadow-2xl bg-gradient-to-b text-white text-2xl hover:font-medium">
                             {link.name}
                         </div>
