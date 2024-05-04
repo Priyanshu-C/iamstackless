@@ -4,6 +4,7 @@ import { cn } from "@/utils/cn";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
+import { Url } from "url";
 
 export const HoverEffect = ({
     items,
@@ -12,7 +13,10 @@ export const HoverEffect = ({
     items: {
         title: string;
         description: string;
-        link: string;
+        link: Url;
+        github: Url;
+        image: string;
+        techStack: JSX.Element[];
     }[];
     className?: string;
 }) => {
@@ -26,9 +30,8 @@ export const HoverEffect = ({
             )}
         >
             {items.map((item, idx) => (
-                <Link
-                    href={item?.link}
-                    key={item?.link}
+                <div
+                    key={idx}
                     className="relative group  block p-2 h-full w-full"
                     onMouseEnter={() => setHoveredIndex(idx)}
                     onMouseLeave={() => setHoveredIndex(null)}
@@ -52,9 +55,50 @@ export const HoverEffect = ({
                     </AnimatePresence>
                     <Card>
                         <CardTitle>{item.title}</CardTitle>
+                        <CardImage src={item.image} />
                         <CardDescription>{item.description}</CardDescription>
+                        <CardTechStack techStack={item.techStack} />
+                        <div className="flex justify-around mt-4 flex-1 items-end">
+                            <Link
+                                href={item.github}
+                                className="
+                                h-10
+                                w-24 
+                                text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700"
+                                target="_blank"
+                            >
+                                Github
+                            </Link>
+                            <Link
+                                href={item.link}
+                                className=" w-24 h-10 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+                                target="_blank"
+                            >
+                                Live
+                            </Link>
+                        </div>
                     </Card>
-                </Link>
+                </div>
+            ))}
+        </div>
+    );
+};
+
+const CardImage = ({ src }: { src?: string }) => {
+    return (
+        <div className="relative w-full mt-4 h-32">
+            <img src={src} className="object-cover w-full h-full rounded-md" />
+        </div>
+    );
+};
+
+const CardTechStack = ({ techStack }: { techStack?: JSX.Element[] }) => {
+    return (
+        <div className="flex flex-wrap mt-4">
+            {techStack?.map((tech, idx) => (
+                <span key={idx} className="mx-1 h-8 w-8">
+                    {tech}
+                </span>
             ))}
         </div>
     );
@@ -74,9 +118,7 @@ export const Card = ({
                 className
             )}
         >
-            <div className="relative z-50">
-                <div className="p-4">{children}</div>
-            </div>
+            <div className="h-full flex flex-col p-4">{children}</div>
         </div>
     );
 };

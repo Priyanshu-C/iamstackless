@@ -3,29 +3,28 @@
 import React, { useEffect } from "react";
 import { BackgroundGradientAnimation } from "../ui/background-gradient-animation";
 import Link from "next/link";
-import Github from "../icons/github.svg";
 import { useMediaQuery } from "../utils/hooks";
 
 const SocialLinks = [
     {
         name: "Linkedin",
-        link: "https://linkedin.com/in/priyanshu--chauhan",
-        icon: "./icons/linkedin-social.svg",
+        link: "https://linkedin.com/images/in/priyanshu--chauhan",
+        icon: "./images/icons/linkedin-social.svg",
     },
     {
         name: "Github",
         link: "https://github.com/Priyanshu-C",
-        icon: "./icons/github-social.svg",
+        icon: "./images/icons/github-social.svg",
     },
     {
         name: "Twitter",
-        link: "https://twitter.com/iamstackless",
-        icon: "./icons/twitter-social.svg",
+        link: "https://twitter.com/images/iamstackless",
+        icon: "./images/icons/twitter-social.svg",
     },
     {
         name: "Medium",
-        link: "https://iamstackless.medium.com/",
-        icon: "./icons/medium-social.svg",
+        link: "https://images/iamstackless.medium.com/",
+        icon: "./images/icons/medium-social.svg",
     },
 ];
 
@@ -113,7 +112,7 @@ export function BackgroundGradientAnimationDemo() {
             </BackgroundGradientAnimation>
             <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex">
                 {HomePageNavLinks.map((link) => (
-                    <Link href={link.link} key={link.name} target="_blank">
+                    <Link href={link.link} key={link.name}>
                         <div className="bg-clip-text mr-3 text-transparent drop-shadow-2xl bg-gradient-to-b text-white text-2xl hover:font-medium">
                             {link.name}
                         </div>
