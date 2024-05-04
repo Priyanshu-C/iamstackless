@@ -13,8 +13,8 @@ export const HoverEffect = ({
     items: {
         title: string;
         description: string;
-        link: Url;
-        github: Url;
+        link: string;
+        github: string;
         image: string;
         techStack: JSX.Element[];
     }[];
