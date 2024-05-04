@@ -15,7 +15,17 @@ export type Project = {
     link: string;
     github: string;
     image: string;
-    techStack: JSX.Element[];
+    techStack: (keyof typeof techIcons)[];
+};
+
+export const techIcons = {
+    react: <SiReact size="1.5em" />,
+    redux: <SiRedux size="1.5em" />,
+    express: <SiExpress size="1.5em" />,
+    redis: <SiRedis size="1.5em" />,
+    graphql: <SiGraphql size="1.5em" />,
+    heroku: <SiHeroku size="1.5em" />,
+    fastapi: <SiFastapi size="1.5em" />,
 };
 
 export const projects: Project[] = [
@@ -26,13 +36,7 @@ export const projects: Project[] = [
         link: "https://anonymity.iamstackless.com/",
         github: "https://github.com/Priyanshu-C/ANONYMITY-FRONTEND",
         image: "/images/projects/anonymity.webp",
-        techStack: [
-            <SiReact size="1.5em" key="react" />,
-            <SiRedux size="1.5em" key="redux" />,
-            <SiExpress size="1.5em" key="express" />,
-            <SiRedis size="1.5em" key="redis" />,
-            <SiGraphql size="1.5em" key="graphql" />,
-        ],
+        techStack: ["react", "redux", "express", "redis", "graphql"],
     },
     {
         title: "BUCKITO",
@@ -42,12 +46,12 @@ export const projects: Project[] = [
         github: "https://github.com/Priyanshu-C/BUCKITO",
         image: "/images/projects/buckito.webp",
         techStack: [
-            <SiReact size="1.5em" key="react" />,
-            <SiRedux size="1.5em" key="redux" />,
-            <SiExpress size="1.5em" key="express" />,
-            <SiGraphql size="1.5em" key="graphql" />,
-            <SiHeroku size="1.5em" key="heroku" />,
-            <SiFastapi size="1.5em" key="fastapi" />,
+            "react",
+            "redux",
+            "express",
+            "graphql",
+            "heroku",
+            "fastapi",
         ],
     },
 ];

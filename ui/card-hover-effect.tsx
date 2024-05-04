@@ -5,19 +5,13 @@ import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
 import { Url } from "url";
+import { Project, techIcons } from "../app/(all-routes)/projects/page";
 
 export const HoverEffect = ({
     items,
     className,
 }: {
-    items: {
-        title: string;
-        description: string;
-        link: string;
-        github: string;
-        image: string;
-        techStack: JSX.Element[];
-    }[];
+    items: Project[];
     className?: string;
 }) => {
     let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -92,12 +86,12 @@ const CardImage = ({ src }: { src?: string }) => {
     );
 };
 
-const CardTechStack = ({ techStack }: { techStack?: JSX.Element[] }) => {
+const CardTechStack = ({ techStack }: { techStack?: Project["techStack"] }) => {
     return (
         <div className="flex flex-wrap mt-4">
             {techStack?.map((tech, idx) => (
                 <span key={idx} className="mx-1 h-8 w-8">
-                    {tech}
+                    {techIcons[tech]}
                 </span>
             ))}
         </div>
