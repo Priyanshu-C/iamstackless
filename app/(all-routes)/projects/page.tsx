@@ -1,7 +1,9 @@
 import { HoverEffect } from "@/ui/card-hover-effect";
 import {
     SiExpress,
+    SiFastapi,
     SiGraphql,
+    SiHeroku,
     SiReact,
     SiRedis,
     SiRedux,
@@ -43,8 +45,9 @@ export const projects: Project[] = [
             <SiReact size="1.5em" key="react" />,
             <SiRedux size="1.5em" key="redux" />,
             <SiExpress size="1.5em" key="express" />,
-            <SiRedis size="1.5em" key="redis" />,
             <SiGraphql size="1.5em" key="graphql" />,
+            <SiHeroku size="1.5em" key="heroku" />,
+            <SiFastapi size="1.5em" key="fastapi" />,
         ],
     },
 ];
