@@ -59,8 +59,10 @@ export const projects: Project[] = [
 export function Projects() {
     return (
         <div className="flex min-h-screen flex-col items-start justify-start p-4">
-            <h1 className="text-4xl font-bold text-center ml-10">Projects</h1>
-            <div className="max-w-5xl mx-auto px-8">
+            <h1 className="text-4xl font-bold text-center sm:ml-3 md:ml-2 lg:ml-10">
+                Projects
+            </h1>
+            <div className="max-w-5xl mx-auto lg:px-8">
                 <HoverEffect items={projects} />
             </div>
         </div>
