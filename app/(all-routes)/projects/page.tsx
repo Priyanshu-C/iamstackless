@@ -39,7 +39,7 @@ export const projects: Project[] = [
         description:
             "Buckito is an advanced movie recommendation site, using MERN stack and FastAPI microservices. It accesses a vast TMDB database of 10,000+ movies to provide personalized suggestions in real-time, employing collaborative and content-based filtering.",
         link: "https://buckito.iamstackless.com/",
-        github: "https://github.com/Priyanshu-C/BUCKITO/tree/main",
+        github: "https://github.com/Priyanshu-C/BUCKITO",
         image: "/images/projects/buckito.webp",
         techStack: [
             <SiReact size="1.5em" key="react" />,
