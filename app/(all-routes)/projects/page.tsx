@@ -41,7 +41,7 @@ export const projects: Project[] = [
     {
         title: "BUCKITO",
         description:
-            "Buckito: MERN & FastAPI powers real-time, personalized movie recommendations from a vast TMDB database using collaborative and content-based filtering.",
+            "BUCKITO: MERN & FastAPI powers real-time, personalized movie recommendations from a vast TMDB database using collaborative and content-based filtering.",
         link: "https://buckito.iamstackless.com/",
         github: "https://github.com/Priyanshu-C/BUCKITO",
         image: "/images/projects/buckito.webp",
