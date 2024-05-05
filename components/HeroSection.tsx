@@ -8,7 +8,7 @@ import { useMediaQuery } from "../utils/hooks";
 const SocialLinks = [
     {
         name: "Linkedin",
-        link: "https://linkedin.com/images/in/priyanshu--chauhan",
+        link: "https://linkedin.com/in/priyanshu--chauhan",
         icon: "./images/icons/linkedin-social.svg",
     },
     {
