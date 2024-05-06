@@ -1,4 +1,6 @@
+"use client";
 import { HoverEffect } from "@/ui/card-hover-effect";
+import { useState } from "react";
 import {
     SiExpress,
     SiFastapi,
@@ -18,7 +20,7 @@ export type Project = {
     techStack: (keyof typeof techIcons)[];
 };
 
-export const techIcons = {
+export const techIcons: Record<string, JSX.Element> = {
     react: <SiReact size="1.5em" />,
     redux: <SiRedux size="1.5em" />,
     express: <SiExpress size="1.5em" />,
@@ -56,13 +58,89 @@ export const projects: Project[] = [
     },
 ];
 
-export function Projects() {
+const techStackMapping: Record<string, string[]> = {
+    FE: ["react", "redux"],
+    BE: ["express", "fastapi"],
+    DB: ["redis"],
+    Deployment: ["heroku"],
+    Others: ["graphql"],
+};
+
+const techStackColors = {
+    FE: "teal",
+    BE: "green",
+    DB: "yellow",
+    Deployment: "purple",
+    Others: "gray",
+};
+
+const allTags = Object.keys(techStackMapping).reduce(
+    (arr, cur) => arr.concat(techStackMapping[cur]),
+    []
+);
+
+const getTagColor = (tag: string): string => {
+    for (const key in techStackMapping) {
+        if (techStackMapping[key].includes(tag)) {
+            return techStackColors[key];
+        }
+    }
+};
+
+const TagBadge = ({ tag, activeTags, setActiveTags }) => {
+    const isActive = activeTags.includes(tag);
+    const tagColor = getTagColor(tag);
+
+    const onTagClick = () => {
+        setActiveTags(
+            isActive
+                ? activeTags.filter(
+                      (activeTag: string): boolean => activeTag !== tag
+                  )
+                : [...activeTags, tag]
+        );
+    };
+
+    const backgroundColor = isActive
+        ? `bg-${tagColor}-100`
+        : `bg-${tagColor}-400`;
+
     return (
-        <div className="flex min-h-screen flex-col items-start justify-start p-4">
-            <h1 className="text-4xl font-bold text-center sm:ml-3 md:ml-2 lg:ml-10">
-                Projects
-            </h1>
-            <div className="max-w-5xl mx-auto lg:px-8">
+        <div
+            onClick={onTagClick}
+            className={`flex px-2 py-1 text-sm rounded-md text-black cursor-pointer ${backgroundColor}`}
+        >
+            {tag}
+            <span className={`ml-1 flex items-center text-xs`}>
+                {techIcons[tag]}
+            </span>
+        </div>
+    );
+};
+
+const Tags = ({ activeTags, setActiveTags }) => {
+    return (
+        <div className="flex flex-wrap gap-2 mt-6">
+            {allTags.map((tag) => (
+                <TagBadge
+                    key={tag}
+                    tag={tag}
+                    activeTags={activeTags}
+                    setActiveTags={setActiveTags}
+                />
+            ))}
+        </div>
+    );
+};
+
+export function Projects() {
+    const [activeTags, setActiveTags] = useState<string[]>([]);
+
+    return (
+        <div className="max-w-5xl lg:px-8 flex min-h-screen flex-col items-start justify-start p-4">
+            <h1 className="text-4xl font-bold text-center">Projects</h1>
+            <Tags activeTags={activeTags} setActiveTags={setActiveTags} />
+            <div className="max-w-5xl mx-auto ">
                 <HoverEffect items={projects} />
             </div>
         </div>

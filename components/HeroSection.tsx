@@ -23,7 +23,7 @@ const SocialLinks = [
     },
     {
         name: "Medium",
-        link: "https://images/iamstackless.medium.com/",
+        link: "https://medium.com/@iamstackless",
         icon: "./images/icons/medium-social.svg",
     },
 ];
