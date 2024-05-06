@@ -4,14 +4,14 @@ import { cn } from "@/utils/cn";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
-import { Url } from "url";
-import { Project, techIcons } from "../app/(all-routes)/projects/page";
+import Projects from "../app/(all-routes)/projects/page";
+import { techIcons } from "../app/(all-routes)/projects/data";
 
 export const HoverEffect = ({
     items,
     className,
 }: {
-    items: Project[];
+    items: Projects[];
     className?: string;
 }) => {
     let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -86,7 +86,11 @@ const CardImage = ({ src }: { src?: string }) => {
     );
 };
 
-const CardTechStack = ({ techStack }: { techStack?: Project["techStack"] }) => {
+const CardTechStack = ({
+    techStack,
+}: {
+    techStack?: Projects["techStack"];
+}) => {
     return (
         <div className="flex flex-wrap mt-4">
             {techStack?.map((tech, idx) => (
