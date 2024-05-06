@@ -63,7 +63,7 @@ export const HoverEffect = ({
                             </Link>
                             <Link
                                 href={item.link}
-                                className="h-10 w-24 text-white bg-blue-500 border border-blue-500 focus:outline-none hover:bg-blue-600 focus:ring-4 focus:ring-blue-500 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:border-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-700"
+                                className="h-10 w-24 text-center text-white bg-gray-800 border border-slate-100 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
                                 target="_blank"
                             >
                                 Live
