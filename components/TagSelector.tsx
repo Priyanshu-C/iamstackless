@@ -11,9 +11,19 @@ const getTagColor = (tag: string): string => {
             return techStackColors[key];
         }
     }
+
+    return "gray";
 };
 
-const TagBadge = ({ tag, activeTags, setActiveTags }) => {
+const TagBadge = ({
+    tag,
+    activeTags,
+    setActiveTags,
+}: {
+    tag: string;
+    activeTags: string[];
+    setActiveTags: React.Dispatch<React.SetStateAction<string[]>>;
+}): JSX.Element => {
     const isActive = activeTags.includes(tag);
     const tagColor = getTagColor(tag);
 
@@ -44,7 +54,15 @@ const TagBadge = ({ tag, activeTags, setActiveTags }) => {
     );
 };
 
-const TagsSelector = ({ tags, activeTags, setActiveTags }) => {
+const TagsSelector = ({
+    tags,
+    activeTags,
+    setActiveTags,
+}: {
+    tags: string[];
+    activeTags: string[];
+    setActiveTags: React.Dispatch<React.SetStateAction<string[]>>;
+}): JSX.Element => {
     return (
         <div className="flex flex-wrap gap-2">
             {tags.map((tag) => (

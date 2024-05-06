@@ -31,7 +31,7 @@ export function Projects() {
     }, [activeTags]);
 
     return (
-        <div className="max-w-5xl lg:px-8 flex min-h-screen flex-col items-start justify-start p-4">
+        <>
             <h1 className="text-4xl font-bold text-center">Projects</h1>
             <div className="flex items-center mt-8 justify-center">
                 <p className="text-3xl text-center mr-2">#</p>
@@ -44,7 +44,7 @@ export function Projects() {
             <div className="max-w-5xl mx-auto ">
                 <HoverEffect items={filteredProjects} />
             </div>
-        </div>
+        </>
     );
 }
 
