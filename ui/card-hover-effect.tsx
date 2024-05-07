@@ -4,15 +4,17 @@ import { cn } from "@/utils/cn";
 import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
-import Projects from "../app/(all-routes)/projects/page";
-import { techIcons } from "../app/(all-routes)/projects/data";
-import { Meteors } from "./metors";
+import {
+    ProjectsType,
+    TECH_STACK_ENUM,
+    techIcons,
+} from "../app/(all-routes)/projects/data";
 
 export const HoverEffect = ({
     items,
     className,
 }: {
-    items: Projects[];
+    items: ProjectsType[];
     className?: string;
 }) => {
     let [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -88,15 +90,20 @@ const CardImage = ({ src }: { src?: string }) => {
 const CardTechStack = ({
     techStack,
 }: {
-    techStack?: Projects["techStack"];
+    techStack?: ProjectsType["techStack"];
 }) => {
     return (
         <div className="flex flex-wrap mt-4">
-            {techStack?.map((tech, idx) => (
-                <span key={idx} className="mx-1 h-8 w-8">
-                    {techIcons[tech]}
-                </span>
-            ))}
+            {techStack?.map(
+                (
+                    tech: keyof typeof TECH_STACK_ENUM,
+                    idx: number
+                ): JSX.Element => (
+                    <span key={idx} className="mx-1 h-8 w-8">
+                        {techIcons[tech]}
+                    </span>
+                )
+            )}
         </div>
     );
 };

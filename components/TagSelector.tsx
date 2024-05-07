@@ -2,11 +2,12 @@ import {
     backgroundClassesForTags,
     TECH_STACK_ENUM,
     techIcons,
+    TechStackColors,
     techStackColors,
     techStackMapping,
 } from "../app/(all-routes)/projects/data";
 
-const getTagColor = (tag: string): string => {
+const getTagColor = (tag: string): TechStackColors => {
     for (const key in techStackMapping) {
         if (techStackMapping[key].includes(tag)) {
             return techStackColors[key];
@@ -21,12 +22,12 @@ const TagBadge = ({
     activeTags,
     setActiveTags,
 }: {
-    tag: string;
+    tag: keyof typeof TECH_STACK_ENUM;
     activeTags: string[];
     setActiveTags: React.Dispatch<React.SetStateAction<string[]>>;
 }): JSX.Element => {
     const isActive = activeTags.includes(tag);
-    const tagColor = getTagColor(tag);
+    const tagColor: TechStackColors = getTagColor(tag);
 
     const onTagClick = () => {
         setActiveTags(
@@ -60,7 +61,7 @@ const TagsSelector = ({
     activeTags,
     setActiveTags,
 }: {
-    tags: string[];
+    tags: (keyof typeof TECH_STACK_ENUM)[];
     activeTags: string[];
     setActiveTags: React.Dispatch<React.SetStateAction<string[]>>;
 }): JSX.Element => {

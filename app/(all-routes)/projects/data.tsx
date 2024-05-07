@@ -62,7 +62,10 @@ export const techStackColors = {
     DB: "yellow",
     Deployment: "purple",
     Others: "gray",
-};
+} as const;
+
+export type TechStackColors =
+    (typeof techStackColors)[keyof typeof techStackColors];
 
 export const backgroundClassesForTags = {
     teal: "bg-teal-200 hover:bg-teal-300 text-teal-800",
@@ -111,6 +114,7 @@ export const projects: ProjectsType[] = [
             "fastapi",
             "sass",
             "javascript",
+            "heroku",
         ],
     },
 ];
