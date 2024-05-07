@@ -4,6 +4,7 @@ import { useMediaQuery } from "../utils/hooks";
 import { HomePageNavLinks, SocialLinks } from "./data";
 import { BackgroundGradientAnimation } from "../ui/background-gradient-animation";
 import { useRef } from "react";
+import Footer from "../components/Footer";
 
 export default function Home() {
     const ref = useRef<HTMLDivElement>(null);
@@ -12,16 +13,25 @@ export default function Home() {
     return (
         <main className="flex min-h-screen flex-col items-center justify-between">
             <div ref={ref} className="relative h-screen">
-                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex z-10">
-                    {SocialLinks.map((link) => (
-                        <Link href={link.link} key={link.name} target="_blank">
-                            <img
-                                src={link.icon}
-                                alt={link.name}
-                                className="w-8 h-8 mx-2 hover:scale-110 transform transition-all duration-300 ease-in-out"
-                            />
-                        </Link>
-                    ))}
+                <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex flex-col z-10">
+                    <div className="flex items-center justify-center">
+                        {SocialLinks.map((link) => (
+                            <Link
+                                href={link.link}
+                                key={link.name}
+                                target="_blank"
+                            >
+                                <img
+                                    src={link.icon}
+                                    alt={link.name}
+                                    className="w-8 h-8 mx-2 hover:scale-110 transform transition-all duration-300 ease-in-out"
+                                />
+                            </Link>
+                        ))}
+                    </div>
+                    <div className="text-center text-white text-md mt-2">
+                        Priyanshu Chauhan © 2024
+                    </div>
                 </div>
 
                 <BackgroundGradientAnimation>
