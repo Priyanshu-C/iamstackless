@@ -15,9 +15,9 @@ const NavBar = () => {
                     {HomePageNavLinks.map((link) => (
                         <Link href={link.link} key={link.name}>
                             <div
-                                className={`bg-clip-text mr-3 text-transparent drop-shadow-2xl bg-gradient-to-b text-white text-2xl hover:font-medium ${
+                                className={`bg-clip-text mr-3 text-transparent drop-shadow-2xl bg-gradient-to-b text-white text-2xl ${
                                     pathname === link.link
-                                        ? "text-white"
+                                        ? "text-white font-bold"
                                         : "text-gray-400"
                                 }`}
                             >
