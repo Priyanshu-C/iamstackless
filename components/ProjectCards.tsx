@@ -10,7 +10,7 @@ import {
     techIcons,
 } from "../app/(all-routes)/projects/data";
 
-export const HoverEffect = ({
+export const ProjectCards = ({
     items,
     className,
 }: {
@@ -162,3 +162,5 @@ export const CardDescription = ({
         </p>
     );
 };
+
+export default ProjectCards;

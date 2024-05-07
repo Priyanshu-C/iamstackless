@@ -1,5 +1,6 @@
 "use client";
-import { HoverEffect } from "@/ui/card-hover-effect";
+
+import ProjectCards from "@/components/ProjectCards";
 import { useEffect, useState } from "react";
 import { tags, projects, ProjectsType } from "./data";
 import TagsSelector from "../../../components/TagSelector";
@@ -33,7 +34,7 @@ export function Projects() {
                 />
             </div>
             <div className="max-w-5xl mx-auto ">
-                <HoverEffect items={filteredProjects} />
+                <ProjectCards items={filteredProjects} />
             </div>
         </>
     );
