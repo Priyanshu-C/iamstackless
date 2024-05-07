@@ -6,15 +6,15 @@ const page = () => {
             <h1 className="text-4xl font-bold text-center">About</h1>
             <div className="max-w-5xl mx-auto mt-8">
                 <p className="text-2xl text-start">
-                    Hi, This is{" "}
+                    Hi there, It&apos;s{" "}
                     <span className="font-bold text-600">
                         Priyanshu Chauhan
                     </span>{" "}
-                    here, I am a Software Engineer with a passion for web
-                    development. I have experience in building web applications
-                    for scale. I love traveling, have a drone vloging page and I
-                    am a big time foodie 🍲. In my free time, I play badminton
-                    🏸 or watch anime 🌸.
+                    in the house! 🚀, I&apos;m not your average Software
+                    Engineer—I&apos;m all about crafting awesome web experiences
+                    for a large-scale audience. I love traveling, have a drone
+                    vlogging page, and am a big-time foodie 🍲. In my free time,
+                    I play badminton 🏸 or watch anime 🌸.
                 </p>
 
                 <p className="text-2xl text-center mt-12">
