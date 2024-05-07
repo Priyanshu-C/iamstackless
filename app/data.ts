@@ -11,7 +11,7 @@ export const SocialLinks = [
     },
     {
         name: "Twitter",
-        link: "https://twitter.com/images/iamstackless",
+        link: "https://twitter.com/iamstackless",
         icon: "./images/icons/twitter-social.svg",
     },
     {

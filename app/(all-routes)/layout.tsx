@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Footer from "../../components/Footer";
 
 export default function Layout({
     children,
@@ -14,6 +15,7 @@ export default function Layout({
                     <BackToHome />
                 </div>
             </div>
+            <Footer />
         </div>
     );
 }
