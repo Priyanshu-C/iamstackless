@@ -9,9 +9,9 @@ const NavBar = () => {
 
     return (
         <>
-            <nav className="flex items-center justify-between w-full h-16 px-4">
+            <nav className="flex items-center justify-end w-full h-16">
                 <BackToHome />
-                <div className="flex items-center justify-center w-full">
+                <div className="flex items-center justify-center">
                     {HomePageNavLinks.map((link) => (
                         <Link href={link.link} key={link.name}>
                             <div
@@ -33,11 +33,14 @@ const NavBar = () => {
 
 const BackToHome = () => {
     return (
-        <Link href="/" className="flex items-center justify-center">
+        <Link
+            href="/"
+            className="flex items-center absolute left-8 justify-center"
+        >
             <img
                 src="./images/hero-image.webp"
                 alt="Hero Image"
-                className="w-12 h-12 absolute right-0 top-4 bg-clip-border bg-gradient-to-b from-white/80 to-white/70 border-2 border-transparent rounded-lg drop-shadow-2xl"
+                className="w-12 h-12  bg-clip-border bg-gradient-to-b from-white/80 to-white/70 border-2 border-transparent rounded-lg drop-shadow-2xl"
             />
         </Link>
     );

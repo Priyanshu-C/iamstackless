@@ -24,9 +24,8 @@ export function Projects() {
 
     return (
         <>
-            <h1 className="text-4xl font-bold text-center">Projects</h1>
+            <h1 className="text-4xl w-full font-bold text-center">Projects</h1>
             <div className="flex items-center mt-8 justify-center">
-                <p className="text-3xl text-center mr-2">#</p>
                 <TagsSelector
                     tags={tags}
                     activeTags={activeTags}
