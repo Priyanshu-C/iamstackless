@@ -9,7 +9,7 @@ const NavBar = () => {
 
     return (
         <>
-            <nav className="flex items-center justify-end w-full h-16">
+            <nav className="flex items-center justify-end w-full h-16 mb-8">
                 <BackToHome />
                 <div className="flex items-center justify-center">
                     {HomePageNavLinks.map((link) => (
