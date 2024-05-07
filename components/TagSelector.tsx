@@ -1,5 +1,6 @@
 import {
     backgroundClassesForTags,
+    TECH_STACK_ENUM,
     techIcons,
     techStackColors,
     techStackMapping,
@@ -46,10 +47,10 @@ const TagBadge = ({
             onClick={onTagClick}
             className={`flex px-2 py-1 text-sm rounded-md text-black cursor-pointer ${backgroundColor}`}
         >
-            {tag}
-            <span className={`ml-1 flex items-center text-xs`}>
+            <span className={`mr-1 flex items-center text-xs`}>
                 {techIcons[tag]}
             </span>
+            {TECH_STACK_ENUM[tag]}
         </div>
     );
 };

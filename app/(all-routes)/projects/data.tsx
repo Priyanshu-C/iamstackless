@@ -3,13 +3,37 @@ import {
     SiFastapi,
     SiGraphql,
     SiHeroku,
+    SiJavascript,
+    SiPython,
     SiReact,
     SiRedis,
     SiRedux,
+    SiSass,
 } from "react-icons/si";
-import { Projects } from "./page";
 
-export const techIcons: Record<string, JSX.Element> = {
+export type ProjectsType = {
+    title: string;
+    description: string;
+    link: string;
+    github: string;
+    image: string;
+    techStack: (keyof typeof techIcons)[];
+};
+
+export const TECH_STACK_ENUM = {
+    react: "React",
+    redux: "Redux",
+    express: "Express",
+    redis: "Redis",
+    graphql: "GraphQL",
+    heroku: "Heroku",
+    fastapi: "FastAPI",
+    sass: "Sass",
+    python: "Python",
+    javascript: "JavaScript",
+};
+
+export const techIcons: Record<keyof typeof TECH_STACK_ENUM, JSX.Element> = {
     react: <SiReact size="1.5em" />,
     redux: <SiRedux size="1.5em" />,
     express: <SiExpress size="1.5em" />,
@@ -17,10 +41,14 @@ export const techIcons: Record<string, JSX.Element> = {
     graphql: <SiGraphql size="1.5em" />,
     heroku: <SiHeroku size="1.5em" />,
     fastapi: <SiFastapi size="1.5em" />,
+    sass: <SiSass size="1.5em" />,
+    python: <SiPython size="1.5em" />,
+    javascript: <SiJavascript size="1.5em" />,
 };
 
 export const techStackMapping: Record<string, string[]> = {
-    FE: ["react", "redux"],
+    FE: ["react", "redux", "javascript"],
+    Styles: ["sass"],
     BE: ["express", "fastapi"],
     DB: ["redis"],
     Deployment: ["heroku"],
@@ -29,6 +57,7 @@ export const techStackMapping: Record<string, string[]> = {
 
 export const techStackColors = {
     FE: "teal",
+    Styles: "pink",
     BE: "blue",
     DB: "yellow",
     Deployment: "purple",
@@ -46,9 +75,11 @@ export const backgroundClassesForTags = {
     "active-purple": "bg-purple-950 text-white",
     gray: "bg-gray-200 hover:bg-gray-300 text-gray-800",
     "active-gray": "bg-gray-950 text-white",
+    pink: "bg-pink-200 hover:bg-pink-300 text-pink-800",
+    "active-pink": "bg-pink-950 text-white",
 };
 
-export const projects: Projects[] = [
+export const projects: ProjectsType[] = [
     {
         title: "ANONYMITY",
         description:
@@ -56,7 +87,15 @@ export const projects: Projects[] = [
         link: "https://anonymity.iamstackless.com/",
         github: "https://github.com/Priyanshu-C/ANONYMITY-FRONTEND",
         image: "/images/projects/anonymity.webp",
-        techStack: ["react", "redux", "express", "redis", "graphql"],
+        techStack: [
+            "react",
+            "redux",
+            "express",
+            "redis",
+            "graphql",
+            "sass",
+            "javascript",
+        ],
     },
     {
         title: "BUCKITO",
@@ -69,9 +108,9 @@ export const projects: Projects[] = [
             "react",
             "redux",
             "express",
-            "graphql",
-            "heroku",
             "fastapi",
+            "sass",
+            "javascript",
         ],
     },
 ];

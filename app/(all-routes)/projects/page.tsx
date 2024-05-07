@@ -1,22 +1,13 @@
 "use client";
 import { HoverEffect } from "@/ui/card-hover-effect";
 import { useEffect, useState } from "react";
-import { tags, projects, techIcons } from "./data";
+import { tags, projects, ProjectsType } from "./data";
 import TagsSelector from "../../../components/TagSelector";
-
-export type Projects = {
-    title: string;
-    description: string;
-    link: string;
-    github: string;
-    image: string;
-    techStack: (keyof typeof techIcons)[];
-};
 
 export function Projects() {
     const [activeTags, setActiveTags] = useState<string[]>([]);
     const [filteredProjects, setFilteredProjects] =
-        useState<Projects[]>(projects);
+        useState<ProjectsType[]>(projects);
 
     useEffect(() => {
         if (activeTags.length === 0) {
