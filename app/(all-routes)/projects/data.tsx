@@ -49,10 +49,9 @@ export const techIcons: Record<keyof typeof TECH_STACK_ENUM, JSX.Element> = {
 export const techStackMapping: Record<string, string[]> = {
     FE: ["react", "redux", "javascript"],
     Styles: ["sass"],
-    BE: ["express", "fastapi"],
+    BE: ["express", "fastapi", "graphql", "python"],
     DB: ["redis"],
     Deployment: ["heroku"],
-    Others: ["graphql"],
 };
 
 export const techStackColors = {
