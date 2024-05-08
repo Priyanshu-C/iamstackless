@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Suspense } from "react";
-import { FaLongArrowAltRight } from "react-icons/fa";
 import { TbLink } from "react-icons/tb";
 
 export async function getBlogs() {
@@ -30,7 +29,7 @@ const BlogCard = ({ item }) => {
     const categories = item.categories;
 
     return (
-        <div key={item.guid} className="p-4 my-4 rounded-md">
+        <div key={item.guid} className="py-4 my-4 rounded-md">
             <h2 className="text-xl font-medium">{item.title}</h2>
 
             <div className="flex flex-wrap gap-2 mt-1 text-xs cursor-pointer">
