@@ -12,7 +12,7 @@ const page = () => {
                     </span>{" "}
                     in the house! 🚀, I&apos;m not your average Software
                     Engineer—I&apos;m all about crafting awesome web experiences
-                    for a large-scale audience. I love traveling, have a drone
+                    for a large-scale audience. I love travelling, have a drone
                     vlogging page, and am a big-time foodie 🍲. In my free time,
                     I play badminton 🏸 or watch anime 🌸.
                 </p>

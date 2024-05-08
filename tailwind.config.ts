@@ -10,6 +10,9 @@ const config: Config = {
     darkMode: "class",
     theme: {
         extend: {
+            minWidth: {
+                1024: "1024px",
+            },
             animation: {
                 "meteor-effect": "meteor 5s linear infinite",
                 first: "moveVertical 30s ease infinite",
