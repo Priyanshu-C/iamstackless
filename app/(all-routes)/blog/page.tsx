@@ -5,8 +5,10 @@ import { TbLink } from "react-icons/tb";
 
 export async function getBlogs() {
     const res = await fetch(
-        "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@iamstackless",
-        { next: { revalidate: 3200 } }
+        "https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@iamstackless?api_key=jopdhsbr5b2uvz93hdgyco080f1oy0irck5lludk",
+        {
+            next: { revalidate: 3200 },
+        }
     );
     const data = await res.json();
     return data;
