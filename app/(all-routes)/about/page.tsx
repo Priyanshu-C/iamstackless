@@ -3,9 +3,11 @@ import React from "react";
 const page = () => {
     return (
         <>
-            <h1 className="text-4xl font-bold text-center w-full">About</h1>
+            <h1 className="text-2xl sm:text-4xl font-bold text-center w-full">
+                About
+            </h1>
             <div className="max-w-5xl mx-auto mt-8">
-                <p className="text-2xl text-start">
+                <p className="text-lg sm:text-xl text-start">
                     Hi there, It&apos;s{" "}
                     <span className="font-bold text-600">
                         Priyanshu Chauhan
@@ -17,7 +19,7 @@ const page = () => {
                     I play badminton 🏸 or watch anime 🌸.
                 </p>
 
-                <p className="text-2xl text-center mt-12">
+                <p className="text-lg sm:text-xl text-center mt-12">
                     It&apos;s Storytime:{" "}
                 </p>
                 <div className="flex items-center mt-4">
@@ -26,7 +28,7 @@ const page = () => {
                         src="./images/about/lucknow.png"
                         className="w-80 h-80 mx-auto mr-4"
                     />{" "}
-                    <p className="text-xl text-start mt-4">
+                    <p className="text-lg sm:text-xl text-start mt-4">
                         Long time ago, a boy was born in a city you may know as{" "}
                         <span className="font-bold">
                             &apos;Nawabo ka Sheher&apos; - Lucknow
@@ -37,7 +39,7 @@ const page = () => {
                     </p>
                 </div>
                 <div className="flex items-center mt-4">
-                    <p className="text-xl text-start mt-4">
+                    <p className="text-lg sm:text-xl text-start mt-4">
                         I did my B.Tech in Information Technology from{" "}
                         <span className="font-bold">
                             SRM University, KTR, Chennai.{" "}
@@ -58,11 +60,11 @@ const page = () => {
                         src="./images/about/bangalore.png"
                         className="w-80 h-80 mx-auto mr-4"
                     />{" "}
-                    <p className="text-xl text-start mt-4">
+                    <p className="text-lg sm:text-xl text-start mt-4">
                         Fast Forward to 2024, It&apos;s been 3 years working as
-                        a Senior Frontend Engineer at{" "}
+                        a{" "}
                         <span className="font-bold">
-                            Razorpay in Bangalore.
+                            Senior Frontend Engineer at Razorpay in Bangalore.
                         </span>{" "}
                         I worked on various projects and learned a lot about web
                         development.

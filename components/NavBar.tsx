@@ -19,7 +19,7 @@ const NavBar = () => {
                     {HomePageNavLinks.map((link) => (
                         <Link href={link.link} key={link.name}>
                             <div
-                                className={`bg-clip-text mr-3 drop-shadow-2xl bg-gradient-to-b text-primary dark:text-primary-dark text-2xl ${
+                                className={`bg-clip-text mr-3 drop-shadow-2xl bg-gradient-to-b text-primary dark:text-primary-dark text-md sm:text-2xl ${
                                     pathname === link.link ? "font-bold" : ""
                                 }`}
                             >
@@ -29,7 +29,7 @@ const NavBar = () => {
                     ))}
                 </div>
                 <div
-                    className="flex border rounded-full border-gray-400 dark:border-gray-100 items-center text-2xl justify-center cursor-pointer bg-white dark:bg-black p-2"
+                    className="flex border rounded-md border-gray-400 dark:border-gray-100 items-center text-2xl justify-center cursor-pointer bg-white dark:bg-black p-2"
                     onClick={() =>
                         setTheme(resolvedTheme === "dark" ? "light" : "dark")
                     }

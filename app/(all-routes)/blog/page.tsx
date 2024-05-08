@@ -29,8 +29,8 @@ const BlogCard = ({ item }) => {
     const categories = item.categories;
 
     return (
-        <div key={item.guid} className="py-4 my-4 rounded-md">
-            <h2 className="text-xl font-medium">{item.title}</h2>
+        <div key={item.guid} className="py-4 rounded-md">
+            <h2 className="text-lg sm:text-xl font-medium">{item.title}</h2>
 
             <div className="flex flex-wrap gap-2 mt-1 text-xs cursor-pointer">
                 {categories.map((category: string) => (
@@ -42,10 +42,10 @@ const BlogCard = ({ item }) => {
                     </span>
                 ))}
             </div>
-            <div className="text-gray-500 flex items-center">
-                <p className="text-gray-500  mr-2">{publistDate}</p>
+            <div className="text-gray-500 text-sm sm:text-lg flex items-center">
+                <p className="text-gray-500 mr-2">{publistDate}</p>
                 {timeToRead} min read{" "}
-                <button className="text-blue-500 0 font-medium py-2 px-4 rounded flex items-center">
+                <button className="dark:text-blue-500 text-blue-700  0 font-medium py-2 px-4 rounded flex items-center">
                     <Link href={item.link} target="_blank" rel="noreferrer">
                         Read More
                     </Link>
@@ -71,8 +71,10 @@ export async function AllBlogs() {
 const BlogPage = () => {
     return (
         <>
-            <h1 className="text-4xl font-bold text-center w-full">Blog</h1>
-            <div className="max-w-5xl lg:min-w-1024 mx-auto mt-8">
+            <h1 className="text-2xl sm:text-4xl font-bold text-center w-full">
+                Blog
+            </h1>
+            <div className="max-w-5xl lg:min-w-1024 mx-auto mt-2 sm:mt-8 ">
                 <Suspense fallback={<div>Loading...</div>}>
                     <AllBlogs />
                 </Suspense>
