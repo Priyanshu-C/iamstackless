@@ -114,6 +114,7 @@ export const projects: ProjectsType[] = [
             "sass",
             "javascript",
             "heroku",
+            "python",
         ],
     },
 ];
