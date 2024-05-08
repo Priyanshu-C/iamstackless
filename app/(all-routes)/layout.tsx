@@ -9,7 +9,7 @@ export default function Layout({
     children: React.ReactNode;
 }>) {
     return (
-        <ThemeProvider attribute="class">
+        <ThemeProvider attribute="class" defaultTheme="dark">
             <div className="flex bg-white dark:bg-black min-h-screen flex-col items-center justify-between p-4">
                 <div className="max-w-5xl relative lg:px-8 flex min-h-screen flex-col items-start justify-start p-4">
                     <NavBar />

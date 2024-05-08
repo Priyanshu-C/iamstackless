@@ -10,6 +10,10 @@ const config: Config = {
     darkMode: "class",
     theme: {
         extend: {
+            colors: {
+                primary: "black",
+                "primary-dark": "white",
+            },
             minWidth: {
                 1024: "1024px",
             },
