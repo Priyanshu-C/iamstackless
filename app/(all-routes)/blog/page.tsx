@@ -70,7 +70,7 @@ export async function AllBlogs() {
 const BlogPage = () => {
     return (
         <>
-            <h1 className="text-4xl font-bold text-center">Blog</h1>
+            <h1 className="text-4xl font-bold text-center w-full">Blog</h1>
             <div className="max-w-5xl lg:min-w-1024 mx-auto mt-8">
                 <Suspense fallback={<div>Loading...</div>}>
                     <AllBlogs />

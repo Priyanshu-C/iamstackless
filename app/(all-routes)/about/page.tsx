@@ -3,7 +3,7 @@ import React from "react";
 const page = () => {
     return (
         <>
-            <h1 className="text-4xl font-bold text-center">About</h1>
+            <h1 className="text-4xl font-bold text-center w-full">About</h1>
             <div className="max-w-5xl mx-auto mt-8">
                 <p className="text-2xl text-start">
                     Hi there, It&apos;s{" "}
