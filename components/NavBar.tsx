@@ -3,9 +3,12 @@
 import Link from "next/link";
 import { HomePageNavLinks } from "../app/data";
 import { usePathname } from "next/navigation";
+import { useTheme } from "next-themes";
+import { FaMoon, FaSun } from "react-icons/fa";
 
 const NavBar = () => {
     const pathname = usePathname();
+    const { theme, setTheme } = useTheme();
 
     return (
         <>
@@ -25,6 +28,14 @@ const NavBar = () => {
                             </div>
                         </Link>
                     ))}
+                </div>
+                <div
+                    className="flex items-center text-2xl justify-center cursor-pointer bg-white dark:bg-black p-2"
+                    onClick={() =>
+                        setTheme(theme === "dark" ? "light" : "dark")
+                    }
+                >
+                    {theme === "dark" ? <FaSun /> : <FaMoon />}
                 </div>
             </nav>
         </>
