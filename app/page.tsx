@@ -74,7 +74,7 @@ export default function Home() {
                             </div>
                         )}
 
-                        <div className="w-40 h-40 md:w-40 md:h-40 lg:w-60 lg:h-60 ml-6 mt-4 md:ml-0 md:mt-4 lg:ml-4 lg:mt-0">
+                        <div className="w-40 h-40 md:w-40 md:h-40 lg:w-60 lg:h-60 mt-4 sm:ml-0 md:ml-0 md:mt-4 lg:ml-4 lg:mt-0">
                             <img
                                 src="./images/hero-image.webp"
                                 alt="Hero Image"
