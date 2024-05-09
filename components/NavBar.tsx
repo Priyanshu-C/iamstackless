@@ -36,7 +36,7 @@ const NavBar = () => {
                     {HomePageNavLinks.map((link) => (
                         <Link href={link.link} key={link.name}>
                             <div
-                                className={`bg-clip-text mr-3 drop-shadow-2xl bg-gradient-to-b text-primary dark:text-primary-dark text-md sm:text-2xl ${
+                                className={`mr-3 drop-shadow-2xl text-primary dark:text-primary-dark text-md sm:text-2xl ${
                                     pathname === link.link ? "font-bold" : ""
                                 }`}
                             >
