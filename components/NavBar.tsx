@@ -29,7 +29,7 @@ const NavBar = () => {
                     ))}
                 </div>
                 <div
-                    className="flex border rounded-md border-gray-400 dark:border-gray-100 items-center text-2xl justify-center cursor-pointer bg-white dark:bg-black p-2"
+                    className="flex border rounded-md w-12 h-12 border-gray-400 dark:border-gray-100 items-center text-2xl justify-center cursor-pointer bg-white dark:bg-black p-2"
                     onClick={() =>
                         setTheme(resolvedTheme === "dark" ? "light" : "dark")
                     }
@@ -45,7 +45,7 @@ const BackToHome = () => {
     return (
         <Link
             href="/"
-            className="flex items-center absolute left-8 justify-center"
+            className="flex items-center absolute left-4 sm:left-8 justify-center"
         >
             <img
                 src="./images/hero-image.webp"
