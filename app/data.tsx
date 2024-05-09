@@ -1,23 +1,26 @@
+import { BsLinkedin, BsMedium, BsTwitterX } from "react-icons/bs";
+import { VscGithub } from "react-icons/vsc";
+
 export const SocialLinks = [
     {
         name: "Linkedin",
         link: "https://linkedin.com/in/priyanshu--chauhan",
-        icon: "./images/icons/linkedin-social.svg",
+        icon: <BsLinkedin />,
     },
     {
         name: "Github",
         link: "https://github.com/Priyanshu-C",
-        icon: "./images/icons/github-social.svg",
+        icon: <VscGithub />,
     },
     {
         name: "Twitter",
         link: "https://twitter.com/iamstackless",
-        icon: "./images/icons/twitter-social.svg",
+        icon: <BsTwitterX />,
     },
     {
         name: "Medium",
         link: "https://medium.com/@iamstackless",
-        icon: "./images/icons/medium-social.svg",
+        icon: <BsMedium />,
     },
 ];
 
