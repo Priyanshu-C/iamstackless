@@ -5,11 +5,28 @@ import { HomePageNavLinks } from "../app/data";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
 import { FaMoon, FaSun } from "react-icons/fa";
+import { AnimatePresence, motion } from "framer-motion";
+
+const DarkModeMotionSpan = ({ children }: { children: React.ReactNode }) => {
+    return (
+        <motion.span
+            className="bg-clip-text bg-gradient-to-b text-primary dark:text-primary-dark absolute"
+            initial={{ opacity: 0, y: -50 }}
+            animate={{
+                opacity: 1,
+                y: 0,
+                transition: { type: "easeInOut", duration: 0.3 },
+            }}
+            exit={{ opacity: 0, y: 50, transition: { duration: 0.3 } }}
+        >
+            {children}
+        </motion.span>
+    );
+};
 
 const NavBar = () => {
     const pathname = usePathname();
     const { resolvedTheme, setTheme } = useTheme();
-    const DarkModeIcon = resolvedTheme === "dark" ? FaSun : FaMoon;
 
     return (
         <>
@@ -34,7 +51,11 @@ const NavBar = () => {
                         setTheme(resolvedTheme === "dark" ? "light" : "dark")
                     }
                 >
-                    {resolvedTheme ? <DarkModeIcon /> : <FaSun />}
+                    <AnimatePresence>
+                        <DarkModeMotionSpan key={resolvedTheme}>
+                            {resolvedTheme === "dark" ? <FaSun /> : <FaMoon />}
+                        </DarkModeMotionSpan>
+                    </AnimatePresence>
                 </div>
             </nav>
         </>
