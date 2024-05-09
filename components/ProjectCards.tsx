@@ -81,7 +81,7 @@ export const ProjectCards = ({
 
 const CardImage = ({ src }: { src?: string }) => {
     return (
-        <div className="relative w-full mt-4 h-32">
+        <div className="relative w-full mt-4 h-32 border border-slate-400 dark:border-white/[0.2] rounded-md overflow-hidden">
             <img src={src} className="object-cover w-full h-full rounded-md" />
         </div>
     );
