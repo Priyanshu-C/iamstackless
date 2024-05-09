@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useMediaQuery } from "../utils/hooks";
-import { HomePageNavLinks, SocialLinks } from "./data";
+import { HomePageNavLinks, SocialLinksHome } from "./data";
 import { BackgroundGradientAnimation } from "../ui/background-gradient-animation";
 import { useRef } from "react";
 import Footer from "../components/Footer";
@@ -15,7 +15,7 @@ export default function Home() {
             <div ref={ref} className="relative h-screen">
                 <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex flex-col z-10">
                     <div className="flex items-center justify-center">
-                        {SocialLinks.map((link) => (
+                        {SocialLinksHome.map((link) => (
                             <Link
                                 href={link.link}
                                 key={link.name}

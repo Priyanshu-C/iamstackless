@@ -1,3 +1,6 @@
+import { AiFillOpenAI } from "react-icons/ai";
+import { FiFramer } from "react-icons/fi";
+import { RiNextjsLine } from "react-icons/ri";
 import {
     SiExpress,
     SiFastapi,
@@ -10,18 +13,20 @@ import {
     SiRedux,
     SiSass,
 } from "react-icons/si";
+import { TbLambda } from "react-icons/tb";
 
 export type ProjectsType = {
     title: string;
     description: string;
     link: string;
-    github: string;
+    github?: string;
     image: string;
     techStack: (keyof typeof techIcons)[];
 };
 
 export const TECH_STACK_ENUM = {
     react: "React",
+    next: "Next",
     redux: "Redux",
     express: "Express",
     redis: "Redis",
@@ -31,9 +36,13 @@ export const TECH_STACK_ENUM = {
     sass: "Sass",
     python: "Python",
     javascript: "JavaScript",
+    lambda: "Lambda",
+    framer: "Framer",
+    openAI: "OpenAI",
 };
 
 export const techIcons: Record<keyof typeof TECH_STACK_ENUM, JSX.Element> = {
+    next: <RiNextjsLine size="1.5em" />,
     react: <SiReact size="1.5em" />,
     redux: <SiRedux size="1.5em" />,
     express: <SiExpress size="1.5em" />,
@@ -44,14 +53,17 @@ export const techIcons: Record<keyof typeof TECH_STACK_ENUM, JSX.Element> = {
     sass: <SiSass size="1.5em" />,
     python: <SiPython size="1.5em" />,
     javascript: <SiJavascript size="1.5em" />,
+    lambda: <TbLambda size="1.5em" />,
+    framer: <FiFramer size="1.5em" />,
+    openAI: <AiFillOpenAI size="1.5em" />,
 };
 
 export const techStackMapping: Record<string, string[]> = {
-    FE: ["react", "redux", "javascript"],
+    FE: ["react", "next", "redux", "javascript", "framer"],
     Styles: ["sass"],
-    BE: ["express", "fastapi", "graphql", "python"],
+    BE: ["express", "fastapi", "graphql", "python", "openAI"],
     DB: ["redis"],
-    Deployment: ["heroku"],
+    Deployment: ["heroku", "lambda"],
 };
 
 export const techStackColors = {
@@ -115,6 +127,21 @@ export const projects: ProjectsType[] = [
             "javascript",
             "heroku",
             "python",
+        ],
+    },
+    {
+        title: "RAZORPAY PAAS",
+        description:
+            "Razorpay's PAAS platform enables users to create AI-generated podcasts by selecting two celebrities and a topic. Advanced voice synthesis technology ensures a realistic and personalized listening experience.",
+        link: "https://razorpay.com/paas/",
+        image: "/images/projects/razorpay-paas.png",
+        techStack: [
+            "react",
+            "next",
+            "framer",
+            "javascript",
+            "lambda",
+            "openAI",
         ],
     },
 ];

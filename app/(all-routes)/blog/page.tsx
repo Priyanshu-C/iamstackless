@@ -18,7 +18,16 @@ const options = {
     month: "long",
 };
 
-const BlogCard = ({ item }) => {
+type BlogItem = {
+    title: string;
+    pubDate: string;
+    link: string;
+    categories: string[];
+    content: string;
+    guid: string;
+};
+
+const BlogCard = ({ item }: { item: BlogItem }) => {
     const timeToRead = Math.ceil(item.content.split(" ").length / 200);
 
     const publistDate = new Date(item.pubDate).toLocaleDateString(
@@ -61,8 +70,8 @@ export async function AllBlogs() {
 
     return (
         <div>
-            {data.items.map((item) => (
-                <BlogCard item={item} />
+            {data.items.map((item: BlogItem) => (
+                <BlogCard item={item} key={item.guid} />
             ))}
         </div>
     );
