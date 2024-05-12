@@ -56,7 +56,7 @@ const BlogCard = ({ item }: { item: BlogItem }) => {
                 {timeToRead} min read{" "}
                 <button className="dark:text-blue-500 text-blue-700  0 font-medium py-2 px-4 rounded flex items-center">
                     <Link href={item.link} target="_blank" rel="noreferrer">
-                        Read More
+                        Read Here
                     </Link>
                     <TbLink className="ml-1 text-md" />
                 </button>
