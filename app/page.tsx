@@ -39,19 +39,25 @@ export default function Home() {
                         {!isMobile ? (
                             <div className="flex flex-col items-start justify-start sm:items-center sm:justify-center md:items-start md:justify-start lg:items-start lg:justify-start">
                                 <p className="bg-clip-text text-transparent drop-shadow-2xl bg-gradient-to-b text-white text-2xl sm:text-2xl md:text-3xl lg:text-3xl">
-                                    Hey, my name is{" "}
+                                    Hey, I&apos;m{" "}
                                 </p>
                                 <p className="bg-clip-text text-transparent drop-shadow-2xl bg-gradient-to-b text-white font-bold text-2xl sm:text-2xl md:text-3xl lg:text-3xl">
                                     Priyanshu Chauhan
                                 </p>
                                 <p className="bg-clip-text text-transparent drop-shadow-2xl bg-gradient-to-b text-white text-2xl sm:text-2xl md:text-3xl lg:text-3xl">
-                                    I am a Senior Frontend Engineer
+                                    a Senior Frontend Engineer
                                 </p>
                                 <p className="bg-clip-text text-transparent drop-shadow-2xl bg-gradient-to-b  text-white text-2xl sm:text-2xl md:text-3xl lg:text-3xl">
                                     at{" "}
                                     <span className="font-bold">
-                                        Platform, Razorpay{" "}
+                                        Razorpay&apos; Platform team{" "}
                                     </span>
+                                </p>
+                                <p className="bg-clip-text text-transparent drop-shadow-2xl bg-gradient-to-b text-white text-2xl sm:text-2xl md:text-3xl lg:text-3xl">
+                                    I tame JavaScript bugs
+                                </p>
+                                <p className="bg-clip-text text-transparent drop-shadow-2xl bg-gradient-to-b text-white text-2xl sm:text-2xl md:text-3xl lg:text-3xl">
+                                    and dream in code.
                                 </p>
                             </div>
                         ) : (
