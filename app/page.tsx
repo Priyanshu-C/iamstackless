@@ -50,7 +50,7 @@ export default function Home() {
                                 <p className="bg-clip-text text-transparent drop-shadow-2xl bg-gradient-to-b  text-white text-2xl sm:text-2xl md:text-3xl lg:text-3xl">
                                     at{" "}
                                     <span className="font-bold">
-                                        Razorpay&apos; Platform team{" "}
+                                        Razorpay&apos;s Platform team{" "}
                                     </span>
                                 </p>
                                 <p className="bg-clip-text text-transparent drop-shadow-2xl bg-gradient-to-b text-white text-2xl sm:text-2xl md:text-3xl lg:text-3xl">
