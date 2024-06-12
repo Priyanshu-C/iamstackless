@@ -1,18 +1,26 @@
 import { AiFillOpenAI } from "react-icons/ai";
+import { FaRegChartBar } from "react-icons/fa";
 import { FiFramer } from "react-icons/fi";
 import { RiNextjsLine } from "react-icons/ri";
 import {
+    SiAmazons3,
+    SiClerk,
+    SiDrizzle,
     SiExpress,
     SiFastapi,
     SiGraphql,
     SiHeroku,
     SiJavascript,
+    SiMongodb,
     SiPython,
     SiReact,
+    SiReactquery,
     SiRedis,
     SiRedux,
     SiSass,
+    SiSupabase,
 } from "react-icons/si";
+import { SlCalender } from "react-icons/sl";
 import { TbLambda } from "react-icons/tb";
 
 export type ProjectsType = {
@@ -39,6 +47,14 @@ export const TECH_STACK_ENUM = {
     lambda: "Lambda",
     framer: "Framer",
     openAI: "OpenAI",
+    drizzle: "Drizzle",
+    clerk: "Clerk",
+    googleCalendar: "Google Calendar",
+    chartJS: "ChartJS",
+    reactQuery: "React Query",
+    s3: "S3",
+    supabase: "Supabase",
+    mongoDB: "MongoDB",
 };
 
 export const techIcons: Record<keyof typeof TECH_STACK_ENUM, JSX.Element> = {
@@ -56,13 +72,38 @@ export const techIcons: Record<keyof typeof TECH_STACK_ENUM, JSX.Element> = {
     lambda: <TbLambda size="1.5em" />,
     framer: <FiFramer size="1.5em" />,
     openAI: <AiFillOpenAI size="1.5em" />,
+    drizzle: <SiDrizzle size="1.5em" />,
+    clerk: <SiClerk size="1.5em" />,
+    googleCalendar: <SlCalender size="1.5em" />,
+    chartJS: <FaRegChartBar size="1.5em" />,
+    reactQuery: <SiReactquery size="1.5em" />,
+    s3: <SiAmazons3 size="1.5em" />,
+    supabase: <SiSupabase size="1.5em" />,
+    mongoDB: <SiMongodb size="1.5em" />,
 };
 
 export const techStackMapping: Record<string, string[]> = {
-    FE: ["react", "next", "redux", "javascript", "framer"],
+    FE: [
+        "react",
+        "next",
+        "redux",
+        "javascript",
+        "framer",
+        "reactQuery",
+        "chartJS",
+    ],
     Styles: ["sass"],
-    BE: ["express", "fastapi", "graphql", "python", "openAI"],
-    DB: ["redis"],
+    BE: [
+        "express",
+        "fastapi",
+        "graphql",
+        "python",
+        "openAI",
+        "drizzle",
+        "clerk",
+        "googleCalendar",
+    ],
+    DB: ["redis", "s3", "supabase", "mongoDB"],
     Deployment: ["heroku", "lambda"],
 };
 
@@ -95,10 +136,37 @@ export const backgroundClassesForTags = {
 
 export const projects: ProjectsType[] = [
     {
+        title: "MENTORFLOW",
+        description:
+            "MENTORFLOW is a platform that connects mentors and mentees. Mentors and Mentees can create profiles, add each other, and schedule meetings. Track your progress and set goals.",
+        link: "https://mentorflow.iamstackless.com/",
+        image: "/images/projects/mentorflow.png",
+        techStack: [
+            "react",
+            "redux",
+            "reactQuery",
+            "next",
+            "clerk",
+            "googleCalendar",
+            "chartJS",
+            "javascript",
+            "lambda",
+            "supabase",
+        ],
+    },
+    {
+        title: "RAZORPAY PAAS",
+        description:
+            "Razorpay's PAAS platform enables users to create AI-generated podcasts by selecting two celebrities and a topic. Advanced voice synthesis technology ensures a realistic and personalized listening experience.",
+        link: "https://razorpay.com/paas/",
+        image: "/images/projects/razorpay-paas.png",
+        techStack: ["react", "next", "javascript", "lambda"],
+    },
+    {
         title: "ANONYMITY",
         description:
             "ANONYMITY is a real-time messaging app using MERN stack and Redis for geospatial features. Users set a radius to connect with nearby individuals for spontaneous chats.",
-        link: "https://anonymity.iamstackless.com/",
+        link: "http://anonymity.iamstackless.com/",
         github: "https://github.com/Priyanshu-C/ANONYMITY-FRONTEND",
         image: "/images/projects/anonymity.webp",
         techStack: [
@@ -109,13 +177,15 @@ export const projects: ProjectsType[] = [
             "graphql",
             "sass",
             "javascript",
+            "s3",
+            "mongoDB",
         ],
     },
     {
         title: "BUCKITO",
         description:
             "BUCKITO: MERN & FastAPI powers real-time, personalized movie recommendations from a vast TMDB database using collaborative and content-based filtering.",
-        link: "https://buckito.iamstackless.com/",
+        link: "http://buckito.iamstackless.com/",
         github: "https://github.com/Priyanshu-C/BUCKITO",
         image: "/images/projects/buckito.webp",
         techStack: [
@@ -127,21 +197,7 @@ export const projects: ProjectsType[] = [
             "javascript",
             "heroku",
             "python",
-        ],
-    },
-    {
-        title: "RAZORPAY PAAS",
-        description:
-            "Razorpay's PAAS platform enables users to create AI-generated podcasts by selecting two celebrities and a topic. Advanced voice synthesis technology ensures a realistic and personalized listening experience.",
-        link: "https://razorpay.com/paas/",
-        image: "/images/projects/razorpay-paas.png",
-        techStack: [
-            "react",
-            "next",
-            "framer",
-            "javascript",
-            "lambda",
-            "openAI",
+            "s3",
         ],
     },
 ];
