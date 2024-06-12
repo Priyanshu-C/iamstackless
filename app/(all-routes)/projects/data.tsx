@@ -160,7 +160,7 @@ export const projects: ProjectsType[] = [
             "Razorpay's PAAS platform enables users to create AI-generated podcasts by selecting two celebrities and a topic. Advanced voice synthesis technology ensures a realistic and personalized listening experience.",
         link: "https://razorpay.com/paas/",
         image: "/images/projects/razorpay-paas.png",
-        techStack: ["react", "next", "javascript", "lambda"],
+        techStack: ["react", "next", "javascript", "lambda", "framer"],
     },
     {
         title: "ANONYMITY",
