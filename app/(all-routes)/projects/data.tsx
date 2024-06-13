@@ -200,6 +200,14 @@ export const projects: ProjectsType[] = [
             "s3",
         ],
     },
+    {
+        title: "TODO",
+        description:
+            "A simple todo app built with React, Next.js, and JavaScript. Users can add, delete, and mark tasks as completed.",
+        link: "https://iamstackless.com/todo",
+        image: "/images/projects/todo.png",
+        techStack: ["react", "next", "javascript"],
+    },
 ];
 
 export const tags = Object.keys(techStackMapping).reduce(
