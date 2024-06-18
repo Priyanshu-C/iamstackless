@@ -201,6 +201,15 @@ export const projects: ProjectsType[] = [
         ],
     },
     {
+        title: "IAMSTACKLESS",
+        description:
+            "My personal portfolio website built with React, Next.js, and TypeScript. It showcases my projects, skills, and blog posts.",
+        link: "https://iamstackless.com",
+        github: "https://github.com/Priyanshu-C/iamstackless",
+        image: "/images/projects/this.png",
+        techStack: ["react", "next", "javascript"],
+    },
+    {
         title: "TODO",
         description:
             "A simple todo app built with React, Next.js, and JavaScript. Users can add, delete, and mark tasks as completed.",
