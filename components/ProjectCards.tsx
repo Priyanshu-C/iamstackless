@@ -8,7 +8,7 @@ import {
     ProjectsType,
     TECH_STACK_ENUM,
     techIcons,
-} from "../app/(all-routes)/projects/data";
+} from "../app/(all-routes)/(primary-routes)/projects/data";
 
 export const ProjectCards = ({
     items,

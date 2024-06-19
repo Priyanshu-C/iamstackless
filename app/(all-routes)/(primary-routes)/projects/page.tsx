@@ -3,7 +3,7 @@
 import ProjectCards from "@/components/ProjectCards";
 import { useEffect, useState } from "react";
 import { tags, projects, ProjectsType } from "./data";
-import TagsSelector from "../../../components/TagSelector";
+import TagsSelector from "../../../../components/TagSelector";
 
 export function Projects() {
     const [activeTags, setActiveTags] = useState<string[]>([]);

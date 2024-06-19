@@ -5,7 +5,7 @@ import {
     TechStackColors,
     techStackColors,
     techStackMapping,
-} from "../app/(all-routes)/projects/data";
+} from "../app/(all-routes)/(primary-routes)/projects/data";
 
 const getTagColor = (tag: string): TechStackColors => {
     for (const key in techStackMapping) {
