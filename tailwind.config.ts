@@ -36,6 +36,18 @@ const config: Config = {
             colors: {
                 primary: "black",
                 "primary-dark": "white",
+                paper: "#f2ece1",
+                "paper-2": "#e9e1d3",
+                panel: "#faf6ee",
+                ink: "#17140f",
+                "ink-soft": "#4a443b",
+                "ink-mute": "#857c6e",
+                vermilion: "#e3402a",
+                "vermilion-deep": "#c22e1c",
+            },
+            fontFamily: {
+                fraunces: ["var(--font-fraunces)", "Georgia", "serif"],
+                grotesk: ["var(--font-grotesk)", "system-ui", "sans-serif"],
             },
             minWidth: {
                 1024: "1024px",
