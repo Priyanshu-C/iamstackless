@@ -6,9 +6,9 @@ import {
     Foot,
     ProjectSpecimens,
     RecordSheet,
-    SkillGrid,
     StoryPara,
 } from "@/components/foundry/Sections";
+import SkillGrid from "@/components/foundry/SkillGrid";
 import WritingRows from "@/components/foundry/WritingRows";
 
 export default function Home() {
@@ -29,8 +29,8 @@ export default function Home() {
                             <h2>Proofs</h2>
                         </div>
                         <p className="sheet-sub">
-                            Pulled from the press at Medium — long-form notes
-                            on the craft, still smelling of ink.
+                            I write when something breaks in an interesting
+                            way. Long-form, on Medium.
                         </p>
                     </div>
                     <Suspense

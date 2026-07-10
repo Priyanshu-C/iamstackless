@@ -1,4 +1,5 @@
-import { site } from "@/lib/content";
+import { Fragment } from "react";
+import { navLinks, site } from "@/lib/content";
 
 export function BrandMark({ small }: { small?: boolean }) {
     return (
@@ -19,17 +20,17 @@ export default function Topbar() {
         <header className="topbar">
             <a className="brand" href="#specimen" aria-label="Back to top">
                 <BrandMark />
-                <span className="brand-word">
-                    {site.brand}
-                    <span className="brand-thin">{site.brandThin}</span>
-                </span>
+                <span className="brand-word">{site.brand}</span>
             </a>
             <nav className="topnav" aria-label="Primary">
-                <span className="nav-item">{site.est}</span>
-                <span className="nav-sep">·</span>
-                <span className="nav-item">{site.tagline}</span>
-                <span className="nav-sep">·</span>
-                <span className="nav-item nav-emph">{site.current}</span>
+                {navLinks.map((l, i) => (
+                    <Fragment key={l.name}>
+                        {i > 0 && <span className="nav-sep">·</span>}
+                        <a className="nav-item" href={l.href}>
+                            {l.name}
+                        </a>
+                    </Fragment>
+                ))}
             </nav>
             <a className="topbuy" href="#commission">
                 <span className="buy-label">Commission</span>

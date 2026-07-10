@@ -6,13 +6,16 @@
 
 export const site = {
     name: "Priyanshu Chauhan",
-    brand: "PRIYANSHU",
-    brandThin: " CHAUHAN",
+    brand: "PRIYANSHU CHAUHAN",
     email: "priyanshuc.info@gmail.com",
-    est: "Est. MMXX",
-    tagline: "Frontend & Platform",
-    current: "Coinbase IC4",
 };
+
+export const navLinks = [
+    { name: "Record", href: "#record" },
+    { name: "Glyphs", href: "#glyphs" },
+    { name: "Projects", href: "#projects" },
+    { name: "Writing", href: "#writing" },
+];
 
 export const socials = [
     { name: "GitHub", link: "https://github.com/Priyanshu-C" },
@@ -29,7 +32,7 @@ export const hero = {
     kickerRest: ", frontend cut №1",
     h1Top: "Priyanshu",
     h1Accent: "Chauhan.",
-    lede: "Frontend & platform engineer — Coinbase now, Razorpay before. The specimen is spelling my other name, stackless, forty thousand grains of ink at a time. Carve it with your cursor; it heals. Everything below is cast from the same material.",
+    lede: "Frontend & platform engineer — Coinbase now, Razorpay before. The specimen above is forty thousand particles of ink spelling stackless, the name I ship under. Drag your cursor through it; it heals every time.",
     hint: "move over the letter to carve it · click to recast",
     hudMeta: "Stackless · 144pt · Black",
     hudFig: "Pc — №1",
@@ -116,7 +119,7 @@ export const record: RecordEntry[] = [
         bullets: [
             {
                 lead: "First cut:",
-                text: "where the letterform was drawn — four years of fundamentals, and the first production bug shipped and fixed.",
+                text: "four years of fundamentals — data structures by day, side projects after midnight.",
             },
         ],
     },
@@ -190,8 +193,8 @@ export const projects: Project[] = [
     {
         idx: "№2",
         title: "Razorpay PaaS",
-        meta: "AI-generated podcasts",
-        blurb: "Pick two celebrity voices and a topic; the machine records the episode. Advanced voice synthesis behind a Next.js front.",
+        meta: "April Fools' — Podcast-as-a-Service",
+        blurb: "An April Fools' prank we shipped for real: pick two celebrity voices and a topic, and AI records the podcast episode. Built on Framer with a voice-synthesis backend.",
         stack: ["React", "Next.js", "Lambda", "Framer"],
         link: "https://razorpay.com/paas/",
     },
@@ -231,7 +234,7 @@ export const minis = [
 ];
 
 export const story = {
-    para: "A frontend engineer is a workshop for pouring intent into interfaces. This one was cast in Lucknow, annealed at SRM in Chennai, then hardened over three and a half years at Razorpay — authentication for a million merchants, a design system that crosses borders, an AI that answers support tickets before humans wake up. Now it is set remote at Coinbase, drawing onboarding flows for eighty countries from a desk in India. Set it large. Give it a hard problem. Let the counters breathe.",
+    para: "I grew up in Lucknow and learned to code at SRM in Chennai, where I shipped my first production bug — and my first fix for it. Three and a half years at Razorpay taught me scale: authentication for a million merchants, a design system that crosses borders, an AI assistant answering support tickets before the support team woke up. Now I work remote at Coinbase, building onboarding flows used in eighty-plus countries. Give me a hard problem and room to work; the type sets itself.",
 };
 
 export type ContactTier = {
@@ -247,7 +250,7 @@ export const contactTiers: ContactTier[] = [
     {
         title: "Coffee",
         price: "$0",
-        body: "Thirty minutes, your calendar or mine. Architecture second opinions, career questions, or an argument about whether the web needs another framework.",
+        body: "Thirty minutes, your calendar or mine. Second opinions on architecture, career questions, or a friendly argument about whether the web needs another framework.",
         items: [
             "Frontend & platform architecture",
             "Mentorship, career chat",
@@ -261,7 +264,7 @@ export const contactTiers: ContactTier[] = [
     {
         title: "Contract",
         price: "Let's talk",
-        body: "A sharp problem with a fixed scope. Frontend platforms, design systems, AI-native product builds — poured, tested, and handed over with the moulds.",
+        body: "A sharp problem with a fixed scope. Frontend platforms, design systems, AI-native product builds — delivered tested and documented, with everything you need to run it without me.",
         items: [
             "Design systems & frontend platforms",
             "AI-native builds: RAG, agents, MCP",
@@ -269,19 +272,19 @@ export const contactTiers: ContactTier[] = [
         ],
         cta: {
             label: "Enquire",
-            href: "mailto:priyanshuc.info@gmail.com?subject=Commission%20the%20engineer",
+            href: "mailto:priyanshuc.info@gmail.com?subject=Contract%20enquiry",
             filled: true,
         },
-        flag: "Most poured",
+        flag: "Most popular",
     },
     {
         title: "Full-time",
-        price: "Cast",
-        body: "Currently set at Coinbase — IC4, Platform, remote. Not looking, but the type specimen stays on file and the long form lives on LinkedIn.",
+        price: "Taken",
+        body: "Currently at Coinbase — IC4, Platform, remote. Not actively looking, but I always read my mail. The full history lives on LinkedIn.",
         items: [
             "Coinbase · IC4 · Platform",
             "Remote, India",
-            "The long form, on LinkedIn",
+            "Full history on LinkedIn",
         ],
         cta: {
             label: "LinkedIn",

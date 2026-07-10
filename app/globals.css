@@ -142,10 +142,6 @@ body {
     letter-spacing: 0.14em;
     font-size: 0.92rem;
 }
-.brand-thin {
-    font-weight: 300;
-    color: var(--ink-soft);
-}
 .topnav {
     display: flex;
     align-items: center;
@@ -155,12 +151,14 @@ body {
     text-transform: uppercase;
     color: var(--ink-soft);
 }
+.topnav a.nav-item {
+    transition: color 0.3s var(--ease);
+}
+.topnav a.nav-item:hover {
+    color: var(--vermilion);
+}
 .nav-sep {
     color: var(--line-2);
-}
-.nav-emph {
-    color: var(--vermilion);
-    font-weight: 500;
 }
 .topbuy {
     display: flex;
@@ -542,16 +540,42 @@ body {
     border-top: 1px solid var(--line);
 }
 .scell {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 7px;
-    padding: 22px 10px 18px;
+    gap: 9px;
+    padding: 24px 10px 16px;
     border-right: 1px solid var(--line);
     border-bottom: 1px solid var(--line);
     transition: all 0.3s var(--ease);
     cursor: default;
+}
+/* glyph-only cells (no logo, e.g. RAG) recentre on the serif figure */
+.scell--textonly {
+    gap: 7px;
+    padding: 22px 10px 18px;
+}
+.scell-logo {
+    display: flex;
+    color: var(--ink);
+    transition: color 0.3s var(--ease);
+}
+.scell-logo svg {
+    width: clamp(26px, 3vw, 30px);
+    height: clamp(26px, 3vw, 30px);
+}
+.scell-index {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    font-family: var(--font-fraunces), Georgia, serif;
+    font-weight: 700;
+    font-size: 0.72rem;
+    line-height: 1;
+    color: var(--ink-mute);
+    transition: color 0.3s var(--ease);
 }
 .scell-glyph {
     font-family: var(--font-fraunces), Georgia, serif;
@@ -573,11 +597,63 @@ body {
     background: var(--ink);
 }
 .scell:hover .scell-glyph,
-.scell:hover .scell-name {
+.scell:hover .scell-name,
+.scell:hover .scell-logo,
+.scell:hover .scell-index {
     color: var(--paper);
 }
 .scell--accent:hover {
     background: var(--vermilion);
+}
+
+/* ink wave: staggered sweep once the grid scrolls into view; accent cells
+   keep the animation's end state (fill-mode both) so strong suits stay inked
+   without hover — the hover rules above still apply once a wave pass ends.
+   Keyframes omit 0%/100% on purpose: missing frames fall back to each
+   element's own base style, so glyph and name return to their own colors. */
+.skillgrid.is-waved .scell {
+    animation: inkwave 0.9s var(--ease-io) backwards;
+    animation-delay: calc(var(--i) * 35ms);
+}
+.skillgrid.is-waved .scell .scell-glyph,
+.skillgrid.is-waved .scell .scell-name,
+.skillgrid.is-waved .scell .scell-logo,
+.skillgrid.is-waved .scell .scell-index {
+    animation: inkwave-text 0.9s var(--ease-io) backwards;
+    animation-delay: calc(var(--i) * 35ms);
+}
+.skillgrid.is-waved .scell--accent {
+    animation-name: inkwave-accent;
+    animation-fill-mode: both;
+}
+.skillgrid.is-waved .scell--accent .scell-glyph,
+.skillgrid.is-waved .scell--accent .scell-name,
+.skillgrid.is-waved .scell--accent .scell-logo,
+.skillgrid.is-waved .scell--accent .scell-index {
+    animation-name: inkwave-text-hold;
+    animation-fill-mode: both;
+}
+@keyframes inkwave {
+    45% {
+        background: var(--ink);
+    }
+}
+@keyframes inkwave-text {
+    45% {
+        color: var(--paper);
+    }
+}
+@keyframes inkwave-accent {
+    45%,
+    100% {
+        background: var(--vermilion);
+    }
+}
+@keyframes inkwave-text-hold {
+    45%,
+    100% {
+        color: var(--paper);
+    }
 }
 
 /* ---- projects ---- */

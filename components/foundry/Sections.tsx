@@ -5,7 +5,6 @@ import {
     projects,
     record,
     site,
-    skills,
     socials,
     story,
 } from "@/lib/content";
@@ -38,7 +37,7 @@ export function RecordSheet() {
             <SheetHead
                 idx="01"
                 title="The record"
-                sub="Set in ascending weights — the career gains mass as it goes. Light at university, bold at Razorpay, black at Coinbase."
+                sub="The heavier the type, the more recent the chapter — light at university, bold at Razorpay, black at Coinbase."
             />
             <div>
                 {record.map((r) => (
@@ -71,30 +70,6 @@ export function RecordSheet() {
     );
 }
 
-/* ---- 02 · skills ---- */
-export function SkillGrid() {
-    return (
-        <section className="sheet" id="glyphs">
-            <SheetHead
-                idx="02"
-                title="Glyph set"
-                sub="The working character set, cut №1. Hover a cell to ink it — the vermilion ones carry the most weight."
-            />
-            <div className="skillgrid">
-                {skills.map((s) => (
-                    <div
-                        key={s.name}
-                        className={`scell${s.accent ? " scell--accent" : ""}`}
-                    >
-                        <span className="scell-glyph">{s.glyph}</span>
-                        <span className="scell-name">{s.name}</span>
-                    </div>
-                ))}
-            </div>
-        </section>
-    );
-}
-
 /* ---- 03 · projects ---- */
 export function ProjectSpecimens() {
     return (
@@ -102,7 +77,7 @@ export function ProjectSpecimens() {
             <SheetHead
                 idx="03"
                 title="Set at display size"
-                sub="Things poured outside working hours. The featured cut is live and self-hosting; the rest are earlier castings."
+                sub="What I build when nobody's asking. The featured one is the current obsession; the rest got me here."
             />
             <div>
                 {projects.map((p) => (
@@ -176,7 +151,7 @@ export function StoryPara() {
             <SheetHead
                 idx="04"
                 title="At text size"
-                sub="The provenance paragraph. Every typeface has one; so does every engineer."
+                sub="Every typeface ships with a provenance note. Here's mine."
             />
             <p className="spec-para">{story.para}</p>
         </section>
