@@ -187,6 +187,7 @@ export const projects: Project[] = [
             },
         ],
         stack: ["Next.js", "Claude", "Inngest", "Neon", "Drizzle", "Clerk"],
+        link: "https://callbacked.iamstackless.com/",
         featured: true,
     },
     {
