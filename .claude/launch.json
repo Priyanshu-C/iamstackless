@@ -5,7 +5,14 @@
       "name": "dev",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "dev"],
-      "port": 3000
+      "port": 3000,
+      "autoPort": true
+    },
+    {
+      "name": "invest-site",
+      "runtimeExecutable": "sh",
+      "runtimeArgs": ["-c", "cd /Users/priyanshuchauhan/Documents/GitHub/investment-workflow && exec python3 -m http.server 8642"],
+      "port": 8642
     }
   ]
 }

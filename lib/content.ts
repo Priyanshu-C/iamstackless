@@ -169,6 +169,28 @@ export type Project = {
 export const projects: Project[] = [
     {
         idx: "№1",
+        title: "Callbacked",
+        meta: "AI job-search copilot",
+        blurb: "One job posting in, three artifacts out. Capture a role from anywhere — extension, paste, or PDF — and get a scored fit with receipts, a tailored résumé, an outreach note and a cover letter, kept on one board next to the job they belong to.",
+        bullets: [
+            {
+                lead: "Durable AI pipeline:",
+                text: "an Inngest step function — match, tailor, audit, outreach — with memoized credit spends so retries never double-charge, per-user concurrency, and append-only ledgers where balance is just SUM(delta).",
+            },
+            {
+                lead: "Zero-hallucination contract:",
+                text: "five Claude agents bound to one rule — the résumé is the only source of facts, the job description only lends vocabulary — cross-checked by a deterministic ATS keyword audit that knows React from Reactive.",
+            },
+            {
+                lead: "Capture from anywhere:",
+                text: "a Manifest V3 extension with zero host permissions — activeTab plus hashed bearer tokens — feeding résumés re-rendered on demand from structured JSON via react-pdf. Next 16, Neon, Drizzle, Clerk.",
+            },
+        ],
+        stack: ["Next.js", "Claude", "Inngest", "Neon", "Drizzle", "Clerk"],
+        featured: true,
+    },
+    {
+        idx: "№2",
         title: "Mentorflow",
         meta: "AI-native mentorship platform",
         blurb: "Mentorship with the clerical work removed. The machine listens, writes the minutes, tracks the goals, and books the next session.",
@@ -188,10 +210,9 @@ export const projects: Project[] = [
         ],
         stack: ["Next.js", "Supabase", "Claude", "pgvector", "MCP", "Clerk"],
         link: "https://mentorflow.iamstackless.com/",
-        featured: true,
     },
     {
-        idx: "№2",
+        idx: "№3",
         title: "Razorpay PaaS",
         meta: "April Fools' — Podcast-as-a-Service",
         blurb: "An April Fools' prank we shipped for real: pick two celebrity voices and a topic, and AI records the podcast episode. Built on Framer with a voice-synthesis backend.",
@@ -199,7 +220,7 @@ export const projects: Project[] = [
         link: "https://razorpay.com/paas/",
     },
     {
-        idx: "№3",
+        idx: "№4",
         title: "Anonymity",
         meta: "Radius-bound realtime chat",
         blurb: "Draw a radius, talk to whoever is inside it. Real-time anonymous messaging on the MERN stack with Redis geospatial indexes underneath.",
@@ -208,7 +229,7 @@ export const projects: Project[] = [
         github: "https://github.com/Priyanshu-C/ANONYMITY-FRONTEND",
     },
     {
-        idx: "№4",
+        idx: "№5",
         title: "Buckito",
         meta: "Movie recommendations",
         blurb: "Collaborative and content-based filtering over the TMDB catalogue — MERN for the shell, FastAPI for the brain.",
@@ -217,7 +238,7 @@ export const projects: Project[] = [
         github: "https://github.com/Priyanshu-C/BUCKITO",
     },
     {
-        idx: "№5",
+        idx: "№6",
         title: "Stackless",
         meta: "This very site",
         blurb: "Forty-two thousand particles pretending to be a portfolio. Paper, ink, one vermilion accent. View source — the foundry is open.",
