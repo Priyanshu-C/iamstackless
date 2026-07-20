@@ -77,15 +77,15 @@ export default function SkillGrid() {
     const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 });
 
     return (
-        <section className="sheet" id="glyphs">
+        <section className="sheet" id="toolkit">
             <div className="sheet-head">
                 <div className="sheet-title">
                     <span className="sheet-idx">02</span>
-                    <h2>Glyph set</h2>
+                    <h2>Toolkit</h2>
                 </div>
                 <p className="sheet-sub">
-                    Everything in my toolbox, one glyph each. The red cells
-                    are the ones I&apos;d bet on.
+                    Everything I ship with. The red cells are the ones
+                    I&apos;d bet on.
                 </p>
             </div>
             <div className={`skillgrid${inView ? " is-waved" : ""}`} ref={ref}>

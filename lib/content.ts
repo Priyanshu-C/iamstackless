@@ -12,7 +12,7 @@ export const site = {
 
 export const navLinks = [
     { name: "Record", href: "#record" },
-    { name: "Glyphs", href: "#glyphs" },
+    { name: "Toolkit", href: "#toolkit" },
     { name: "Projects", href: "#projects" },
     { name: "Writing", href: "#writing" },
 ];
@@ -129,21 +129,21 @@ export type Skill = { name: string; glyph: string; accent?: boolean };
 
 export const skills: Skill[] = [
     { name: "TypeScript", glyph: "Ts", accent: true },
-    { name: "JavaScript", glyph: "Js" },
+    { name: "JavaScript", glyph: "Js", accent: true },
     { name: "React", glyph: "Re", accent: true },
-    { name: "Next.js", glyph: "Nx", accent: true },
-    { name: "GraphQL", glyph: "Gq" },
+    { name: "Next.js", glyph: "Nx" },
+    { name: "GraphQL", glyph: "Gq", accent: true },
     { name: "Node", glyph: "Nd" },
     { name: "Python", glyph: "Py" },
     { name: "Tailwind", glyph: "Tw" },
-    { name: "Redux", glyph: "Rx" },
+    { name: "Redux", glyph: "Rx", accent: true },
     { name: "AWS", glyph: "Aw", accent: true },
     { name: "Kubernetes", glyph: "K8" },
     { name: "Terraform", glyph: "Tf" },
     { name: "Docker", glyph: "Dk" },
     { name: "Supabase", glyph: "Sb" },
     { name: "MongoDB", glyph: "Mg" },
-    { name: "pgvector", glyph: "Pg", accent: true },
+    { name: "pgvector", glyph: "Pg" },
     { name: "OpenAI", glyph: "Oa" },
     { name: "Claude", glyph: "Cl", accent: true },
     { name: "RAG", glyph: "Rg" },
