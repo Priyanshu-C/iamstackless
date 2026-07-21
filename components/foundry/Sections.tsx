@@ -37,7 +37,7 @@ export function RecordSheet() {
             <SheetHead
                 idx="01"
                 title="The record"
-                sub="The heavier the type, the more recent the chapter — light at university, bold at Razorpay, black at Coinbase."
+                sub="The heavier the type, the more recent the chapter: light at university, bold at Razorpay, black at Coinbase."
             />
             <div>
                 {record.map((r) => (
@@ -133,7 +133,7 @@ export function ProjectSpecimens() {
                 ))}
             </div>
             <div className="marginalia">
-                <span>Marginalia —</span>
+                <span>Marginalia ·</span>
                 {minis.map((m) => (
                     <a href={m.link} key={m.name}>
                         {m.name}

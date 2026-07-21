@@ -27,15 +27,15 @@ export const socials = [
 export const HERO_GLYPHS = "IAMSTACKLESS".split("");
 
 export const hero = {
-    kicker: "Code is matter —",
+    kicker: "Code is matter:",
     kickerEm: "a living specimen",
     kickerRest: ", frontend cut №1",
     h1Top: "Priyanshu",
     h1Accent: "Chauhan.",
-    lede: "Frontend & platform engineer — Coinbase now, Razorpay before. The specimen above is forty thousand particles of ink spelling stackless, the name I ship under. Drag your cursor through it; it heals every time.",
+    lede: "Frontend & platform engineer: Coinbase now, Razorpay before. The specimen above is forty thousand particles of ink spelling stackless, the name I ship under. Drag your cursor through it; it heals every time.",
     hint: "move over the letter to carve it · click to recast",
     hudMeta: "Stackless · 144pt · Black",
-    hudFig: "Pc — №1",
+    hudFig: "Pc · №1",
 };
 
 export type RecordEntry = {
@@ -54,7 +54,7 @@ export const record: RecordEntry[] = [
         weight: 900,
         weightName: "Black · 900",
         role: "Software Engineer IC4 · Platform",
-        dates: "Sep 2024 — Present",
+        dates: "Sep 2024 – Present",
         location: "Remote, India",
         bullets: [
             {
@@ -84,12 +84,12 @@ export const record: RecordEntry[] = [
         weight: 700,
         weightName: "Bold · 700",
         role: "Senior Frontend Engineer · Platform",
-        dates: "May 2021 — Sep 2024",
+        dates: "May 2021 – Sep 2024",
         location: "Bangalore, India",
         bullets: [
             {
                 lead: "Architected unified authentication:",
-                text: "co-built the auth service serving 1M+ monthly merchants across India and Malaysia — decoupled API layer, Module Federation, GraphQL, Next.js, AWS.",
+                text: "co-built the auth service serving 1M+ monthly merchants across India and Malaysia, on a decoupled API layer with Module Federation, GraphQL, Next.js, and AWS.",
             },
             {
                 lead: "Drove AI-led developer experience:",
@@ -97,7 +97,7 @@ export const record: RecordEntry[] = [
             },
             {
                 lead: "Accelerated time-to-market:",
-                text: "spearheaded a Framer migration with A/B testing and behaviour analytics, cutting page-creation TAT by 85% — seven days to one.",
+                text: "spearheaded a Framer migration with A/B testing and behaviour analytics, cutting page-creation TAT by 85%, from seven days to one.",
             },
             {
                 lead: "Improved product conversion:",
@@ -114,12 +114,12 @@ export const record: RecordEntry[] = [
         weight: 300,
         weightName: "Light · 300",
         role: "B.Tech, Information Technology · GPA 85.5%",
-        dates: "2016 — 2020",
+        dates: "2016 – 2020",
         location: "Chennai, India",
         bullets: [
             {
                 lead: "First cut:",
-                text: "four years of fundamentals — data structures by day, side projects after midnight.",
+                text: "four years of fundamentals, data structures by day, side projects after midnight.",
             },
         ],
     },
@@ -171,19 +171,19 @@ export const projects: Project[] = [
         idx: "№1",
         title: "Callbacked",
         meta: "AI job-search copilot",
-        blurb: "One job posting in, three artifacts out. Capture a role from anywhere — extension, paste, or PDF — and get a scored fit with receipts, a tailored résumé, an outreach note and a cover letter, kept on one board next to the job they belong to.",
+        blurb: "One job posting in, three artifacts out. Capture a role from anywhere (extension, paste, or PDF) and get a scored fit with receipts, a tailored résumé, an outreach note and a cover letter, kept on one board next to the job they belong to.",
         bullets: [
             {
                 lead: "Durable AI pipeline:",
-                text: "an Inngest step function — match, tailor, audit, outreach — with memoized credit spends so retries never double-charge, per-user concurrency, and append-only ledgers where balance is just SUM(delta).",
+                text: "an Inngest step function (match, tailor, audit, outreach) with memoized credit spends so retries never double-charge, per-user concurrency, and append-only ledgers where balance is just SUM(delta).",
             },
             {
                 lead: "Zero-hallucination contract:",
-                text: "five Claude agents bound to one rule — the résumé is the only source of facts, the job description only lends vocabulary — cross-checked by a deterministic ATS keyword audit that knows React from Reactive.",
+                text: "five Claude agents bound to one rule (the résumé is the only source of facts, the job description only lends vocabulary), cross-checked by a deterministic ATS keyword audit that knows React from Reactive.",
             },
             {
                 lead: "Capture from anywhere:",
-                text: "a Manifest V3 extension with zero host permissions — activeTab plus hashed bearer tokens — feeding résumés re-rendered on demand from structured JSON via react-pdf. Next 16, Neon, Drizzle, Clerk.",
+                text: "a Manifest V3 extension with zero host permissions (activeTab plus hashed bearer tokens), feeding résumés re-rendered on demand from structured JSON via react-pdf. Next 16, Neon, Drizzle, Clerk.",
             },
         ],
         stack: ["Next.js", "Claude", "Inngest", "Neon", "Drizzle", "Clerk"],
@@ -198,7 +198,7 @@ export const projects: Project[] = [
         bullets: [
             {
                 lead: "Session intelligence:",
-                text: "a Whisper + Claude pipeline auto-generates summaries, action items and goal updates from call recordings — backed by an eval harness with confidence-based fallbacks.",
+                text: "a Whisper + Claude pipeline auto-generates summaries, action items and goal updates from call recordings, backed by an eval harness with confidence-based fallbacks.",
             },
             {
                 lead: "RAG-powered retrieval:",
@@ -206,7 +206,7 @@ export const projects: Project[] = [
             },
             {
                 lead: "Agentic platform:",
-                text: "Model Context Protocol exposes Calendar and goal-tracking as tools for autonomous scheduling — Server Actions, RSC, React Query, Clerk.",
+                text: "Model Context Protocol exposes Calendar and goal-tracking as tools for autonomous scheduling: Server Actions, RSC, React Query, Clerk.",
             },
         ],
         stack: ["Next.js", "Supabase", "Claude", "pgvector", "MCP", "Clerk"],
@@ -215,7 +215,7 @@ export const projects: Project[] = [
     {
         idx: "№3",
         title: "Razorpay PaaS",
-        meta: "April Fools' — Podcast-as-a-Service",
+        meta: "April Fools': Podcast-as-a-Service",
         blurb: "An April Fools' prank we shipped for real: pick two celebrity voices and a topic, and AI records the podcast episode. Built on Framer with a voice-synthesis backend.",
         stack: ["React", "Next.js", "Lambda", "Framer"],
         link: "https://razorpay.com/paas/",
@@ -233,7 +233,7 @@ export const projects: Project[] = [
         idx: "№5",
         title: "Buckito",
         meta: "Movie recommendations",
-        blurb: "Collaborative and content-based filtering over the TMDB catalogue — MERN for the shell, FastAPI for the brain.",
+        blurb: "Collaborative and content-based filtering over the TMDB catalogue: MERN for the shell, FastAPI for the brain.",
         stack: ["React", "FastAPI", "Python", "Express", "Heroku"],
         link: "http://buckito.iamstackless.com/",
         github: "https://github.com/Priyanshu-C/BUCKITO",
@@ -242,7 +242,7 @@ export const projects: Project[] = [
         idx: "№6",
         title: "Stackless",
         meta: "This very site",
-        blurb: "Forty-two thousand particles pretending to be a portfolio. Paper, ink, one vermilion accent. View source — the foundry is open.",
+        blurb: "Forty-two thousand particles pretending to be a portfolio. Paper, ink, one vermilion accent. View source; the foundry is open.",
         stack: ["Next.js", "Three.js", "TypeScript"],
         link: "https://iamstackless.com",
         github: "https://github.com/Priyanshu-C/iamstackless",
@@ -256,7 +256,7 @@ export const minis = [
 ];
 
 export const story = {
-    para: "I grew up in Lucknow and learned to code at SRM in Chennai, where I shipped my first production bug — and my first fix for it. Three and a half years at Razorpay taught me scale: authentication for a million merchants, a design system that crosses borders, an AI assistant answering support tickets before the support team woke up. Now I work remote at Coinbase, building onboarding flows used in eighty-plus countries. Give me a hard problem and room to work; the type sets itself.",
+    para: "I grew up in Lucknow and learned to code at SRM in Chennai, where I shipped my first production bug, and my first fix for it. Three and a half years at Razorpay taught me scale: authentication for a million merchants, a design system that crosses borders, an AI assistant answering support tickets before the support team woke up. Now I work remote at Coinbase, building onboarding flows used in eighty-plus countries. Give me a hard problem and room to work; the type sets itself.",
 };
 
 export type ContactTier = {
@@ -286,7 +286,7 @@ export const contactTiers: ContactTier[] = [
     {
         title: "Contract",
         price: "Let's talk",
-        body: "A sharp problem with a fixed scope. Frontend platforms, design systems, AI-native product builds — delivered tested and documented, with everything you need to run it without me.",
+        body: "A sharp problem with a fixed scope. Frontend platforms, design systems, AI-native product builds, delivered tested and documented, with everything you need to run it without me.",
         items: [
             "Design systems & frontend platforms",
             "AI-native builds: RAG, agents, MCP",
@@ -302,7 +302,7 @@ export const contactTiers: ContactTier[] = [
     {
         title: "Full-time",
         price: "Taken",
-        body: "Currently at Coinbase — IC4, Platform, remote. Not actively looking, but I always read my mail. The full history lives on LinkedIn.",
+        body: "Currently at Coinbase: IC4, Platform, remote. Not actively looking, but I always read my mail. The full history lives on LinkedIn.",
         items: [
             "Coinbase · IC4 · Platform",
             "Remote, India",
@@ -316,6 +316,6 @@ export const contactTiers: ContactTier[] = [
 ];
 
 export const footer = {
-    mark: "STACKLESS — Priyanshu Chauhan, cast in ink and light.",
+    mark: "STACKLESS · Priyanshu Chauhan, cast in ink and light.",
     credit: "Set in Fraunces & Space Grotesk · Recast MMXXVI",
 };

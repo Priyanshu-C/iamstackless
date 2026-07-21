@@ -11,7 +11,7 @@ export default async function WritingRows() {
     if (!items.length) {
         return (
             <p className="post-empty">
-                The press is quiet — proofs live on{" "}
+                The press is quiet; proofs live on{" "}
                 <a
                     href="https://medium.com/@iamstackless"
                     target="_blank"
