@@ -24,7 +24,10 @@ export type CategoryDef = {
 /** Values actually present in the data, ready to render as filter controls. */
 export type Facet = { key: string; label: string; values: string[] };
 
-const one = (v: string | number) => [String(v)];
+/** A facet value, or nothing at all. Fields are optional, and a missing value
+    must drop out of the facet list rather than becoming "undefined". */
+const one = (v: string | number | undefined | null) =>
+    v === undefined || v === null || v === "" ? [] : [String(v)];
 
 export const CATEGORIES: CategoryDef[] = [
     {
@@ -41,7 +44,8 @@ export const CATEGORIES: CategoryDef[] = [
             {
                 key: "caseSize",
                 label: "Case",
-                get: (i: Watch) => one(`${i.caseSize}mm`),
+                get: (i: Watch) =>
+                    i.caseSize ? one(`${i.caseSize}mm`) : [],
             },
         ] as FacetDef[],
     },
@@ -87,9 +91,17 @@ export function getCategory(slug: string): CategoryDef | undefined {
     return CATEGORIES.find((c) => c.slug === slug);
 }
 
-/** Newest acquisition first. `seq` still carries the original chronology. */
+/**
+ * Newest acquisition first; items with no date yet fall to the end rather than
+ * jumping to the top. `seq` still carries the original chronology.
+ */
 export function sorted(items: AnyItem[]): AnyItem[] {
-    return [...items].sort((a, b) => b.acquired.localeCompare(a.acquired));
+    return [...items].sort((a, b) => {
+        if (!a.acquired && !b.acquired) return a.seq - b.seq;
+        if (!a.acquired) return 1;
+        if (!b.acquired) return -1;
+        return b.acquired.localeCompare(a.acquired);
+    });
 }
 
 /** Only facets that some item actually has a value for. A drawer with no

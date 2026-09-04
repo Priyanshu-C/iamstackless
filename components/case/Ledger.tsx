@@ -12,9 +12,19 @@ export default function Ledger({ item }: { item: AnyItem | null }) {
                     <h2 className="case-ledger-name">{item.name}</h2>
                     <p className="case-label">{itemFacts(item).join(" · ")}</p>
                     <p className="case-label">
-                        {formatPrice(item.price)} · {formatAcquired(item.acquired)}
+                        {[formatPrice(item.price), formatAcquired(item.acquired)]
+                            .filter(Boolean)
+                            .join(" · ")}
                     </p>
-                    <p className="case-ledger-why">{item.why}</p>
+                    {/* A missing `why` shows as a rule, not as invented words —
+                        a visible blank waiting to be filled. */}
+                    {item.why ? (
+                        <p className="case-ledger-why">{item.why}</p>
+                    ) : (
+                        <p className="case-ledger-why case-ledger-why--blank" aria-label="No note yet">
+                            &mdash;
+                        </p>
+                    )}
                 </>
             ) : (
                 <p className="case-label case-ledger-idle">

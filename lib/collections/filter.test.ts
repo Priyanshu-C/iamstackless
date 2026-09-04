@@ -79,3 +79,27 @@ describe("facetsFor", () => {
         expect(facetsFor(empty)).toEqual([]);
     });
 });
+
+describe("facets with missing values", () => {
+    it("omits an item that has no value for a facet, rather than showing 'undefined'", () => {
+        const base = getCategory("watches")!;
+        const watch = (id: string, caseSize?: number) => ({
+            id,
+            seq: 1,
+            name: id,
+            brand: "b",
+            price: { amount: 1, currency: "INR" as const },
+            image: `/images/collections/watches/${id}.webp`,
+            movement: "quartz" as const,
+            reference: "r",
+            ...(caseSize === undefined ? {} : { caseSize }),
+        });
+        const category = {
+            ...base,
+            items: [watch("has-size", 42), watch("no-size")],
+        };
+        const caseFacet = facetsFor(category).find((f) => f.key === "caseSize");
+        expect(caseFacet?.values).toEqual(["42mm"]);
+        expect(caseFacet?.values.join()).not.toMatch(/undefined/);
+    });
+});

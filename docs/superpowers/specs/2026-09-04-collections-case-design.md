@@ -34,6 +34,21 @@ These were settled during brainstorming and are load-bearing. Each records the a
 | 7 | **Uniform compartments.** | Compartment size varying by how often an item is reached for. |
 | 8 | **No display serif inside the case.** | Fraunces 900 on item names, matching the rest of the site. |
 
+### `acquired` and `why` are optional
+
+Every other field can be sourced from a product listing. These two cannot —
+only Priyanshu knows when he bought something and why, and they are never
+invented to fill a gap. Both are therefore optional on `CollectionItem`:
+
+- The ledger renders a missing note as a muted rule, so the blank is visible
+  and invites completion rather than reading as a bug.
+- Undated items sort to the end of the drawer rather than the top.
+- The integrity suite validates each field's shape *when present*, and treats
+  absence as legitimate. A blank string is still a failure.
+
+`seq` is nominally acquisition order, but is seeded in the order the items were
+supplied when purchase order is unknown. It is renumbered by hand, once.
+
 ### Known consequence of decision 2
 
 The original brief mentioned wanting to see how a perfume's notes relate to shoes. Decision 2 rules that out: the categories sit parallel and do not cross-reference. Revisiting this later means adding a shared tag vocabulary to `CollectionItem` and a cross-category browse view — additive, not a rewrite.

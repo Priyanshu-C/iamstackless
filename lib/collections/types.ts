@@ -12,20 +12,22 @@ export type CollectionItem = {
     seq: number;
     name: string;
     brand: string;
-    /** "YYYY-MM" — the month it was acquired. */
-    acquired: string;
+    /** "YYYY-MM" — the month it was acquired. Optional: only Priyanshu knows
+        this, so an item can sit in the case before the date is filled in. */
+    acquired?: string;
     /** What was actually paid. No conversion is performed. */
     price: { amount: number; currency: Currency };
-    /** One line. Why this one, and not another. */
-    why: string;
+    /** One line. Why this one, and not another. Optional for the same reason
+        as `acquired` — it is never invented, only supplied. */
+    why?: string;
     /** /images/collections/<category>/<id>.webp */
     image: string;
 };
 
 export type Watch = CollectionItem & {
     movement: "automatic" | "quartz" | "manual";
-    /** Case diameter in millimetres. */
-    caseSize: number;
+    /** Case diameter in millimetres, where the source states it. */
+    caseSize?: number;
     reference: string;
 };
 

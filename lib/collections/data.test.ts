@@ -27,8 +27,12 @@ describe.each(CATEGORIES)("$label", (category) => {
         }
     });
 
-    it("records acquired as a real YYYY-MM", () => {
+    // `acquired` and `why` are personal facts, supplied by hand and never
+    // invented, so an item may legitimately not carry them yet. Validate the
+    // shape only when a value is actually present.
+    it("records acquired as a real YYYY-MM when present", () => {
         for (const item of category.items) {
+            if (item.acquired === undefined) continue;
             expect(item.acquired, item.id).toMatch(/^\d{4}-(0[1-9]|1[0-2])$/);
             expect(
                 Number.isNaN(Date.parse(`${item.acquired}-01`)),
@@ -43,8 +47,9 @@ describe.each(CATEGORIES)("$label", (category) => {
         }
     });
 
-    it("answers why", () => {
+    it("never carries a blank why (absent is fine, empty is not)", () => {
         for (const item of category.items) {
+            if (item.why === undefined) continue;
             expect(item.why.trim(), item.id).not.toBe("");
         }
     });

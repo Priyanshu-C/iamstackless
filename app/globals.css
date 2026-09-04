@@ -1316,6 +1316,11 @@ body {
 .case-ledger-idle {
     opacity: 0.5;
 }
+/* a note that has not been written yet — a rule, never invented words */
+.case-ledger-why--blank {
+    color: var(--ink-mute);
+    opacity: 0.5;
+}
 
 /* ---- the tray ---- */
 .case-grid {
