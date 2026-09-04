@@ -121,6 +121,36 @@ Prices default to INR; `currency` allows an honest record for something bought a
 
 Downloaded from source and committed to `public/images/collections/<category>/<id>.webp`, rather than hotlinked — a retailer rotating their CDN must not break the case. Served through `next/image`.
 
+**Standardised at ingest, not at source.** No single retailer stocks a
+back-catalogue of watches, shoes and fragrance, so sourcing will always be
+mixed: brand press renders for watches, StockX for sneakers, Fragrantica for
+perfume. Each is consistent within itself and disagrees with the others.
+
+`scripts/normalize-image.mjs` resolves this. A raw photo staged at
+`scripts/incoming/<category>/<id>.<ext>` becomes a finished compartment image:
+
+    segment the subject  →  trim to bounds  →  pad to square,
+    object at 78% of frame  →  800x800 transparent webp
+
+Because every object is re-framed to the same proportion on the same canvas,
+the source stops mattering. Sourcing becomes "find any decent photo" rather
+than "find one that matches the other forty".
+
+Segmentation uses `rembg` reached through `uvx`, so nothing is installed
+globally. It is a learned model rather than a colour key, which matters: a
+watch with a white dial or a sneaker with a cream midsole survives, where
+threshold-keying white pixels would destroy them. The whole batch is segmented
+in one process — spawning per image costs a fresh Python start and model load
+each time, turning forty items into half an hour.
+
+The script degrades rather than failing: with no segmenter on PATH it keeps
+the original background and says so. Raw staged files are gitignored; the
+normalised webp is the artefact that ships.
+
+Rejected: a single-retailer source (coverage fails on anything discontinued),
+and white tiles behind each object to hide mismatched backgrounds (a permanent
+visual compromise to avoid a step that turns out to be automatable).
+
 ---
 
 ## Components

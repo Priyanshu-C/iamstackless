@@ -34,3 +34,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# raw collection images, staged for `npm run normalize`
+scripts/incoming/*/*
+!scripts/incoming/*/README.md
