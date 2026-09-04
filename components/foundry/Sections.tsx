@@ -230,6 +230,7 @@ export function Foot() {
                     </a>
                 ))}
                 <a href={`mailto:${site.email}`}>{site.email}</a>
+                <a href="/collections">Collections</a>
                 <span className="foot-credit">{footer.credit}</span>
             </div>
         </footer>
