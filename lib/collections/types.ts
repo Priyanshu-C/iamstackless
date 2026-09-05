@@ -32,8 +32,11 @@ export type Watch = CollectionItem & {
 };
 
 export type Shoe = CollectionItem & {
-    size: string;
-    material: string;
+    /** The size actually owned — a fact about the pair, not the listing, so
+        it is supplied by hand rather than scraped. */
+    size?: string;
+    /** Where the listing states it. */
+    material?: string;
     colourway: string;
 };
 

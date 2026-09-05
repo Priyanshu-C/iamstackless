@@ -78,6 +78,14 @@ describe("facetsFor", () => {
         const empty = { ...fixture(), items: [] };
         expect(facetsFor(empty)).toEqual([]);
     });
+
+    it("hides a facet with only one distinct value — it would filter nothing", () => {
+        const single = {
+            ...fixture(),
+            items: [perfume("only", "EDP", ["vetiver"])],
+        };
+        expect(facetsFor(single)).toEqual([]);
+    });
 });
 
 describe("facets with missing values", () => {
@@ -96,10 +104,33 @@ describe("facets with missing values", () => {
         });
         const category = {
             ...base,
-            items: [watch("has-size", 42), watch("no-size")],
+            items: [watch("has-size", 42), watch("other-size", 44), watch("no-size")],
         };
         const caseFacet = facetsFor(category).find((f) => f.key === "caseSize");
-        expect(caseFacet?.values).toEqual(["42mm"]);
+        expect(caseFacet?.values).toEqual(["42mm", "44mm"]);
         expect(caseFacet?.values.join()).not.toMatch(/undefined/);
+    });
+});
+
+describe("facet value ordering", () => {
+    it("orders numeric values by magnitude, not by string collation", () => {
+        const base = getCategory("watches")!;
+        const watch = (id: string, caseSize: number) => ({
+            id,
+            seq: 1,
+            name: id,
+            brand: "b",
+            price: { amount: 1, currency: "INR" as const },
+            image: `/images/collections/watches/${id}.webp`,
+            movement: "quartz" as const,
+            reference: "r",
+            caseSize,
+        });
+        const category = {
+            ...base,
+            items: [watch("a", 42.5), watch("b", 42), watch("c", 59), watch("d", 51)],
+        };
+        const sizes = facetsFor(category).find((f) => f.key === "caseSize");
+        expect(sizes?.values).toEqual(["42mm", "42.5mm", "51mm", "59mm"]);
     });
 });

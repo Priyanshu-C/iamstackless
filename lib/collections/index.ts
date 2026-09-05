@@ -36,6 +36,7 @@ export const CATEGORIES: CategoryDef[] = [
         noun: "watches",
         items: watches,
         facets: [
+            { key: "brand", label: "Brand", get: (i: Watch) => one(i.brand) },
             {
                 key: "movement",
                 label: "Movement",
@@ -55,6 +56,7 @@ export const CATEGORIES: CategoryDef[] = [
         noun: "shoes",
         items: shoes,
         facets: [
+            { key: "brand", label: "Brand", get: (i: Shoe) => one(i.brand) },
             {
                 key: "material",
                 label: "Material",
@@ -69,6 +71,7 @@ export const CATEGORIES: CategoryDef[] = [
         noun: "perfumes",
         items: perfumes,
         facets: [
+            { key: "brand", label: "Brand", get: (i: Perfume) => one(i.brand) },
             {
                 key: "concentration",
                 label: "Concentration",
@@ -104,8 +107,11 @@ export function sorted(items: AnyItem[]): AnyItem[] {
     });
 }
 
-/** Only facets that some item actually has a value for. A drawer with no
-    quartz watches in it should not offer a Quartz filter. */
+/**
+ * Only facets worth showing. A facet needs at least two distinct values to be
+ * a filter at all — one option filters nothing out, it just hides everything
+ * else, so it is noise rather than a control.
+ */
 export function facetsFor(category: CategoryDef): Facet[] {
     return category.facets
         .map((f) => {
@@ -116,12 +122,26 @@ export function facetsFor(category: CategoryDef): Facet[] {
             return {
                 key: f.key,
                 label: f.label,
-                values: Array.from(values).sort((a, b) =>
-                    a.localeCompare(b, undefined, { numeric: true })
-                ),
+                values: Array.from(values).sort(byValue),
             };
         })
-        .filter((f) => f.values.length > 0);
+        .filter((f) => f.values.length > 1);
+}
+
+/**
+ * Sort facet values so numbers read naturally. Plain numeric collation puts
+ * "42.5mm" before "42mm", because it compares the "." against the "m" once the
+ * shared 42 is consumed. Compare any leading number first instead.
+ */
+function byValue(a: string, b: string): number {
+    const num = (v: string) => {
+        const m = v.match(/^-?\d+(\.\d+)?/);
+        return m ? Number(m[0]) : null;
+    };
+    const na = num(a);
+    const nb = num(b);
+    if (na !== null && nb !== null && na !== nb) return na - nb;
+    return a.localeCompare(b, undefined, { numeric: true });
 }
 
 export type SearchParams = Record<string, string | string[] | undefined>;

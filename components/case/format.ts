@@ -29,8 +29,9 @@ export function itemFacts(item: AnyItem): string[] {
     if ("movement" in item) {
         facts.push(item.movement[0].toUpperCase() + item.movement.slice(1));
         if (item.caseSize) facts.push(`${item.caseSize}mm`);
-    } else if ("material" in item) {
-        facts.push(item.material, item.size);
+    } else if ("colourway" in item) {
+        if (item.material) facts.push(item.material);
+        if (item.size) facts.push(item.size);
     } else if ("concentration" in item) {
         facts.push(item.concentration, `${item.volume}ml`);
     }
