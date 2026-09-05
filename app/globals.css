@@ -1386,8 +1386,19 @@ body {
 .case-stage[data-lifted] .case-cell:not([data-selected]) {
     opacity: 0.55;
 }
-.case-cell:hover .case-cell-object {
-    transform: translateY(-3px);
+/* The item being previewed — hovered or focused — rises a little. Guarded on
+   (hover: hover) so a tap on a touch device does not leave a cell stuck up. */
+@media (hover: hover) {
+    .case-cell[data-previewing]:not([data-selected]) .case-cell-object {
+        transform: translateY(-4px);
+    }
+    .case-cell[data-previewing]:not([data-selected]) {
+        background: var(--panel);
+    }
+}
+/* A previewed cell stays legible while the room is dimmed around a pinned one. */
+.case-stage[data-lifted] .case-cell[data-previewing] {
+    opacity: 1;
 }
 
 /* ---- empty tray ---- */

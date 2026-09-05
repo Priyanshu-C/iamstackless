@@ -11,13 +11,18 @@ export default function Compartment({
     item,
     index,
     selected,
+    previewing,
     onSelect,
+    onPreview,
     onKeyDown,
 }: {
     item: AnyItem;
     index: number;
     selected: boolean;
+    previewing: boolean;
     onSelect: () => void;
+    /** true on pointer-enter or focus, false on leave or blur. */
+    onPreview: (on: boolean) => void;
     onKeyDown: (event: React.KeyboardEvent<HTMLButtonElement>) => void;
 }) {
     const [broken, setBroken] = useState(false);
@@ -27,11 +32,16 @@ export default function Compartment({
             type="button"
             className="case-cell"
             data-selected={selected || undefined}
+            data-previewing={previewing || undefined}
             data-index={index}
             aria-pressed={selected}
             aria-label={`${numeral(item.seq)} ${item.brand} ${item.name} — show details`}
             onClick={onSelect}
             onKeyDown={onKeyDown}
+            onPointerEnter={() => onPreview(true)}
+            onPointerLeave={() => onPreview(false)}
+            onFocus={() => onPreview(true)}
+            onBlur={() => onPreview(false)}
         >
             <span className="case-cell-seq" aria-hidden="true">
                 {numeral(item.seq)}

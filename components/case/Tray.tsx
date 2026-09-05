@@ -15,7 +15,11 @@ export default function Tray({
     items: AnyItem[];
     filtered: boolean;
 }) {
+    // `selected` is pinned by a click and survives the pointer leaving.
+    // `preview` follows hover and keyboard focus, and wins while it lasts —
+    // so passing over the tray reads out each item without committing to one.
     const [selected, setSelected] = useState<string | null>(null);
+    const [preview, setPreview] = useState<string | null>(null);
     const grid = useRef<HTMLDivElement>(null);
 
     const focusCell = useCallback((index: number) => {
@@ -49,6 +53,7 @@ export default function Tray({
                 case "Escape":
                     event.preventDefault();
                     setSelected(null);
+                    setPreview(null);
                     break;
             }
         },
@@ -72,10 +77,13 @@ export default function Tray({
         );
     }
 
-    const current = items.find((i) => i.id === selected) ?? null;
+    const showing = preview ?? selected;
+    const current = items.find((i) => i.id === showing) ?? null;
 
+    // `data-lifted` tracks the pinned item only. Tying it to hover would dim
+    // and undim the whole tray as the pointer crossed it.
     return (
-        <div className="case-stage" data-lifted={current ? true : undefined}>
+        <div className="case-stage" data-lifted={selected ? true : undefined}>
             <Ledger item={current} />
             <div className="case-grid" ref={grid}>
                 {items.map((item, index) => (
@@ -84,9 +92,15 @@ export default function Tray({
                         item={item}
                         index={index}
                         selected={item.id === selected}
+                        previewing={item.id === showing}
                         onSelect={() =>
                             setSelected((prev) =>
                                 prev === item.id ? null : item.id
+                            )
+                        }
+                        onPreview={(on) =>
+                            setPreview((prev) =>
+                                on ? item.id : prev === item.id ? null : prev
                             )
                         }
                         onKeyDown={onKeyDown(index)}
