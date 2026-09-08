@@ -3,10 +3,14 @@
 import Image from "next/image";
 import { useState } from "react";
 import type { AnyItem } from "@/lib/collections/types";
-import { numeral } from "./format";
+import { formatPrice, numeral } from "./format";
 
 /** One object in its box. A real button, with a written label, so the case
-    is fully navigable without ever seeing it. */
+    is fully navigable without ever seeing it.
+
+    The compartment is captioned. A printer's case has the sort written on the
+    front of every drawer — an uncaptioned grid of photographs makes you hover
+    each one to find out what it is, which is the opposite of a ledger. */
 export default function Compartment({
     item,
     index,
@@ -35,7 +39,7 @@ export default function Compartment({
             data-previewing={previewing || undefined}
             data-index={index}
             aria-pressed={selected}
-            aria-label={`${numeral(item.seq)} ${item.brand} ${item.name} — show details`}
+            aria-label={`${numeral(item.seq)} ${item.brand} ${item.name}, ${formatPrice(item.price)}`}
             onClick={onSelect}
             onKeyDown={onKeyDown}
             onPointerEnter={() => onPreview(true)}
@@ -62,6 +66,17 @@ export default function Compartment({
                     />
                 )}
             </span>
+            <span className="case-cell-caption" aria-hidden="true">
+                <span className="case-cell-brand">{item.brand}</span>
+                <span className="case-cell-name">{item.name}</span>
+            </span>
         </button>
     );
+}
+
+/** A compartment with nothing in it. The case is a fixed grid of boxes, so a
+    drawer holding five things in a four-wide plate has three empty boxes —
+    ruled and quiet, never a hole where the plate should be. */
+export function EmptyCompartment() {
+    return <span className="case-cell case-cell--empty" aria-hidden="true" />;
 }

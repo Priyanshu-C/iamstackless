@@ -26,6 +26,9 @@
 html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
+    /* `clip` rather than `hidden`: `hidden` turns the root into a scroll
+       container, which breaks `position: sticky` on its descendants. */
+    overflow-x: clip;
 }
 body {
     font-family: var(--font-grotesk), system-ui, sans-serif;
@@ -34,7 +37,7 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     line-height: 1.6;
-    overflow-x: hidden;
+    overflow-x: clip;
     text-rendering: optimizeLegibility;
 }
 ::selection {
@@ -1145,220 +1148,520 @@ body {
     }
 }
 
-/* ============================================================
-   THE CASE — /collections
-   A printer's type case. The room is deliberately quiet so the
-   objects carry every bit of colour. Space Grotesk only: the
-   display serif does not come in here.
-   ============================================================ */
+/* Hallmark · macrostructure: Plate & Slip (Catalogue → Workbench)
+ * tone: austere · genre: editorial · anchor hue: 31 (vermilion, marks only)
+ * nav: rail (bottom, both doors) · footer: none — the rail is the footer
+ * enrichment: none — the objects are the imagery
+ * pre-emit critique: P5 H5 E5 S5 R5 V4
+ *
+ * THE CASE — /collections
+ * A printer's type case. The room is deliberately quiet so the objects carry
+ * every bit of colour. Space Grotesk only: the display serif does not come in
+ * here (design decision 8).
+ *
+ * Tokens are OKLCH because they are new decisions; the values are the
+ * foundry's own paper and vermilion, re-expressed. `--ink-3` and `--accent-ink`
+ * exist because the old label voice sat at 3.18:1 and carried nearly every
+ * string on the page.
+ * ============================================================ */
 
 .case {
-    --room: #e6e2da;
-    --room-sunk: #ded9cf;
+    /* grounds — the room is dim, the compartments are lit */
+    --room: oklch(91.4% 0.012 85);
+    --room-deep: oklch(93.2% 0.013 84); /* a compartment with nothing in it */
+    --plate: oklch(94.6% 0.014 84);
+    --plate-lit: oklch(97.4% 0.011 85);
+
+    /* ink — every value below is measured against --room */
+    --ink: oklch(19.3% 0.011 80); /* 14.2:1 */
+    --ink-2: oklch(39% 0.017 78); /* 7.5:1  */
+    --ink-3: oklch(50% 0.018 80); /* 4.7:1  — the label voice */
+
+    /* rules — --rule-2 clears 3:1, so a control has a visible boundary */
+    --rule: oklch(72% 0.014 82);
+    --rule-2: oklch(60% 0.014 82);
+
+    /* accent — the mark is bright, the text form is dark enough to read */
+    --accent: oklch(61% 0.203 31);
+    --accent-ink: oklch(52% 0.17 31); /* 4.6:1 */
+
+    /* 4pt scale */
+    --s-3xs: 4px;
+    --s-2xs: 8px;
+    --s-xs: 12px;
+    --s-sm: 16px;
+    --s-md: 24px;
+    --s-lg: 32px;
+    --s-xl: 48px;
+
+    /* type — one face, six sizes */
+    --t-micro: 10px;
+    --t-label: 11px;
+    --t-body: 13px;
+    --t-read: 14px;
+    --t-name: 22px;
+    --t-title: clamp(28px, 6vw, 38px);
+
     --cols: 2;
+    --front-cols: 4;
+    --rail-h: 64px; /* measured, so the sheet clears the rail exactly */
+
     min-height: 100vh;
     background: var(--room);
     color: var(--ink);
     font-family: var(--font-grotesk), system-ui, sans-serif;
 }
 .case h1,
-.case h2,
-.case h3 {
-    font-family: var(--font-grotesk), system-ui, sans-serif;
-    font-weight: 400;
-    line-height: 1.2;
+.case h2 {
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+    margin: 0;
 }
 .case a {
     color: inherit;
     text-decoration: none;
 }
 .case :focus-visible {
-    outline: 2px solid var(--vermilion);
+    outline: 2px solid var(--accent-ink);
     outline-offset: 2px;
-}
-
-/* ---- the shared 11px label voice ---- */
-.case-label {
-    font-size: 11px;
-    line-height: 1.45;
-    letter-spacing: 0.02em;
-    color: var(--ink-mute);
-    margin: 0;
 }
 
 .case-room {
     max-width: 1240px;
     margin: 0 auto;
-    padding: 28px 20px 132px;
+    padding: var(--s-md) var(--s-sm) calc(var(--rail-h) + var(--s-xl));
 }
 
-.case-head {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 16px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--line);
+/* ---- masthead ------------------------------------------------------ */
+/* Stacked, never label-left / heading-right. The title used to be 11px in
+   the muted voice — the smallest thing on its own page. */
+.case-masthead {
+    padding-bottom: var(--s-sm);
+    border-bottom: 1px solid var(--rule-2);
 }
-.case-head-sub {
+.case-title {
+    font-size: var(--t-title);
+    letter-spacing: -0.025em;
+}
+.case-standfirst {
+    margin: var(--s-2xs) 0 0;
+    font-size: var(--t-body);
+    line-height: 1.5;
+    color: var(--ink-3);
+    max-width: 46ch;
+}
+
+/* ---- the index: three drawer fronts -------------------------------- */
+.case-fronts {
+    display: block;
+}
+.case-front {
+    display: block;
+    padding: var(--s-md) 0;
+    border-bottom: 1px solid var(--rule);
+}
+.case-front-head {
+    display: block;
+    transition: transform 260ms var(--ease);
+}
+.case-front-label {
+    display: block;
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    line-height: 1.15;
+}
+.case-front-facts {
+    display: block;
+    margin-top: 2px;
+    font-size: var(--t-label);
+    color: var(--ink-3);
     font-variant-numeric: tabular-nums;
 }
+.case-front-strip {
+    display: grid;
+    grid-template-columns: repeat(var(--front-cols), minmax(0, 1fr));
+    margin-top: var(--s-sm);
+    border-top: 1px solid var(--rule);
+    border-left: 1px solid var(--rule);
+}
+.case-front-slot {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    background: var(--plate);
+    overflow: hidden;
+}
+/* An empty compartment inside a part-full plate stays almost the same shade —
+   the plate should read as one surface. A drawer that is empty end to end is a
+   different statement, and drops to the unlit room. */
+.case-front-slot--empty {
+    background: var(--room-deep);
+}
+.case-front[data-empty] .case-front-slot,
+.case-grid--ghost .case-cell--empty {
+    background: var(--room);
+}
+.case-front-slot:nth-child(n + 5) {
+    display: none;
+}
+.case-front-img {
+    object-fit: contain;
+    padding: 14%;
+    transition: transform 260ms var(--ease);
+}
+.case-front[data-empty] .case-front-label {
+    color: var(--ink-3);
+}
+@media (hover: hover) {
+    /* the drawer slides out a little */
+    .case-front:hover .case-front-head {
+        transform: translateX(var(--s-2xs));
+    }
+    .case-front:hover .case-front-img {
+        transform: translateY(-4px);
+    }
+}
+.case-front:focus-visible {
+    outline-offset: -2px;
+}
 
-/* ---- drawer index ---- */
-.case-drawers {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-.case-drawer {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 16px;
-    padding: 28px 2px;
-    border-bottom: 1px solid var(--line);
-    transition: padding-left 220ms var(--ease);
-}
-.case-drawer:hover,
-.case-drawer:focus-visible {
-    padding-left: 10px;
-}
-.case-drawer-label {
-    font-size: 24px;
-    font-weight: 400;
-}
-.case-drawer-count {
-    font-variant-numeric: tabular-nums;
-}
-
-/* ---- facets ---- */
+/* ---- facets -------------------------------------------------------- */
 .case-facets {
+    padding: var(--s-xs) 0;
+    border-bottom: 1px solid var(--rule);
+}
+.case-facets-toggle {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
-    gap: 8px 22px;
-    padding: 16px 0;
-    border-bottom: 1px solid var(--line);
+    gap: var(--s-2xs);
+    width: 100%;
+    font: inherit;
+    font-size: var(--t-label);
+    padding: var(--s-2xs) 0;
+    border: 0;
+    background: transparent;
+    color: var(--ink);
+    cursor: pointer;
+}
+.case-facets-toggle-state {
+    color: var(--ink-3);
+    font-variant-numeric: tabular-nums;
+}
+.case-facets-toggle::after {
+    content: "";
+    width: 6px;
+    height: 6px;
+    margin-left: auto;
+    border-right: 1px solid var(--ink-3);
+    border-bottom: 1px solid var(--ink-3);
+    transform: translateY(-2px) rotate(45deg);
+}
+.case-facets[data-open] .case-facets-toggle::after {
+    transform: translateY(1px) rotate(225deg);
+}
+.case-facets-body {
+    display: none;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--s-2xs) var(--s-md);
+    padding-top: var(--s-2xs);
+}
+.case-facets[data-open] .case-facets-body {
+    display: flex;
 }
 .case-facet {
     display: flex;
-    align-items: center;
-    gap: 8px;
+    align-items: baseline;
+    gap: var(--s-2xs);
     flex-wrap: wrap;
 }
 .case-facet-label {
+    font-size: var(--t-micro);
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-size: 10px;
+    letter-spacing: 0.09em;
+    color: var(--ink-3);
 }
 .case-facet-values {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
+    gap: var(--s-3xs);
 }
 .case-chip {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 6px;
     font: inherit;
-    font-size: 11px;
-    line-height: 1;
-    padding: 6px 10px;
-    border: 1px solid var(--line);
+    font-size: var(--t-label);
+    line-height: 1.2;
+    padding: 5px var(--s-2xs);
+    border: 1px solid var(--rule-2);
     border-radius: 2px;
     background: transparent;
-    color: var(--ink-soft);
+    color: var(--ink-2);
     cursor: pointer;
-    transition: border-color 160ms var(--ease), color 160ms var(--ease);
+    transition: background 160ms var(--ease), color 160ms var(--ease),
+        border-color 160ms var(--ease);
 }
-.case-chip:hover {
-    border-color: var(--line-2);
+.case-chip-count {
+    font-size: var(--t-micro);
+    font-variant-numeric: tabular-nums;
+    color: var(--ink-3);
+}
+.case-chip:hover:not(:disabled) {
+    border-color: var(--ink-2);
     color: var(--ink);
 }
 .case-chip[data-on] {
+    background: var(--ink);
     border-color: var(--ink);
-    color: var(--ink);
+    color: var(--plate-lit);
 }
-.case-chip--clear {
+.case-chip[data-on] .case-chip-count {
+    color: var(--room);
+}
+/* A value that would leave you with nothing is not a choice. */
+.case-chip:disabled {
+    cursor: default;
+    color: var(--ink-3);
+    border-color: var(--rule);
+    opacity: 0.65;
+}
+.case-facets-result {
+    display: flex;
+    align-items: baseline;
+    gap: var(--s-xs);
+    margin: 0;
     margin-left: auto;
-    color: var(--vermilion);
-    border-color: transparent;
+    font-size: var(--t-label);
+    color: var(--ink-3);
+    font-variant-numeric: tabular-nums;
+}
+.case-facets-clear {
+    font: inherit;
+    font-size: var(--t-label);
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: var(--accent-ink);
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
 }
 
-/* ---- the stage: ledger beside the tray ---- */
+/* ---- the stage: slip beside the plate ------------------------------ */
 .case-stage {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
-    gap: 26px;
-    padding-top: 26px;
+    gap: var(--s-md);
+    padding-top: var(--s-md);
 }
 
-.case-ledger {
+/* ---- the slip ------------------------------------------------------ */
+.case-slip {
     min-width: 0;
 }
-.case-ledger-seq {
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    color: var(--ink-mute);
-    margin: 0 0 6px;
+.case-slip-seq {
+    margin: 0 0 var(--s-3xs);
+    font-size: var(--t-micro);
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-3);
     font-variant-numeric: tabular-nums;
 }
-.case-ledger-name {
-    font-size: 24px;
-    font-weight: 400;
-    margin: 0 0 8px;
-    letter-spacing: -0.01em;
+.case-slip-name {
+    font-size: var(--t-name);
+    letter-spacing: -0.015em;
+    margin: 0 0 var(--s-3xs);
 }
-.case-ledger-why {
-    font-size: 14px;
+.case-slip-facts {
+    margin: 0 0 var(--s-sm);
+    font-size: var(--t-body);
+    color: var(--ink-2);
+}
+.case-slip-rows {
+    margin: 0;
+}
+.case-slip-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--s-sm);
+    padding: 7px 0;
+    border-top: 1px solid var(--rule);
+}
+.case-slip-row dt {
+    flex: none;
+    font-size: var(--t-micro);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+}
+.case-slip-row dd {
+    margin: 0;
+    text-align: right;
+    font-size: var(--t-body);
+    line-height: 1.35;
+    font-variant-numeric: tabular-nums;
+}
+.case-slip-row dd[data-blank] {
+    color: var(--ink-3);
+    font-variant-numeric: normal;
+}
+.case-slip-why {
+    margin: var(--s-sm) 0 0;
+    font-size: var(--t-read);
     line-height: 1.5;
-    color: var(--ink-soft);
-    margin: 12px 0 0;
-    max-width: 30ch;
+    color: var(--ink-2);
+    max-width: 34ch;
 }
-.case-ledger-idle {
-    opacity: 0.5;
+/* A note that has not been written yet: a ruled blank, never invented words. */
+.case-slip-why--blank {
+    color: var(--ink-3);
+    font-size: var(--t-label);
 }
-/* a note that has not been written yet — a rule, never invented words */
-.case-ledger-why--blank {
-    color: var(--ink-mute);
-    opacity: 0.5;
+.case-slip-blank-rule {
+    display: block;
+    height: 1px;
+    margin-bottom: var(--s-2xs);
+    background: repeating-linear-gradient(
+        to right,
+        var(--rule-2) 0 5px,
+        transparent 5px 10px
+    );
+}
+.case-slip-close {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--s-2xs);
+    margin-top: var(--s-md);
+    font: inherit;
+    font-size: var(--t-label);
+    padding: 6px var(--s-2xs) 6px 0;
+    border: 0;
+    background: transparent;
+    color: var(--ink-3);
+    cursor: pointer;
+    transition: color 160ms var(--ease);
+}
+.case-slip-close:hover {
+    color: var(--ink);
+}
+.case-kbd {
+    font: inherit;
+    font-size: var(--t-micro);
+    padding: 2px 5px;
+    border: 1px solid var(--rule-2);
+    border-radius: 2px;
+    color: var(--ink-3);
 }
 
-/* ---- the tray ---- */
+/* the drawer's own summary — what the column says when nothing is lifted */
+.case-slip-count {
+    display: flex;
+    align-items: baseline;
+    gap: var(--s-2xs);
+    margin: 0 0 var(--s-xs);
+}
+.case-slip-count-n {
+    font-size: 40px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    font-variant-numeric: tabular-nums;
+}
+.case-slip-count-noun {
+    font-size: var(--t-body);
+    color: var(--ink-3);
+}
+.case-slip-brands {
+    list-style: none;
+    margin: var(--s-sm) 0 0;
+    padding: 0;
+}
+/* What the drawer is made of. The facet chips offer these as filters; this
+   reads them as a composition, which is a different question. */
+.case-slip-brands li {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: baseline;
+    gap: 0 var(--s-sm);
+    padding: 5px 0;
+    font-size: var(--t-body);
+}
+.case-slip-brand-name {
+    color: var(--ink-2);
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+.case-slip-brand-count {
+    color: var(--ink-3);
+    font-variant-numeric: tabular-nums;
+}
+.case-slip-brand-share {
+    grid-column: 1 / -1;
+    height: 3px;
+    margin: 6px 0 2px;
+    background: var(--rule);
+}
+.case-slip-brand-share::before {
+    content: "";
+    display: block;
+    height: 100%;
+    width: var(--share);
+    background: var(--ink-2);
+}
+.case-slip-hint {
+    margin: var(--s-md) 0 0;
+    font-size: var(--t-label);
+    color: var(--ink-3);
+}
+
+/* ---- the plate ----------------------------------------------------- */
 .case-grid {
     display: grid;
     grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
-    border-top: 1px solid var(--line);
-    border-left: 1px solid var(--line);
-    background: var(--room-sunk);
+    border-top: 1px solid var(--rule);
+    border-left: 1px solid var(--rule);
 }
 .case-cell {
     position: relative;
     display: block;
     width: 100%;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 1 / 1.2;
     margin: 0;
     padding: 0;
     border: 0;
-    border-right: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-    background: var(--room);
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    background: var(--plate);
     font: inherit;
     color: inherit;
+    text-align: left;
     cursor: pointer;
-    transition: background 200ms var(--ease), opacity 200ms var(--ease);
+    transition: background 200ms var(--ease);
+}
+/* A compartment with nothing in it. Ruled like the rest — an unfilled case
+   looks intentional; a hole where the plate should be looks broken. */
+.case-cell--empty {
+    background: var(--room-deep);
+    cursor: default;
 }
 .case-cell-seq {
     position: absolute;
-    top: 8px;
+    top: var(--s-2xs);
     left: 9px;
-    font-size: 10px;
+    font-size: var(--t-micro);
     letter-spacing: 0.06em;
-    color: var(--ink-mute);
+    color: var(--ink-3);
     font-variant-numeric: tabular-nums;
     z-index: 2;
 }
 .case-cell-object {
     position: absolute;
-    inset: 22px 14px 14px;
+    inset: 26px var(--s-xs) 58px;
     display: grid;
     place-items: center;
     transition: transform 320ms var(--ease), filter 320ms var(--ease);
@@ -1367,62 +1670,84 @@ body {
     object-fit: contain;
 }
 .case-cell-fallback {
-    font-size: 14px;
+    font-size: var(--t-body);
     line-height: 1.3;
     text-align: center;
-    color: var(--ink-soft);
+    color: var(--ink-2);
     padding: 0 6px;
+}
+/* The compartment is captioned. A grid of unlabelled photographs makes you
+   hover every one to find out what it is — the opposite of a ledger. */
+.case-cell-caption {
+    position: absolute;
+    left: var(--s-xs);
+    right: var(--s-xs);
+    bottom: var(--s-xs);
+    display: block;
+}
+.case-cell-brand {
+    display: block;
+    font-size: var(--t-micro);
+    letter-spacing: 0.04em;
+    color: var(--ink-3);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.case-cell-name {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-size: var(--t-body);
+    line-height: 1.25;
+    color: var(--ink);
+    overflow-wrap: anywhere;
 }
 
 /* the lift */
-.case-cell[data-selected] .case-cell-object {
-    transform: translateY(-10px) scale(1.06);
-    filter: drop-shadow(0 12px 18px rgba(23, 20, 15, 0.22));
-}
 .case-cell[data-selected] {
-    background: var(--panel);
+    background: var(--plate-lit);
 }
-/* the room dims around what is lifted */
-.case-stage[data-lifted] .case-cell:not([data-selected]) {
-    opacity: 0.55;
+.case-cell[data-selected] .case-cell-object {
+    transform: translateY(-10px) scale(1.05);
+    filter: drop-shadow(0 12px 16px oklch(19.3% 0.011 80 / 0.22));
 }
-/* The item being previewed — hovered or focused — rises a little. Guarded on
-   (hover: hover) so a tap on a touch device does not leave a cell stuck up. */
+/* An instant mark, not an animation: this is the one the slip is describing. */
+.case-cell[data-selected]::after {
+    content: "";
+    position: absolute;
+    left: -1px;
+    right: -1px;
+    bottom: -1px;
+    height: 2px;
+    background: var(--accent);
+}
+/* Hover and keyboard focus preview an item without committing to it. Guarded
+   on (hover: hover) so a tap does not leave a cell stuck up. */
 @media (hover: hover) {
+    .case-cell[data-previewing]:not([data-selected]) {
+        background: var(--plate-lit);
+    }
     .case-cell[data-previewing]:not([data-selected]) .case-cell-object {
         transform: translateY(-4px);
     }
-    .case-cell[data-previewing]:not([data-selected]) {
-        background: var(--panel);
-    }
-}
-/* A previewed cell stays legible while the room is dimmed around a pinned one. */
-.case-stage[data-lifted] .case-cell[data-previewing] {
-    opacity: 1;
 }
 
-/* ---- empty tray ---- */
-.case-tray-empty {
-    padding-top: 26px;
+/* ---- empty drawer -------------------------------------------------- */
+.case-stage--empty {
+    display: block;
 }
 .case-grid--ghost {
     pointer-events: none;
 }
-.case-cell--ghost {
-    display: block;
-    width: 100%;
-    aspect-ratio: 1 / 1;
-    border-right: 1px solid var(--line);
-    border-bottom: 1px solid var(--line);
-    background: var(--room);
-}
 .case-empty-note {
-    font-size: 14px;
-    color: var(--ink-mute);
-    margin: 0 0 16px;
+    font-size: var(--t-read);
+    color: var(--ink-2);
+    margin: 0 0 var(--s-sm);
 }
 
-/* ---- the rail ---- */
+/* ---- the rail ------------------------------------------------------ */
 .case-rail {
     position: fixed;
     left: 0;
@@ -1430,61 +1755,110 @@ body {
     bottom: 0;
     z-index: 20;
     background: var(--room);
-    border-top: 1px solid var(--line);
+    border-top: 1px solid var(--rule-2);
+}
+.case-rail-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--s-sm);
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: var(--s-2xs) var(--s-sm);
 }
 .case-rail-list {
     display: flex;
-    gap: 8px;
+    gap: var(--s-3xs);
     list-style: none;
-    margin: 0 auto;
-    padding: 12px 20px;
-    max-width: 1240px;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
 }
 .case-rail-item {
     display: flex;
     flex-direction: column;
     gap: 1px;
-    padding: 6px 12px 5px;
-    border-bottom: 1px solid transparent;
+    padding: 5px var(--s-2xs) 4px;
+    border-bottom: 2px solid transparent;
     transition: border-color 200ms var(--ease), color 200ms var(--ease);
-    color: var(--ink-mute);
+    color: var(--ink-3);
 }
 .case-rail-item:hover {
     color: var(--ink);
 }
 .case-rail-item[data-active] {
     color: var(--ink);
-    border-bottom-color: var(--vermilion);
+    border-bottom-color: var(--accent);
 }
 .case-rail-count {
-    font-size: 10px;
+    font-size: var(--t-micro);
     letter-spacing: 0.06em;
     font-variant-numeric: tabular-nums;
 }
 .case-rail-label {
-    font-size: 11px;
+    font-size: var(--t-label);
     white-space: nowrap;
 }
+/* The way out. Without it a drawer is a room with no handle on the inside. */
+.case-rail-door {
+    flex: none;
+    font-size: var(--t-label);
+    color: var(--ink-3);
+    white-space: nowrap;
+    padding: var(--s-2xs) 0;
+    transition: color 200ms var(--ease);
+}
+.case-rail-door:hover {
+    color: var(--ink);
+}
 
-/* ---- the lock ---- */
+/* ---- the lock ------------------------------------------------------ */
 .case-lock {
     min-height: 100vh;
     display: grid;
     place-items: center;
-    padding: 20px;
+    padding: var(--s-md) var(--s-sm);
+}
+.case-lock-plate {
+    width: min(340px, 100%);
+    padding-top: var(--s-sm);
+    border-top: 2px solid var(--ink);
+}
+.case-lock-eyebrow {
+    margin: 0;
+    font-size: var(--t-micro);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+}
+.case-lock-title {
+    font-size: 32px;
+    letter-spacing: -0.02em;
+    margin: var(--s-3xs) 0 0;
+}
+.case-lock-blurb {
+    margin: var(--s-2xs) 0 var(--s-lg);
+    font-size: var(--t-body);
+    line-height: 1.5;
+    color: var(--ink-3);
 }
 .case-lock-form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    width: min(280px, 100%);
+    display: grid;
+    gap: var(--s-2xs);
+}
+.case-lock-label {
+    font-size: var(--t-micro);
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-3);
 }
 .case-lock-input {
     font: inherit;
-    font-size: 14px;
-    padding: 9px 2px;
+    font-size: var(--t-read);
+    letter-spacing: 0.2em;
+    padding: var(--s-2xs) 2px;
     border: 0;
-    border-bottom: 1px solid var(--line-2);
+    border-bottom: 1px solid var(--rule-2);
     background: transparent;
     color: var(--ink);
     border-radius: 0;
@@ -1493,12 +1867,16 @@ body {
     outline: none;
     border-bottom-color: var(--ink);
 }
+.case-lock-input[aria-invalid] {
+    border-bottom-color: var(--accent-ink);
+}
 .case-lock-go {
-    align-self: flex-start;
+    justify-self: start;
+    margin-top: var(--s-2xs);
     font: inherit;
-    font-size: 11px;
-    padding: 7px 14px;
-    border: 1px solid var(--line-2);
+    font-size: var(--t-label);
+    padding: 7px var(--s-sm);
+    border: 1px solid var(--ink);
     border-radius: 2px;
     background: transparent;
     color: var(--ink);
@@ -1507,76 +1885,203 @@ body {
 }
 .case-lock-go:hover {
     background: var(--ink);
-    color: var(--room);
+    color: var(--plate-lit);
+}
+.case-lock-error {
+    min-height: 1.4em;
+    margin: var(--s-xs) 0 0;
+    font-size: var(--t-label);
+    color: var(--accent-ink);
+}
+.case-lock-back {
+    display: inline-block;
+    margin-top: var(--s-lg);
+    padding-top: var(--s-sm);
+    border-top: 1px solid var(--rule);
+    width: 100%;
+    font-size: var(--t-label);
+    color: var(--ink-3);
+    transition: color 180ms var(--ease);
+}
+.case-lock-back:hover {
+    color: var(--ink);
 }
 
-/* ---- wider rooms ---- */
-@media (min-width: 700px) {
+/* ---- wider rooms --------------------------------------------------- */
+@media (min-width: 560px) {
     .case {
         --cols: 3;
     }
+}
+@media (min-width: 700px) {
+    .case {
+        --front-cols: 5;
+    }
     .case-room {
-        padding: 40px 32px 128px;
+        padding: var(--s-lg) var(--s-md) calc(var(--rail-h) + var(--s-xl));
+    }
+    /* the front opens sideways once there is room for it */
+    .case-front {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: center;
+        gap: var(--s-lg);
+    }
+    .case-front-strip {
+        margin-top: 0;
+        grid-template-columns: none;
+        grid-auto-flow: column;
+        grid-auto-columns: 68px;
+    }
+    .case-front-slot:nth-child(n + 5) {
+        display: block;
+    }
+    .case-front-slot:nth-child(n + 6) {
+        display: none;
+    }
+    /* the toggle is only for the narrow room */
+    .case-facets-toggle {
+        display: none;
+    }
+    .case-facets-body {
+        display: flex;
     }
 }
 @media (min-width: 1000px) {
     .case {
         --cols: 4;
+        --front-cols: 6;
+    }
+    .case-front-slot:nth-child(n + 6) {
+        display: block;
+    }
+    .case-front-strip {
+        grid-auto-columns: 108px;
+    }
+    .case-front {
+        padding: var(--s-lg) 0;
+    }
+    .case-front-label {
+        font-size: 32px;
     }
     .case-stage {
-        grid-template-columns: 240px minmax(0, 1fr);
-        gap: 40px;
+        grid-template-columns: 260px minmax(0, 1fr);
+        gap: var(--s-xl);
     }
-    .case-ledger {
+    .case-slip {
         position: sticky;
-        top: 40px;
+        top: var(--s-lg);
         align-self: start;
+    }
+    /* One at a time in the column: the entry replaces the summary. */
+    .case-slip[data-showing="item"] .case-slip-drawer,
+    .case-slip[data-showing="drawer"] .case-slip-live {
+        display: none;
+    }
+    .case-slip-live > *,
+    .case-slip-drawer {
+        animation: case-slip-in 200ms var(--ease) both;
     }
 }
 
-/* ---- the ledger becomes a sheet on small screens ---- */
+@keyframes case-slip-in {
+    from {
+        opacity: 0;
+        transform: translateY(3px);
+    }
+}
+
+/* ---- the narrow room ----------------------------------------------- */
+/* The summary stays in the flow so lifting something never shifts the plate;
+   the entry arrives as a sheet over the rail. */
 @media (max-width: 999px) {
-    .case-ledger {
+    .case-slip-live {
         position: fixed;
         left: 0;
         right: 0;
-        bottom: 57px;
+        bottom: var(--rail-h);
         z-index: 19;
-        background: var(--panel);
-        border-top: 1px solid var(--line);
-        padding: 16px 20px 18px;
+        max-height: 62vh;
+        overflow-y: auto;
+        background: var(--plate-lit);
+        border-top: 1px solid var(--rule-2);
+        padding: var(--s-sm) var(--s-sm) var(--s-md);
         transform: translateY(110%);
         transition: transform 300ms var(--ease-io);
     }
-    .case-stage[data-lifted] .case-ledger {
+    .case-stage[data-lifted] .case-slip-live {
         transform: translateY(0);
     }
-    .case-ledger-idle {
+    .case-slip-why {
+        max-width: none;
+    }
+    .case-slip-drawer {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 0 var(--s-md);
+        padding-bottom: var(--s-xs);
+        border-bottom: 1px solid var(--rule);
+    }
+    .case-slip-drawer .case-slip-seq,
+    .case-slip-count,
+    .case-slip-hint,
+    .case-slip-brands {
         display: none;
     }
-    .case-ledger-why {
-        max-width: none;
+    .case-slip-drawer .case-slip-rows {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0 var(--s-md);
+    }
+    .case-slip-drawer .case-slip-row {
+        gap: var(--s-2xs);
+        border-top: 0;
+        padding: 0;
+    }
+    .case-slip-drawer .case-slip-row dd {
+        font-size: var(--t-label);
+        color: var(--ink-2);
+    }
+}
+@media (max-width: 380px) {
+    .case-room {
+        padding-left: var(--s-xs);
+        padding-right: var(--s-xs);
+    }
+    .case-rail-inner {
+        gap: var(--s-2xs);
+        padding-left: var(--s-xs);
+        padding-right: var(--s-xs);
+    }
+    .case-rail-item {
+        padding-left: 5px;
+        padding-right: 5px;
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .case *,
-    .case-ledger {
-        transition-duration: 120ms !important;
-        transition-property: opacity !important;
+    .case *::before,
+    .case *::after {
         animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 120ms !important;
+        transition-property: opacity, background-color, border-color, color !important;
     }
     .case-cell[data-selected] .case-cell-object,
-    .case-cell:hover .case-cell-object {
+    .case-cell[data-previewing] .case-cell-object,
+    .case-front:hover .case-front-head,
+    .case-front:hover .case-front-img {
         transform: none;
     }
     @media (max-width: 999px) {
-        .case-ledger {
+        .case-slip-live {
             transform: translateY(0);
             opacity: 0;
             pointer-events: none;
         }
-        .case-stage[data-lifted] .case-ledger {
+        .case-stage[data-lifted] .case-slip-live {
             opacity: 1;
             pointer-events: auto;
         }

@@ -69,7 +69,7 @@ Extracted from a `hallmark study` of shopify.com/editions, adapted to the foundr
 
 **Room colour:** `#e6e2da` — the site's `--paper` (`#f2ece1`) with chroma reduced. Continuous with the foundry, recessive enough not to tint product photography.
 
-**Type inside the case:** Space Grotesk only, at 10 / 11 / 14 / 24px, weights 400–500. Item name is 24px weight 400. Fraunces does not appear inside the case.
+**Type inside the case:** Space Grotesk only, at 10 / 11 / 13 / 14 / 22 / 40px and a `clamp(28px, 6vw, 38px)` masthead, weights 400–500. Fraunces does not appear inside the case. *(Revised 2026-09-08 — see Revision below. The original 10/11/14/24 scale put the page title in the same muted 11px voice as every other string, which inverted the hierarchy of every page in the section.)*
 
 ---
 
@@ -179,6 +179,8 @@ components/case/Compartment.tsx                   one object in its box
 components/case/Ledger.tsx                        the lifted item's data
 components/case/Rail.tsx                          fixed bottom drawer switcher
 components/case/Facets.tsx                        filter row above the tray
+components/case/DrawerFront.tsx                   one drawer, shut, on the index
+lib/collections/summary.ts                        what a drawer knows about itself
 middleware.ts                                     cookie check
 lib/collections/auth.ts                           sign / verify the cookie
 ```
@@ -189,7 +191,7 @@ Each unit is independently comprehensible: `Tray` knows about layout and selecti
 
 ## Interaction
 
-**The tray.** Uniform compartments divided by hairlines at the existing `--line` token (`rgba(23,20,15,0.14)`). No cards, no shadows, no rounded rectangles. Each compartment carries `№NN` at 10px, top-left. The object sits inside as a cut-out image on the neutral ground. Empty compartments remain ruled and empty — an unfilled case looks intentional.
+**The tray.** Uniform compartments divided by hairlines. No cards, no shadows, no rounded rectangles. Each compartment carries `№NN` at 10px top-left, the object as a cut-out image, and a caption — brand at 10px over name at 13px — along the bottom. Empty compartments remain ruled and empty, including the tail of a part-filled row, so the plate is always a rectangle.
 
 **The lift.** Clicking a compartment raises the object out of the tray (`translateY` + slight scale + shadow) while the room dims ~8%. The ledger sets to the left on desktop, below on mobile:
 
@@ -203,13 +205,13 @@ Bought it to stop borrowing my father's.     14px
 
 Escape or a second click drops it back.
 
-**The rail.** Fixed to the bottom, persistent across all drawers. Three entries with live counts (`Watches 14 · Shoes 9 · Perfumes 22`), each a stacked pair at 11px.
+**The rail.** Fixed to the bottom, persistent across all drawers. `All` plus one entry per drawer, each a stacked count-over-label pair, and a `← Foundry` door at the far end. It carries both ways out: back to the case index, and back to the portfolio.
 
 **Facets.** A thin row at the top of the tray, scoped to the current category. Multiple selections within a facet are OR'd; across facets, AND'd. Perfume notes are the richest filter in the set (every item containing vetiver). Filter state lives in the URL query string, so a filtered view is linkable and survives a reload.
 
 **Scrolling.** The room and rail stay fixed; the tray scrolls vertically beneath them. This is the deliberate departure from the source, which cannot scroll at all.
 
-**Motion.** Three primitives only: the lift, the rail underline slide, and a short stagger as the tray fills. `framer-motion` is already a dependency. All collapse to a ≤150ms opacity crossfade under `prefers-reduced-motion`.
+**Motion.** Three primitives only: the lift, the drawer-front slide on the index, and the slip's fade-in as it changes register. Pure CSS — `framer-motion` is a dependency of the portfolio, not of the case. All collapse under `prefers-reduced-motion`.
 
 ---
 
@@ -257,3 +259,64 @@ Deliberately excluded, recorded so they are not re-litigated during implementati
 - Current market value, sold/retired status, wear logs, servicing history (decision 3).
 - Per-item pages, full-text search (decision 5 — revisit past ~100 items).
 - Any write path from the browser. Items are added by editing the data files and committing.
+
+---
+
+## Revision — 2026-09-08
+
+A `hallmark redesign` pass over the built section. The eight decisions above all
+stand; what changed is the execution of them.
+
+### What was wrong
+
+- **The label voice failed contrast.** `--ink-mute` (`#857c6e`) on the room
+  measured **3.18:1**, and it carried nearly every string in the section —
+  page titles, counts, facts, prices, the rail. Below the 4.5:1 floor for text
+  under 24px.
+- **A part-filled row painted a grey slab.** The grid's own background showed
+  through wherever a row was short, which is every drawer whose count is not a
+  multiple of the column count. It read as a rendering fault, not as an
+  unfilled case.
+- **Nothing was named.** A drawer was a wall of unlabelled photographs; you had
+  to hover each one to learn what it was. That defeats the success criterion
+  "opening a drawer answers *what do I own here* in one screen."
+- **The ledger column was empty most of the time** — a quarter of the page
+  holding one faint line.
+- **The index was a list of three words** on an otherwise empty field, with no
+  sight of what was in any drawer.
+- **There was no way back.** No link from a drawer to the index, none from
+  anywhere to the portfolio.
+- **`colourway`, `reference` and `noun` were collected and never shown**, and
+  `maximumFractionDigits: 0` reported a $64.96 pair as `$65` — a ledger
+  misreporting what was paid.
+
+### What changed
+
+- **Tokens re-cut in OKLCH**, scoped to `.case`, with an ink ramp measured
+  against the room: `--ink-3` at **4.7:1** replaces the old muted voice, and
+  `--accent-ink` at **4.6:1** is the accent's text form. `--rule-2` clears 3:1
+  so a control has a visible boundary. The room, the paper and the vermilion
+  are the foundry's own values, re-expressed.
+- **Plate & Slip.** The compartment grid pads its last row with ruled empties,
+  measured from the real rendered column count. The slip beside it carries the
+  lifted item's entry, and when nothing is lifted, what the drawer knows about
+  itself: count, spend per currency, acquisition span, notes still to write,
+  and a proportional bar per brand. It is never empty.
+- **Compartments are captioned** — brand over name, along the bottom.
+- **The index shows the drawers shut, with the first few things showing
+  through the front.** An empty drawer drops to the unlit room.
+- **Facets carry counts refined against the other active facets**, so a chip
+  that would leave you with nothing says so and is not clickable. On narrow
+  screens they collapse behind one `Filter` disclosure.
+- **The room dims no more.** Lifting an object lights its compartment and marks
+  it; the rest of the plate is left alone, because a tray at 55 % opacity reads
+  as loading rather than as focused.
+- **Copy is checked against the data.** The drawer says "In the order they were
+  added" while no item carries a date, and "Newest first" only once one does.
+
+### Known, not fixed
+
+Apparent object size still varies between compartments. `normalize-image.mjs`
+fits each subject's *bounding box* to 78 % of a square frame, so a watch on a
+long strap ends up with a smaller dial than a compact one beside it. That is an
+ingest question, not a CSS one, and is left for a pass over the script.

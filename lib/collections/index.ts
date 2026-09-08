@@ -21,8 +21,15 @@ export type CategoryDef = {
     facets: FacetDef[];
 };
 
-/** Values actually present in the data, ready to render as filter controls. */
-export type Facet = { key: string; label: string; values: string[] };
+/** Values actually present in the data, ready to render as filter controls.
+    `counts` says how many items carry each value, so a chip can show what it
+    is worth clicking before it is clicked. */
+export type Facet = {
+    key: string;
+    label: string;
+    values: string[];
+    counts: Record<string, number>;
+};
 
 /** A facet value, or nothing at all. Fields are optional, and a missing value
     must drop out of the facet list rather than becoming "undefined". */
@@ -40,7 +47,10 @@ export const CATEGORIES: CategoryDef[] = [
             {
                 key: "movement",
                 label: "Movement",
-                get: (i: Watch) => one(i.movement),
+                // Sentence case, so the chip reads beside "Casio" and "42mm"
+                // rather than shouting its lowercase origin in the data.
+                get: (i: Watch) =>
+                    one(i.movement[0].toUpperCase() + i.movement.slice(1)),
             },
             {
                 key: "caseSize",
@@ -111,21 +121,47 @@ export function sorted(items: AnyItem[]): AnyItem[] {
  * Only facets worth showing. A facet needs at least two distinct values to be
  * a filter at all — one option filters nothing out, it just hides everything
  * else, so it is noise rather than a control.
+ *
+ * Counts are refined against the *other* active facets, the way faceted search
+ * is meant to work: with Seiko selected, the Movement counts describe the
+ * Seikos. A chip counting zero is a dead end, and the UI can say so before it
+ * is clicked rather than after.
  */
-export function facetsFor(category: CategoryDef): Facet[] {
+export function facetsFor(
+    category: CategoryDef,
+    params: SearchParams = {}
+): Facet[] {
     return category.facets
         .map((f) => {
-            const values = new Set<string>();
+            // Everything that survives every filter except this one.
+            const pool = applyFilters(category, omit(params, f.key));
+            const counts: Record<string, number> = {};
             for (const item of category.items) {
-                for (const v of f.get(item as never)) if (v) values.add(v);
+                // One item counts once per facet, even when it carries the
+                // same value twice (a perfume listing vetiver in two tiers).
+                for (const v of Array.from(new Set(f.get(item as never)))) {
+                    if (v) counts[v] = counts[v] ?? 0;
+                }
+            }
+            for (const item of pool) {
+                for (const v of Array.from(new Set(f.get(item as never)))) {
+                    if (v) counts[v] = (counts[v] ?? 0) + 1;
+                }
             }
             return {
                 key: f.key,
                 label: f.label,
-                values: Array.from(values).sort(byValue),
+                values: Object.keys(counts).sort(byValue),
+                counts,
             };
         })
         .filter((f) => f.values.length > 1);
+}
+
+function omit(params: SearchParams, key: string): SearchParams {
+    const rest: SearchParams = { ...params };
+    delete rest[key];
+    return rest;
 }
 
 /**

@@ -1,33 +1,38 @@
-import Link from "next/link";
+import DrawerFront from "@/components/case/DrawerFront";
 import Rail from "@/components/case/Rail";
 import { CATEGORIES } from "@/lib/collections";
+import { summarise } from "@/lib/collections/summary";
+
+/** Never repeat the same number twice in one line: when nothing has been
+    written up yet, say so in words. */
+function noteState(count: number, unnoted: number): string {
+    if (unnoted === 0) return ".";
+    if (unnoted === count) return ", none of them written up yet.";
+    return `, ${unnoted} still waiting on a note.`;
+}
 
 export default function CaseIndex() {
-    const total = CATEGORIES.reduce((n, c) => n + c.items.length, 0);
+    const everything = CATEGORIES.flatMap((c) => c.items);
+    const all = summarise(everything);
+    const filled = CATEGORIES.filter((c) => c.items.length > 0).length;
 
     return (
         <main className="case-room">
-            <header className="case-head">
-                <p className="case-label">The Case</p>
-                <p className="case-label case-head-sub">
-                    {total === 0
-                        ? "Empty, for now."
-                        : `${total} things, three drawers.`}
+            <header className="case-masthead">
+                <h1 className="case-title">The Case</h1>
+                <p className="case-standfirst">
+                    {all.count === 0
+                        ? "Three drawers, labelled and empty."
+                        : `${all.count} things, ${filled} of ${CATEGORIES.length} drawers filled` +
+                          noteState(all.count, all.unnoted)}
                 </p>
             </header>
 
-            <ul className="case-drawers">
+            <div className="case-fronts">
                 {CATEGORIES.map((c) => (
-                    <li key={c.slug}>
-                        <Link className="case-drawer" href={`/collections/${c.slug}`}>
-                            <span className="case-drawer-label">{c.label}</span>
-                            <span className="case-label case-drawer-count">
-                                {c.items.length}
-                            </span>
-                        </Link>
-                    </li>
+                    <DrawerFront key={c.slug} category={c} />
                 ))}
-            </ul>
+            </div>
 
             <Rail />
         </main>

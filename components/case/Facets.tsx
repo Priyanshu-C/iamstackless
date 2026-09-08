@@ -1,19 +1,38 @@
 "use client";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 import type { Facet } from "@/lib/collections";
 
 /** Filter state lives in the URL, so a filtered drawer is linkable and
-    survives a reload. OR within a facet, AND across facets. */
-export default function Facets({ facets }: { facets: Facet[] }) {
+    survives a reload. OR within a facet, AND across facets.
+
+    Every chip carries the number of things it would leave you with, counted
+    against the other filters already on. A chip that would leave you with
+    nothing says so, and is not clickable — the row never leads to a dead end. */
+export default function Facets({
+    facets,
+    shown,
+    total,
+}: {
+    facets: Facet[];
+    shown: number;
+    total: number;
+}) {
     const router = useRouter();
     const pathname = usePathname();
     const params = useSearchParams();
+    const [open, setOpen] = useState(false);
 
     if (facets.length === 0) return null;
 
     const isOn = (key: string, value: string) =>
         params.getAll(key).includes(value);
+
+    const activeCount = facets.reduce(
+        (n, f) => n + params.getAll(f.key).length,
+        0
+    );
 
     const toggle = (key: string, value: string) => {
         const next = new URLSearchParams(params.toString());
@@ -27,40 +46,72 @@ export default function Facets({ facets }: { facets: Facet[] }) {
         });
     };
 
-    const active = facets.some((f) => params.getAll(f.key).length > 0);
-
     return (
-        <div className="case-facets">
-            {facets.map((facet) => (
-                <div className="case-facet" key={facet.key}>
-                    <span className="case-label case-facet-label">
-                        {facet.label}
-                    </span>
-                    <div className="case-facet-values">
-                        {facet.values.map((value) => (
+        <div className="case-facets" data-open={open || undefined}>
+            <button
+                type="button"
+                className="case-facets-toggle"
+                aria-expanded={open}
+                onClick={() => setOpen((v) => !v)}
+            >
+                <span>Filter</span>
+                <span className="case-facets-toggle-state">
+                    {activeCount > 0 ? `${activeCount} on` : "off"}
+                </span>
+            </button>
+
+            <div className="case-facets-body">
+                {facets.map((facet) => (
+                    <div className="case-facet" key={facet.key}>
+                        <span className="case-facet-label">{facet.label}</span>
+                        <div className="case-facet-values">
+                            {facet.values.map((value) => {
+                                const on = isOn(facet.key, value);
+                                const count = facet.counts[value] ?? 0;
+                                return (
+                                    <button
+                                        type="button"
+                                        key={value}
+                                        className="case-chip"
+                                        data-on={on || undefined}
+                                        aria-pressed={on}
+                                        disabled={!on && count === 0}
+                                        onClick={() =>
+                                            toggle(facet.key, value)
+                                        }
+                                    >
+                                        {value}
+                                        <span className="case-chip-count">
+                                            {count}
+                                        </span>
+                                    </button>
+                                );
+                            })}
+                        </div>
+                    </div>
+                ))}
+
+                <p className="case-facets-result" aria-live="polite">
+                    {activeCount === 0 ? (
+                        <span>Showing all {total}</span>
+                    ) : (
+                        <>
+                            <span>
+                                {shown} of {total}
+                            </span>
                             <button
                                 type="button"
-                                key={value}
-                                className="case-chip"
-                                data-on={isOn(facet.key, value) || undefined}
-                                aria-pressed={isOn(facet.key, value)}
-                                onClick={() => toggle(facet.key, value)}
+                                className="case-facets-clear"
+                                onClick={() =>
+                                    router.replace(pathname, { scroll: false })
+                                }
                             >
-                                {value}
+                                Clear
                             </button>
-                        ))}
-                    </div>
-                </div>
-            ))}
-            {active ? (
-                <button
-                    type="button"
-                    className="case-chip case-chip--clear"
-                    onClick={() => router.replace(pathname, { scroll: false })}
-                >
-                    Clear
-                </button>
-            ) : null}
+                        </>
+                    )}
+                </p>
+            </div>
         </div>
     );
 }

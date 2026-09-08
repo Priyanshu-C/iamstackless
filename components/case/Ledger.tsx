@@ -1,36 +1,185 @@
-import type { AnyItem } from "@/lib/collections/types";
-import { formatAcquired, formatPrice, itemFacts, numeral } from "./format";
+"use client";
 
-/** The lifted item's data. Deliberately small: the object carries the
-    hierarchy, this only labels it. */
-export default function Ledger({ item }: { item: AnyItem | null }) {
+import type { DrawerSummary } from "@/lib/collections/summary";
+import type { AnyItem } from "@/lib/collections/types";
+import {
+    formatAcquired,
+    formatAmount,
+    formatMonth,
+    formatPrice,
+    itemFacts,
+    itemSpec,
+    numeral,
+} from "./format";
+
+/** The slip. It carries the lifted item's entry — and, when nothing is
+    lifted, what the drawer knows about itself, so the column is never a
+    quarter of the page holding one faint line. */
+export default function Ledger({
+    item,
+    pinned,
+    summary,
+    noun,
+    onClose,
+}: {
+    item: AnyItem | null;
+    /** Pinned by a click, rather than merely hovered. Only a pinned entry
+        offers a way out — a hover ends by itself. */
+    pinned: boolean;
+    summary: DrawerSummary;
+    noun: string;
+    onClose: () => void;
+}) {
     return (
-        <div className="case-ledger" aria-live="polite">
-            {item ? (
-                <>
-                    <p className="case-ledger-seq">{numeral(item.seq)}</p>
-                    <h2 className="case-ledger-name">{item.name}</h2>
-                    <p className="case-label">{itemFacts(item).join(" · ")}</p>
-                    <p className="case-label">
-                        {[formatPrice(item.price), formatAcquired(item.acquired)]
-                            .filter(Boolean)
-                            .join(" · ")}
-                    </p>
-                    {/* A missing `why` shows as a rule, not as invented words —
-                        a visible blank waiting to be filled. */}
-                    {item.why ? (
-                        <p className="case-ledger-why">{item.why}</p>
-                    ) : (
-                        <p className="case-ledger-why case-ledger-why--blank" aria-label="No note yet">
-                            &mdash;
-                        </p>
-                    )}
-                </>
+        <aside className="case-slip" data-showing={item ? "item" : "drawer"}>
+            {/* Both blocks stay mounted. In the narrow room the summary sits in
+                the flow and the entry arrives as a sheet over it, so lifting
+                something never shifts the plate under your thumb. */}
+            <Summary summary={summary} noun={noun} />
+            <div className="case-slip-live" aria-live="polite">
+                {item ? (
+                    <Entry
+                        item={item}
+                        onClose={pinned ? onClose : undefined}
+                    />
+                ) : null}
+            </div>
+        </aside>
+    );
+}
+
+function Entry({
+    item,
+    onClose,
+}: {
+    item: AnyItem;
+    /** Only a pinned entry offers a way out — a hover ends by itself. */
+    onClose?: () => void;
+}) {
+    const spec = itemSpec(item);
+    const acquired = formatAcquired(item.acquired);
+
+    return (
+        <>
+            <p className="case-slip-seq">{numeral(item.seq)}</p>
+            <h2 className="case-slip-name">{item.name}</h2>
+            <p className="case-slip-facts">{itemFacts(item).join(" · ")}</p>
+
+            <dl className="case-slip-rows">
+                <div className="case-slip-row">
+                    <dt>Paid</dt>
+                    <dd>{formatPrice(item.price)}</dd>
+                </div>
+                <div className="case-slip-row">
+                    <dt>Acquired</dt>
+                    <dd data-blank={acquired ? undefined : true}>
+                        {acquired ?? "not recorded"}
+                    </dd>
+                </div>
+                {spec ? (
+                    <div className="case-slip-row">
+                        <dt>{spec.label}</dt>
+                        <dd>{spec.value}</dd>
+                    </div>
+                ) : null}
+            </dl>
+
+            {/* A missing note shows as a ruled blank, never as invented words —
+                a line waiting to be written on. */}
+            {item.why ? (
+                <p className="case-slip-why">{item.why}</p>
             ) : (
-                <p className="case-label case-ledger-idle">
-                    Choose something.
+                <p className="case-slip-why case-slip-why--blank">
+                    <span className="case-slip-blank-rule" aria-hidden="true" />
+                    Why this one — not written yet
                 </p>
             )}
+
+            {onClose ? (
+                <button
+                    type="button"
+                    className="case-slip-close"
+                    onClick={onClose}
+                >
+                    Put it back
+                    <kbd className="case-kbd">Esc</kbd>
+                </button>
+            ) : null}
+        </>
+    );
+}
+
+function Summary({
+    summary,
+    noun,
+}: {
+    summary: DrawerSummary;
+    noun: string;
+}) {
+    return (
+        <div className="case-slip-drawer">
+            <p className="case-slip-count">
+                <span className="case-slip-count-n">{summary.count}</span>
+                <span className="case-slip-count-noun">{noun}</span>
+            </p>
+
+            <dl className="case-slip-rows">
+                {summary.spend.length > 0 ? (
+                    <div className="case-slip-row">
+                        <dt>Paid</dt>
+                        {/* One total per currency. Nothing is converted — the
+                            number shown is the sum of the numbers paid. */}
+                        <dd>
+                            {summary.spend
+                                .map((s) => formatAmount(s.amount, s.currency))
+                                .join("  ·  ")}
+                        </dd>
+                    </div>
+                ) : null}
+                {summary.span ? (
+                    <div className="case-slip-row">
+                        <dt>Between</dt>
+                        <dd>
+                            {summary.span.first === summary.span.last
+                                ? formatMonth(summary.span.first)
+                                : `${formatMonth(summary.span.first)} — ${formatMonth(summary.span.last)}`}
+                        </dd>
+                    </div>
+                ) : null}
+                {summary.unnoted > 0 ? (
+                    <div className="case-slip-row">
+                        <dt>Notes</dt>
+                        <dd data-blank="true">
+                            {summary.count - summary.unnoted} of{" "}
+                            {summary.count} written
+                        </dd>
+                    </div>
+                ) : null}
+            </dl>
+
+            {summary.brands.length > 0 ? (
+                <ul className="case-slip-brands">
+                    {summary.brands.map((b) => (
+                        <li key={b.name}>
+                            <span className="case-slip-brand-name">
+                                {b.name}
+                            </span>
+                            <span className="case-slip-brand-count">
+                                {b.count}
+                            </span>
+                            <span
+                                className="case-slip-brand-share"
+                                style={{
+                                    "--share": `${(b.count / summary.count) * 100}%`,
+                                } as React.CSSProperties}
+                                aria-hidden="true"
+                            />
+                        </li>
+                    ))}
+                </ul>
+            ) : null}
+
+            <p className="case-slip-hint">Pick something up.</p>
         </div>
     );
 }
