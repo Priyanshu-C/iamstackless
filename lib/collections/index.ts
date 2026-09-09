@@ -127,6 +127,33 @@ export function sorted(items: AnyItem[]): AnyItem[] {
  * Seikos. A chip counting zero is a dead end, and the UI can say so before it
  * is clicked rather than after.
  */
+/**
+ * The item before and after this one *in the drawer's own order* — not the
+ * filtered view's. A filter is a way of looking at a drawer, not a reordering
+ * of it, so stepping from an item lands you where you would have been had you
+ * never filtered. The ends have one neighbour each; it never wraps.
+ */
+export function neighbours(
+    category: CategoryDef,
+    id: string
+): { prev: AnyItem | null; next: AnyItem | null } {
+    const order = sorted(category.items);
+    const at = order.findIndex((i) => i.id === id);
+    if (at === -1) return { prev: null, next: null };
+    return {
+        prev: at > 0 ? order[at - 1] : null,
+        next: at < order.length - 1 ? order[at + 1] : null,
+    };
+}
+
+/** One item by id, within a category. */
+export function getItem(
+    category: CategoryDef,
+    id: string
+): AnyItem | undefined {
+    return category.items.find((i) => i.id === id);
+}
+
 export function facetsFor(
     category: CategoryDef,
     params: SearchParams = {}

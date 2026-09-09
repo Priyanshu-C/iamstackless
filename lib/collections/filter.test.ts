@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { applyFilters, facetsFor, getCategory } from "./index";
+import { applyFilters, facetsFor, getCategory, neighbours, sorted } from "./index";
 import type { CategoryDef } from "./index";
 import type { Perfume } from "./types";
 
@@ -12,7 +12,7 @@ function perfume(id: string, conc: Perfume["concentration"], notes: string[]) {
         acquired: "2024-01",
         price: { amount: 1, currency: "INR" as const },
         why: "w",
-        image: `/images/collections/perfumes/${id}.webp`,
+        shots: ["bottle"],
         house: "h",
         concentration: conc,
         notes: { top: notes, heart: [], base: [] },
@@ -97,7 +97,7 @@ describe("facets with missing values", () => {
             name: id,
             brand: "b",
             price: { amount: 1, currency: "INR" as const },
-            image: `/images/collections/watches/${id}.webp`,
+            shots: ["dial"],
             movement: "quartz" as const,
             reference: "r",
             ...(caseSize === undefined ? {} : { caseSize }),
@@ -121,7 +121,7 @@ describe("facet value ordering", () => {
             name: id,
             brand: "b",
             price: { amount: 1, currency: "INR" as const },
-            image: `/images/collections/watches/${id}.webp`,
+            shots: ["dial"],
             movement: "quartz" as const,
             reference: "r",
             caseSize,
@@ -132,5 +132,39 @@ describe("facet value ordering", () => {
         };
         const sizes = facetsFor(category).find((f) => f.key === "caseSize");
         expect(sizes?.values).toEqual(["42mm", "42.5mm", "51mm", "59mm"]);
+    });
+});
+
+describe("neighbours", () => {
+    const watches = getCategory("watches")!;
+    const order = sorted(watches.items).map((i) => i.id);
+
+    it("gives the first item no previous", () => {
+        expect(neighbours(watches, order[0]).prev).toBeNull();
+        expect(neighbours(watches, order[0]).next?.id).toBe(order[1]);
+    });
+
+    it("gives the last item no next", () => {
+        const last = order[order.length - 1];
+        expect(neighbours(watches, last).next).toBeNull();
+        expect(neighbours(watches, last).prev?.id).toBe(order[order.length - 2]);
+    });
+
+    it("walks the drawer's own order, and never wraps", () => {
+        const seen: string[] = [];
+        let cursor: string | null = order[0];
+        while (cursor) {
+            seen.push(cursor);
+            cursor = neighbours(watches, cursor).next?.id ?? null;
+            if (seen.length > order.length) break;
+        }
+        expect(seen).toEqual(order);
+    });
+
+    it("returns two nulls for an id the drawer does not hold", () => {
+        expect(neighbours(watches, "not-a-real-id")).toEqual({
+            prev: null,
+            next: null,
+        });
     });
 });

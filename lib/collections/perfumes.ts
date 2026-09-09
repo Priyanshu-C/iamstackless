@@ -11,7 +11,7 @@ import type { Perfume } from "./types";
        acquired: "2024-03",
        price: { amount: 14500, currency: "INR" },
        why: "Smells like the inside of a new guitar case.",
-       image: "/images/collections/perfumes/tam-dao-edp.webp",
+       shots: ["bottle"],
        house: "Diptyque",
        concentration: "EDP",
        notes: {

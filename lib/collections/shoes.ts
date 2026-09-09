@@ -9,6 +9,10 @@ import type { Shoe } from "./types";
    `acquired`, `why` and `size` are yours to fill in. Size is a fact about your
    pair, not about the listing, so it is left off rather than guessed.
 
+   `shots` lists which angles have been photographed. The paths are derived
+   from the id and the angle — see lib/collections/angles.ts. The canonical
+   angle ("lateral") must be present if any is.
+
    Prices are the listed price at the time the item was added. */
 
 export const shoes: Shoe[] = [
@@ -18,7 +22,7 @@ export const shoes: Shoe[] = [
         name: "Air Max SC",
         brand: "Nike",
         price: { amount: 5995, currency: "INR" },
-        image: "/images/collections/shoes/nike-air-max-sc.webp",
+        shots: ["lateral"],
         material: "Leather",
         colourway: "White / Sea Green",
     },
@@ -28,7 +32,7 @@ export const shoes: Shoe[] = [
         name: "Access",
         brand: "Jordan",
         price: { amount: 83, currency: "USD" },
-        image: "/images/collections/shoes/jordan-access-ps.webp",
+        shots: ["lateral"],
         colourway: "Black / Gym Red / White",
     },
     {
@@ -37,7 +41,7 @@ export const shoes: Shoe[] = [
         name: "Samba XLG",
         brand: "Adidas",
         price: { amount: 36499, currency: "INR" },
-        image: "/images/collections/shoes/adidas-samba-xlg.webp",
+        shots: ["lateral"],
         colourway: "Cream White / Gum",
     },
     {
@@ -46,7 +50,7 @@ export const shoes: Shoe[] = [
         name: "Adimatic Mid YNuK",
         brand: "Crude From Portugal × Adidas",
         price: { amount: 15016, currency: "INR" },
-        image: "/images/collections/shoes/adidas-adimatic-mid-ynuk.webp",
+        shots: ["lateral"],
         colourway: "YNuK",
     },
     {
@@ -55,7 +59,7 @@ export const shoes: Shoe[] = [
         name: "Superstar 2",
         brand: "Adidas",
         price: { amount: 11999, currency: "INR" },
-        image: "/images/collections/shoes/adidas-superstar-2.webp",
+        shots: ["lateral"],
         colourway: "Core Black / Matte Silver / Cloud White",
     },
     {
@@ -64,7 +68,7 @@ export const shoes: Shoe[] = [
         name: "Adifom Climacool",
         brand: "Adidas",
         price: { amount: 17499, currency: "INR" },
-        image: "/images/collections/shoes/adidas-adifom-climacool.webp",
+        shots: ["lateral"],
         colourway: "White / Black",
     },
     {
@@ -73,7 +77,7 @@ export const shoes: Shoe[] = [
         name: "Westbrook One Take 5 PF",
         brand: "Jordan",
         price: { amount: 64.96, currency: "USD" },
-        image: "/images/collections/shoes/jordan-one-take-5.webp",
+        shots: ["lateral"],
         colourway: "Stone Blue / Mystic Navy",
     },
 ];

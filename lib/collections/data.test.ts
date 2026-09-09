@@ -2,6 +2,7 @@ import { existsSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { CATEGORIES } from "./index";
+import { shotPath } from "./angles";
 
 const PUBLIC = path.resolve(__dirname, "../../public");
 
@@ -54,15 +55,15 @@ describe.each(CATEGORIES)("$label", (category) => {
         }
     });
 
-    it("points image at a file that exists", () => {
+    it("points every shot at a file that exists", () => {
         for (const item of category.items) {
-            expect(item.image, item.id).toMatch(
-                new RegExp(`^/images/collections/${category.slug}/`)
-            );
-            expect(
-                existsSync(path.join(PUBLIC, item.image)),
-                `${item.id}: missing ${item.image}`
-            ).toBe(true);
+            for (const angle of item.shots) {
+                const rel = shotPath(category.slug, item.id, angle);
+                expect(
+                    existsSync(path.join(PUBLIC, rel)),
+                    `${item.id} ${angle} -> ${rel}`
+                ).toBe(true);
+            }
         }
     });
 });

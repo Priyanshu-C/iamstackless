@@ -20,15 +20,33 @@ export type CollectionItem = {
     /** One line. Why this one, and not another. Optional for the same reason
         as `acquired` — it is never invented, only supplied. */
     why?: string;
-    /** /images/collections/<category>/<id>.webp */
-    image: string;
+    /** Which angles have been photographed, as keys from the category's
+        vocabulary in `angles.ts`. The path is derived, never written here.
+
+        The canonical angle must be present if any angle is: the catalogue
+        renders only that one, so an item missing it falls back to its name
+        set in type rather than showing a different angle from its
+        neighbours. The integrity suite enforces this. */
+    shots: string[];
 };
+
+/* The fields below the spine are sourced from a public listing when a source
+   states them, and absent when none does. Absence is legitimate and renders
+   as a ruled blank in the record — a spec sheet that hides what it does not
+   know tells you nothing about what is missing. */
 
 export type Watch = CollectionItem & {
     movement: "automatic" | "quartz" | "manual";
     /** Case diameter in millimetres, where the source states it. */
     caseSize?: number;
     reference: string;
+    caseMaterial?: string;
+    crystal?: string;
+    waterResistance?: string;
+    calibre?: string;
+    lugWidth?: string;
+    powerReserve?: string;
+    released?: string;
 };
 
 export type Shoe = CollectionItem & {
@@ -38,6 +56,12 @@ export type Shoe = CollectionItem & {
     /** Where the listing states it. */
     material?: string;
     colourway: string;
+    styleCode?: string;
+    silhouette?: string;
+    released?: string;
+    upper?: string;
+    midsole?: string;
+    closure?: string;
 };
 
 export type Perfume = CollectionItem & {
@@ -46,6 +70,8 @@ export type Perfume = CollectionItem & {
     notes: { top: string[]; heart: string[]; base: string[] };
     /** Bottle size in millilitres. */
     volume: number;
+    perfumer?: string;
+    released?: string;
 };
 
 export type AnyItem = Watch | Shoe | Perfume;
