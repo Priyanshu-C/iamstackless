@@ -77,11 +77,30 @@ describe.each(CATEGORIES)("$label shots", (category) => {
         }
     });
 
-    it("carries the canonical angle whenever it carries any shot", () => {
+    /* An item may legitimately have been photographed from one angle and not
+       another — you shoot what you can. What must never happen is the plate
+       filling that gap with a different angle, and `catalogueShot` is what
+       prevents it: canonical or nothing, tested directly above.
+
+       This started life as "every item with any shot must have the canonical
+       one", which sounds stronger and is actually wrong. It would have forced
+       a real top-down photograph of the Air Max SC to be either binned or
+       mislabelled `lateral` — reintroducing, to satisfy a rule about
+       uniformity, exactly the mislabelling the rule exists to stop. The
+       Vitrine reports coverage ("1 of 4 angles photographed") instead. */
+    it("never lets a missing canonical shot become a different angle", () => {
         const canonical = canonicalAngle(category.slug).key;
         for (const item of category.items) {
-            if (item.shots.length === 0) continue;
-            expect(item.shots, item.id).toContain(canonical);
+            const shown = catalogueShot(
+                category.slug,
+                item.id,
+                item.shots
+            );
+            if (item.shots.includes(canonical)) {
+                expect(shown, item.id).toContain(`.${canonical}.webp`);
+            } else {
+                expect(shown, item.id).toBeNull();
+            }
         }
     });
 

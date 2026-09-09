@@ -22,7 +22,10 @@ export const shoes: Shoe[] = [
         name: "Air Max SC",
         brand: "Nike",
         price: { amount: 5995, currency: "INR" },
-        shots: ["lateral"],
+        // A pair seen from above — not a lateral by any reading, so it is not
+        // labelled one. The compartment shows the name in type until a real
+        // lateral is photographed.
+        shots: ["top"],
         material: "Leather",
         colourway: "White / Sea Green",
     },
