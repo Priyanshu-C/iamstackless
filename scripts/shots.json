@@ -215,5 +215,103 @@
     "angle": "profile",
     "url": "https://cdn.shopify.com/s/files/1/0603/3031/1875/products/1_ce96bd7f-1f43-4c36-a1c1-907e568ad56c_3840x.jpg?v=1695202376",
     "page": "https://www.kickscrew.com/products/casio-waterproof-solar-powered-stainless-steel-strap-mens-white-analog-digital-combo-gst-s110d-1a"
+  },
+  {
+    "id": "afnan-9pm",
+    "category": "perfumes",
+    "angle": "angle",
+    "url": "https://us.afnan.com/cdn/shop/files/9PM-Product-02.jpg",
+    "page": "https://us.afnan.com/products/9-pm"
+  },
+  {
+    "id": "afnan-9pm",
+    "category": "perfumes",
+    "angle": "box",
+    "url": "https://m.media-amazon.com/images/I/31As49R6vRL._AC_SL1500_.jpg",
+    "page": "https://www.amazon.com/dp/B07RTQ4VM7"
+  },
+  {
+    "id": "versace-eros",
+    "category": "perfumes",
+    "angle": "angle",
+    "url": "https://i.ebayimg.com/images/g/xgYAAOSwaZddngOe/s-l1600.webp",
+    "page": "https://www.ebay.com/itm/282854940531"
+  },
+  {
+    "id": "versace-eros",
+    "category": "perfumes",
+    "angle": "box",
+    "url": "https://www.versace.com/dw/image/v2/BGWN_PRD/on/demandware.static/-/Sites-ver-master-catalog/default/dw8bd31f0c/original/90_R740010-R100MLS_RNUL_22_Eros~EDT~100~ml-Accessories-Versace-online-store_3_1.jpg?sw=850&q=85&strip=true",
+    "page": "https://www.versace.com/us/en/men/accessories/fragrances-body-care/eros/eros-edt-100-ml-blue/R740010-R100MLS_RNUL.html"
+  },
+  {
+    "id": "beardo-godfather",
+    "category": "perfumes",
+    "angle": "box",
+    "url": "https://beardo.in/cdn/shop/files/9_ee854f2b-e747-4685-81d3-c779d1b27c04.jpg?v=1776097673&width=1076",
+    "page": "https://beardo.in/products/beardo-godfather-perfume-edp"
+  },
+  {
+    "id": "tmc-infinite",
+    "category": "perfumes",
+    "angle": "box",
+    "url": "https://assets.myntassets.com/h_1440,q_100,w_1080/v1/assets/images/20753942/2022/11/15/1045d21a-96c7-4416-bf65-8c03daffb8be1668496587735TheManCompanyInfinitePremiumFragranceForMen-100mlEDT1.jpg",
+    "page": "https://www.myntra.com/perfume/themancompany/the-man-company-x-bhuvan-bam-infinite-eau-de-toilette-100-ml/20753942/buy"
+  },
+  {
+    "id": "armani-stronger-with-you-intensely",
+    "category": "perfumes",
+    "angle": "box",
+    "url": "https://assets-cf.armani.com/image/upload/f_auto,q_auto:best,ar_4:5,w_1536,c_fill/L8717500_NLP_100ML_D_FW2025.jpg",
+    "page": "https://www.armani.com/en-wx/emporio-armani/eau-de-parfum-stronger-with-you-intensely-100-ml-cod-L8717500-NLP-100ML/"
+  },
+  {
+    "id": "lattafa-asad",
+    "category": "perfumes",
+    "angle": "box",
+    "url": "https://www.lattafa-usa.com/cdn/shop/files/Asad-2_5648df5a-3865-4d87-b7f7-b89f81aab2af.png?v=1747421311&width=1946",
+    "page": "https://www.lattafa-usa.com/products/asad"
+  },
+  {
+    "id": "lattafa-khamrah-qahwa",
+    "category": "perfumes",
+    "angle": "angle",
+    "url": "https://www.lattafa-usa.com/cdn/shop/files/Khamrah-Qahwa-1_a2c9fdc2-8264-4da1-83e2-e5e065cecd53.png?v=1747416095&width=1946",
+    "page": "https://www.lattafa-usa.com/products/khamrah-qahwa"
+  },
+  {
+    "id": "lattafa-khamrah-qahwa",
+    "category": "perfumes",
+    "angle": "box",
+    "url": "https://www.lattafa-usa.com/cdn/shop/files/Khamrah-Qahwa-2_18e1e5f1-4f51-4325-83af-2d625beb976a.png?v=1747416096&width=1946",
+    "page": "https://www.lattafa-usa.com/products/khamrah-qahwa"
+  },
+  {
+    "id": "beardo-origin",
+    "category": "perfumes",
+    "angle": "box",
+    "url": "https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/resize-w:800/933981/yVovQe1Br-8906084790887_1.jpg",
+    "page": "https://www.tirabeauty.com/product/beardo-origin-eau-de-parfum-100ml-wqff0zcu6nq"
+  },
+  {
+    "id": "beardo-mariner",
+    "category": "perfumes",
+    "angle": "box",
+    "url": "https://cdn.tirabeauty.com/v2/billowing-snowflake-434234/tira-p/wrkr/products/pictures/item/free/resize-w:800/1115819/f39w6t_ey2-1115819_1.jpg",
+    "page": "https://www.tirabeauty.com/product/beardo-mariner-eau-de-parfum-50ml-1rizwc2qve"
+  },
+  {
+    "id": "rasasi-hawas-ice",
+    "category": "perfumes",
+    "angle": "box",
+    "url": "https://rasasistore.com/cdn/shop/files/Hawas_Ice_2.jpg?v=1709140605&width=1946",
+    "page": "https://rasasistore.com/products/hawas-ice"
+  },
+  {
+    "id": "police-to-be-the-king",
+    "category": "perfumes",
+    "angle": "box",
+    "url": "https://venerafragrances.com/image/catalog/data/products/Police-To-Be-King.jpg",
+    "page": "https://venerafragrances.com/police-to-be-the-king-edt-125ml-for-men"
   }
 ]
