@@ -1,7 +1,7 @@
 import path from "node:path";
 import sharp from "sharp";
 import { describe, expect, it } from "vitest";
-import { anglesFor, shotPath } from "./angles";
+import { anglesFor, canonicalAngle, shotPath } from "./angles";
 import { CATEGORIES } from "./index";
 
 const PUBLIC = path.resolve(__dirname, "../../public");
@@ -35,8 +35,20 @@ const PUBLIC = path.resolve(__dirname, "../../public");
 const SHAPE_CONSISTENT = new Set(["watches", "shoes"]);
 
 const MIN_GROUP = 3;
-/** How far from the group's median a shot may sit before it looks wrong. */
-const TOLERANCE = 0.4;
+
+/* The canonical angle is the one the plate renders, so a dozen of them sit
+   side by side and any drift is immediately visible. It gets the strict
+   tolerance.
+
+   Secondary angles are only ever seen one item at a time, in that item's own
+   vitrine. Brands genuinely differ there — Seiko and Timex photograph a
+   profile with the bracelet laid open, Casio and Diesel shoot it tight, and
+   all four are honest profiles. A looser bound still catches the real
+   mislabels (a landscape three-quarter among portrait ones drifts by 1.6)
+   without forcing four legitimate photographs down to two for the sake of a
+   row nobody sees side by side. */
+const TOLERANCE_CANONICAL = 0.4;
+const TOLERANCE_SECONDARY = 0.75;
 
 async function boundingBox(file: string) {
     const { info } = await sharp(file)
@@ -95,6 +107,10 @@ describe.each(CATEGORIES)("$label plate", (category) => {
             );
 
             const mid = median(ratios.map((r) => r.ratio));
+            const tolerance =
+                angle === canonicalAngle(category.slug).key
+                    ? TOLERANCE_CANONICAL
+                    : TOLERANCE_SECONDARY;
             for (const { id, ratio } of ratios) {
                 const drift = Math.abs(ratio - mid) / mid;
                 expect(
@@ -102,7 +118,7 @@ describe.each(CATEGORIES)("$label plate", (category) => {
                     `${id}.${angle} has aspect ratio ${ratio.toFixed(2)} against ` +
                         `a group median of ${mid.toFixed(2)} — that usually means ` +
                         `it is not really a "${angle}" shot`
-                ).toBeLessThan(TOLERANCE);
+                ).toBeLessThan(tolerance);
             }
         },
         30000
