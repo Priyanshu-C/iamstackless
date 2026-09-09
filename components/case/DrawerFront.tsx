@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { catalogueShot } from "@/lib/collections/angles";
 import type { CategoryDef } from "@/lib/collections";
 import { frontRow, summarise } from "@/lib/collections/summary";
 import { formatAmount } from "./format";
@@ -39,17 +40,32 @@ export default function DrawerFront({ category }: { category: CategoryDef }) {
             </span>
 
             <span className="case-front-strip" aria-hidden="true">
-                {preview.map((item) => (
-                    <span className="case-front-slot" key={item.id}>
-                        <Image
-                            src={item.image}
-                            alt=""
-                            fill
-                            sizes="120px"
-                            className="case-front-img"
-                        />
-                    </span>
-                ))}
+                {/* The canonical angle or an empty slot — never a different
+                    angle, so the strip reads as one consistent row. */}
+                {preview.map((item) => {
+                    const src = catalogueShot(
+                        category.slug,
+                        item.id,
+                        item.shots
+                    );
+                    return (
+                        <span
+                            className="case-front-slot"
+                            data-unshot={src ? undefined : true}
+                            key={item.id}
+                        >
+                            {src ? (
+                                <Image
+                                    src={src}
+                                    alt=""
+                                    fill
+                                    sizes="120px"
+                                    className="case-front-img"
+                                />
+                            ) : null}
+                        </span>
+                    );
+                })}
                 {/* An unfilled drawer stays ruled — an empty case looks
                     intentional, a missing one looks broken. */}
                 {Array.from(

@@ -1,7 +1,8 @@
 "use client";
 
+import Link from "next/link";
 import type { DrawerSummary } from "@/lib/collections/summary";
-import type { AnyItem } from "@/lib/collections/types";
+import type { AnyItem, CategorySlug } from "@/lib/collections/types";
 import {
     formatAcquired,
     formatAmount,
@@ -12,50 +13,34 @@ import {
     numeral,
 } from "./format";
 
-/** The slip. It carries the lifted item's entry — and, when nothing is
-    lifted, what the drawer knows about itself, so the column is never a
-    quarter of the page holding one faint line. */
+/** The slip. It carries the previewed item's entry — and, when nothing is
+    under the pointer, what the drawer knows about itself, so the column is
+    never a quarter of the page holding one faint line. */
 export default function Ledger({
     item,
-    pinned,
+    category,
     summary,
     noun,
-    onClose,
 }: {
     item: AnyItem | null;
-    /** Pinned by a click, rather than merely hovered. Only a pinned entry
-        offers a way out — a hover ends by itself. */
-    pinned: boolean;
+    category: CategorySlug;
     summary: DrawerSummary;
     noun: string;
-    onClose: () => void;
 }) {
     return (
         <aside className="case-slip" data-showing={item ? "item" : "drawer"}>
-            {/* Both blocks stay mounted. In the narrow room the summary sits in
-                the flow and the entry arrives as a sheet over it, so lifting
-                something never shifts the plate under your thumb. */}
+            {/* Both blocks stay mounted. The entry is a hover reading; the
+                narrow room has no hover, so there it shows the summary only
+                and a tap opens the object's page instead. */}
             <Summary summary={summary} noun={noun} />
             <div className="case-slip-live" aria-live="polite">
-                {item ? (
-                    <Entry
-                        item={item}
-                        onClose={pinned ? onClose : undefined}
-                    />
-                ) : null}
+                {item ? <Entry item={item} category={category} /> : null}
             </div>
         </aside>
     );
 }
 
-function Entry({
-    item,
-    onClose,
-}: {
-    item: AnyItem;
-    /** Only a pinned entry offers a way out — a hover ends by itself. */
-    onClose?: () => void;
-}) {
+function Entry({ item, category }: { item: AnyItem; category: CategorySlug }) {
     const spec = itemSpec(item);
     const acquired = formatAcquired(item.acquired);
 
@@ -95,16 +80,13 @@ function Entry({
                 </p>
             )}
 
-            {onClose ? (
-                <button
-                    type="button"
-                    className="case-slip-close"
-                    onClick={onClose}
-                >
-                    Put it back
-                    <kbd className="case-kbd">Esc</kbd>
-                </button>
-            ) : null}
+            <Link
+                className="case-slip-open"
+                href={`/collections/${category}/${item.id}`}
+                tabIndex={-1}
+            >
+                Open <span aria-hidden="true">&rarr;</span>
+            </Link>
         </>
     );
 }

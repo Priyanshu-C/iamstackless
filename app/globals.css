@@ -1532,30 +1532,13 @@ body {
         transparent 5px 10px
     );
 }
-.case-slip-close {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--s-2xs);
+.case-slip-open {
+    display: inline-block;
     margin-top: var(--s-md);
-    font: inherit;
     font-size: var(--t-label);
-    padding: 6px var(--s-2xs) 6px 0;
-    border: 0;
-    background: transparent;
-    color: var(--ink-3);
-    cursor: pointer;
-    transition: color 160ms var(--ease);
-}
-.case-slip-close:hover {
-    color: var(--ink);
-}
-.case-kbd {
-    font: inherit;
-    font-size: var(--t-micro);
-    padding: 2px 5px;
-    border: 1px solid var(--rule-2);
-    border-radius: 2px;
-    color: var(--ink-3);
+    color: var(--accent-ink);
+    text-decoration: underline;
+    text-underline-offset: 3px;
 }
 
 /* the drawer's own summary — what the column says when nothing is lifted */
@@ -1995,22 +1978,11 @@ body {
 /* The summary stays in the flow so lifting something never shifts the plate;
    the entry arrives as a sheet over the rail. */
 @media (max-width: 999px) {
+    /* No hover in the narrow room, so the entry never fires there. A tap
+       opens the object's own page instead, which is more than the old sheet
+       ever showed. */
     .case-slip-live {
-        position: fixed;
-        left: 0;
-        right: 0;
-        bottom: var(--rail-h);
-        z-index: 19;
-        max-height: 62vh;
-        overflow-y: auto;
-        background: var(--plate-lit);
-        border-top: 1px solid var(--rule-2);
-        padding: var(--s-sm) var(--s-sm) var(--s-md);
-        transform: translateY(110%);
-        transition: transform 300ms var(--ease-io);
-    }
-    .case-stage[data-lifted] .case-slip-live {
-        transform: translateY(0);
+        display: none;
     }
     .case-slip-why {
         max-width: none;
@@ -2075,15 +2047,338 @@ body {
     .case-front:hover .case-front-img {
         transform: none;
     }
-    @media (max-width: 999px) {
-        .case-slip-live {
-            transform: translateY(0);
-            opacity: 0;
-            pointer-events: none;
-        }
-        .case-stage[data-lifted] .case-slip-live {
-            opacity: 1;
-            pointer-events: auto;
-        }
+}
+
+/* ============================================================
+   THE SHOWROOM — /collections/<category>/<id>
+   Hallmark · macrostructure: Split Studio (Vitrine & Dossier)
+   genre: editorial · design-system: the .case token block above
+   nav: rail + masthead return · footer: Ft2 inline-rule colophon
+   enrichment: none — the objects are the imagery
+   pre-emit critique: P5 H5 E4 S5 R5 V4
+
+   The drawer is Plate & Slip: the plate is the subject, the slip labels it.
+   Here it inverts — the object is the subject and the writing is the
+   reading. Same grammar, same tokens, no new ones.
+   ============================================================ */
+
+.case-room--object {
+    padding-bottom: calc(var(--rail-h) + var(--s-xl));
+}
+
+/* ---- masthead ---- */
+.case-object-head {
+    padding-bottom: var(--s-sm);
+    border-bottom: 1px solid var(--rule-2);
+}
+.case-return {
+    display: inline-block;
+    font-size: var(--t-label);
+    color: var(--ink-3);
+    transition: color 180ms var(--ease);
+}
+.case-return:hover {
+    color: var(--ink);
+}
+.case-object-seq {
+    margin: var(--s-sm) 0 var(--s-3xs);
+    font-size: var(--t-micro);
+    letter-spacing: 0.09em;
+    color: var(--ink-3);
+    font-variant-numeric: tabular-nums;
+}
+.case-object-name {
+    font-size: var(--t-title);
+    letter-spacing: -0.025em;
+}
+.case-object-facts {
+    margin: var(--s-2xs) 0 0;
+    font-size: var(--t-body);
+    color: var(--ink-3);
+}
+
+/* ---- the studio: vitrine beside the dossier ---- */
+.case-studio {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--s-lg);
+    padding-top: var(--s-md);
+}
+
+/* ---- the vitrine ---- */
+.case-vitrine {
+    margin: 0;
+    min-width: 0;
+}
+.case-vitrine-plate {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-top: 1px solid var(--rule);
+    border-left: 1px solid var(--rule);
+}
+.case-frame {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    border-right: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    background: var(--plate);
+    overflow: hidden;
+}
+/* An angle nobody has photographed yet. Ruled, labelled, and visibly empty —
+   never filled with a different angle to hide the gap. */
+.case-frame[data-unshot] {
+    background: var(--room-deep);
+}
+.case-frame-img {
+    object-fit: contain;
+    padding: 11%;
+    transition: transform 320ms var(--ease);
+}
+.case-frame-label {
+    position: absolute;
+    left: var(--s-xs);
+    bottom: var(--s-2xs);
+    z-index: 2;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 6px;
+    font-size: var(--t-micro);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+}
+.case-frame-missing {
+    text-transform: none;
+    letter-spacing: 0.02em;
+    opacity: 0.8;
+}
+@media (hover: hover) {
+    .case-frame:hover .case-frame-img {
+        transform: scale(1.03);
+    }
+}
+.case-vitrine-caption {
+    margin-top: var(--s-2xs);
+    font-size: var(--t-micro);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+    font-variant-numeric: tabular-nums;
+}
+
+/* ---- the dossier ---- */
+.case-dossier {
+    min-width: 0;
+}
+.case-dossier-standing {
+    margin: 0 0 var(--s-md);
+    font-size: 19px;
+    line-height: 1.45;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    max-width: 40ch;
+}
+/* S4 — the label emerges in the flow. No numbered eyebrow, no hanging
+   two-column header. */
+.case-dossier-head {
+    margin: 0 0 var(--s-2xs);
+    font-size: var(--t-micro);
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+}
+.case-dossier-note {
+    padding-top: var(--s-md);
+    border-top: 1px solid var(--rule);
+}
+.case-dossier-note p {
+    margin: 0;
+    font-size: var(--t-read);
+    line-height: 1.6;
+    color: var(--ink-2);
+    max-width: 62ch;
+}
+
+/* ---- the record ---- */
+.case-record {
+    margin-top: var(--s-lg);
+    padding-top: var(--s-md);
+    border-top: 1px solid var(--rule);
+}
+.case-record-rows {
+    margin: 0;
+}
+.case-record-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--s-sm);
+    padding: 7px 0;
+    border-bottom: 1px solid var(--rule);
+}
+.case-record-row dt {
+    flex: none;
+    font-size: var(--t-micro);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+}
+.case-record-row dd {
+    margin: 0;
+    text-align: right;
+    font-size: var(--t-body);
+    line-height: 1.35;
+    font-variant-numeric: tabular-nums;
+    min-width: 0;
+    overflow-wrap: anywhere;
+}
+.case-record-row dd[data-blank] {
+    color: var(--ink-3);
+    font-variant-numeric: normal;
+}
+.case-pyramid {
+    margin-top: var(--s-md);
+}
+.case-pyramid-tier {
+    display: grid;
+    grid-template-columns: 56px minmax(0, 1fr);
+    gap: var(--s-2xs);
+    padding: 6px 0;
+    border-bottom: 1px solid var(--rule);
+}
+.case-pyramid-label {
+    font-size: var(--t-micro);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+}
+.case-pyramid-notes {
+    font-size: var(--t-body);
+    line-height: 1.4;
+    color: var(--ink-2);
+}
+.case-pyramid-notes[data-blank] {
+    color: var(--ink-3);
+}
+
+/* ---- the owner's line — T1, quote in the wide column ---- */
+.case-dossier-why {
+    margin-top: var(--s-lg);
+    padding-top: var(--s-md);
+    border-top: 1px solid var(--rule);
+}
+.case-why-quote {
+    margin: 0;
+    padding-left: var(--s-sm);
+    border-left: 2px solid var(--accent);
+}
+.case-why-quote p {
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.5;
+    color: var(--ink);
+    max-width: 40ch;
+}
+.case-why-blank {
+    margin: 0;
+    font-size: var(--t-label);
+    line-height: 1.5;
+    color: var(--ink-3);
+    max-width: 44ch;
+}
+
+/* ---- Ft2 — the colophon ---- */
+.case-colophon {
+    margin-top: var(--s-lg);
+    padding-top: var(--s-xs);
+    border-top: 1px solid var(--rule-2);
+}
+.case-colophon-note {
+    margin: 0 0 var(--s-2xs);
+    font-size: var(--t-micro);
+    line-height: 1.5;
+    color: var(--ink-3);
+    max-width: 52ch;
+}
+.case-colophon-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px var(--s-xs);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: var(--t-micro);
+}
+.case-colophon-list a {
+    color: var(--ink-3);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 160ms var(--ease);
+}
+.case-colophon-list a:hover {
+    color: var(--accent-ink);
+}
+
+/* ---- C3 — prev / next ---- */
+.case-neighbours {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--s-sm);
+    margin-top: var(--s-xl);
+    padding-top: var(--s-sm);
+    border-top: 1px solid var(--rule-2);
+}
+.case-neighbour {
+    display: block;
+    min-width: 0;
+    padding: var(--s-2xs) 0;
+    transition: transform 220ms var(--ease);
+}
+.case-neighbour[data-side="next"] {
+    text-align: right;
+}
+.case-neighbour-dir {
+    display: block;
+    font-size: var(--t-micro);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+}
+.case-neighbour-name {
+    display: block;
+    margin-top: 2px;
+    font-size: var(--t-body);
+    color: var(--ink);
+    overflow-wrap: anywhere;
+}
+@media (hover: hover) {
+    .case-neighbour[data-side="prev"]:hover {
+        transform: translateX(calc(var(--s-3xs) * -1));
+    }
+    .case-neighbour[data-side="next"]:hover {
+        transform: translateX(var(--s-3xs));
+    }
+}
+
+/* ---- the wide room ---- */
+@media (min-width: 1000px) {
+    .case-studio {
+        grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+        gap: var(--s-xl);
+        padding-top: var(--s-lg);
+    }
+    .case-vitrine {
+        position: sticky;
+        top: var(--s-lg);
+        align-self: start;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .case-frame:hover .case-frame-img,
+    .case-neighbour:hover {
+        transform: none;
     }
 }

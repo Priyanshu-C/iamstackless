@@ -8,7 +8,7 @@ import {
     useState,
 } from "react";
 import type { DrawerSummary } from "@/lib/collections/summary";
-import type { AnyItem } from "@/lib/collections/types";
+import type { AnyItem, CategorySlug } from "@/lib/collections/types";
 import Compartment, { EmptyCompartment } from "./Compartment";
 import Ledger from "./Ledger";
 
@@ -23,35 +23,34 @@ const useIsomorphicLayoutEffect =
 /** The compartment grid. Owns selection; the lift lives here. */
 export default function Tray({
     items,
+    category,
     summary,
     noun,
     filtered,
 }: {
     items: AnyItem[];
+    category: CategorySlug;
     summary: DrawerSummary;
     noun: string;
     filtered: boolean;
 }) {
-    // `selected` is pinned by a click and survives the pointer leaving.
-    // `preview` follows hover and keyboard focus, and wins while it lasts —
-    // so passing over the tray reads out each item without committing to one.
-    const [selected, setSelected] = useState<string | null>(null);
+    // Hover and keyboard focus preview an item into the slip, so a drawer can
+    // be read through without leaving it. Clicking opens the object's page —
+    // there is no pinned state any more, because the page is the commitment.
     const [preview, setPreview] = useState<string | null>(null);
     const grid = useRef<HTMLDivElement>(null);
     const columns = useColumnCount(grid, items.length);
 
     const focusCell = useCallback((index: number) => {
         const cells =
-            grid.current?.querySelectorAll<HTMLButtonElement>(
-                "button.case-cell"
-            );
+            grid.current?.querySelectorAll<HTMLAnchorElement>("a.case-cell");
         if (!cells || cells.length === 0) return;
         const clamped = Math.max(0, Math.min(index, cells.length - 1));
         cells[clamped].focus();
     }, []);
 
     const onKeyDown = useCallback(
-        (index: number) => (event: React.KeyboardEvent<HTMLButtonElement>) => {
+        (index: number) => (event: React.KeyboardEvent<HTMLAnchorElement>) => {
             switch (event.key) {
                 case "ArrowRight":
                     event.preventDefault();
@@ -77,11 +76,6 @@ export default function Tray({
                     event.preventDefault();
                     focusCell(Number.MAX_SAFE_INTEGER);
                     break;
-                case "Escape":
-                    event.preventDefault();
-                    setSelected(null);
-                    setPreview(null);
-                    break;
             }
         },
         [focusCell, columns]
@@ -104,38 +98,23 @@ export default function Tray({
         );
     }
 
-    const showing = preview ?? selected;
-    const current = items.find((i) => i.id === showing) ?? null;
+    const current = items.find((i) => i.id === preview) ?? null;
     // The plate is a rectangle of boxes. A drawer holding five things in a
     // four-wide plate has three empty boxes, ruled like the rest — never a
     // hole where the plate should be.
     const pad = (columns - (items.length % columns)) % columns;
 
     return (
-        <div className="case-stage" data-lifted={selected ? true : undefined}>
-            <Ledger
-                item={current}
-                pinned={current !== null && current.id === selected}
-                summary={summary}
-                noun={noun}
-                onClose={() => {
-                    setSelected(null);
-                    setPreview(null);
-                }}
-            />
+        <div className="case-stage">
+            <Ledger item={current} category={category} summary={summary} noun={noun} />
             <div className="case-grid" ref={grid}>
                 {items.map((item, index) => (
                     <Compartment
                         key={item.id}
                         item={item}
+                        category={category}
                         index={index}
-                        selected={item.id === selected}
-                        previewing={item.id === showing}
-                        onSelect={() =>
-                            setSelected((prev) =>
-                                prev === item.id ? null : item.id
-                            )
-                        }
+                        previewing={item.id === preview}
                         onPreview={(on) =>
                             setPreview((prev) =>
                                 on ? item.id : prev === item.id ? null : prev

@@ -1,46 +1,44 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
-import type { AnyItem } from "@/lib/collections/types";
+import { catalogueShot } from "@/lib/collections/angles";
+import type { AnyItem, CategorySlug } from "@/lib/collections/types";
 import { formatPrice, numeral } from "./format";
 
-/** One object in its box. A real button, with a written label, so the case
-    is fully navigable without ever seeing it.
+/** One object in its box, and the way in to its page.
 
-    The compartment is captioned. A printer's case has the sort written on the
-    front of every drawer — an uncaptioned grid of photographs makes you hover
-    each one to find out what it is, which is the opposite of a ledger. */
+    The compartment renders the category's CANONICAL angle or nothing. It
+    never falls back to another angle — a plate mixing a lateral shoe with a
+    top-down one is exactly the defect this rule exists to prevent, so a
+    missing canonical shot shows the name in type instead. */
 export default function Compartment({
     item,
+    category,
     index,
-    selected,
     previewing,
-    onSelect,
     onPreview,
     onKeyDown,
 }: {
     item: AnyItem;
+    category: CategorySlug;
     index: number;
-    selected: boolean;
     previewing: boolean;
-    onSelect: () => void;
     /** true on pointer-enter or focus, false on leave or blur. */
     onPreview: (on: boolean) => void;
-    onKeyDown: (event: React.KeyboardEvent<HTMLButtonElement>) => void;
+    onKeyDown: (event: React.KeyboardEvent<HTMLAnchorElement>) => void;
 }) {
     const [broken, setBroken] = useState(false);
+    const src = catalogueShot(category, item.id, item.shots);
 
     return (
-        <button
-            type="button"
+        <Link
+            href={`/collections/${category}/${item.id}`}
             className="case-cell"
-            data-selected={selected || undefined}
             data-previewing={previewing || undefined}
             data-index={index}
-            aria-pressed={selected}
             aria-label={`${numeral(item.seq)} ${item.brand} ${item.name}, ${formatPrice(item.price)}`}
-            onClick={onSelect}
             onKeyDown={onKeyDown}
             onPointerEnter={() => onPreview(true)}
             onPointerLeave={() => onPreview(false)}
@@ -51,26 +49,26 @@ export default function Compartment({
                 {numeral(item.seq)}
             </span>
             <span className="case-cell-object">
-                {broken ? (
-                    <span className="case-cell-fallback" aria-hidden="true">
-                        {item.name}
-                    </span>
-                ) : (
+                {src && !broken ? (
                     <Image
-                        src={item.image}
+                        src={src}
                         alt=""
                         fill
                         sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 22vw"
                         className="case-cell-img"
                         onError={() => setBroken(true)}
                     />
+                ) : (
+                    <span className="case-cell-fallback" aria-hidden="true">
+                        {item.name}
+                    </span>
                 )}
             </span>
             <span className="case-cell-caption" aria-hidden="true">
                 <span className="case-cell-brand">{item.brand}</span>
                 <span className="case-cell-name">{item.name}</span>
             </span>
-        </button>
+        </Link>
     );
 }
 

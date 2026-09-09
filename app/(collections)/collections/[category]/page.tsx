@@ -68,6 +68,7 @@ export default function Drawer({
             />
             <Tray
                 items={items}
+                category={category.slug}
                 summary={summary}
                 noun={category.noun}
                 filtered={items.length !== category.items.length}
