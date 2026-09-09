@@ -38,7 +38,14 @@ export default function Compartment({
             className="case-cell"
             data-previewing={previewing || undefined}
             data-index={index}
-            aria-label={`${numeral(item.seq)} ${item.brand} ${item.name}, ${formatPrice(item.price)}`}
+            aria-label={[
+                numeral(item.seq),
+                item.brand,
+                item.name,
+                formatPrice(item.price),
+            ]
+                .filter(Boolean)
+                .join(" ")}
             onKeyDown={onKeyDown}
             onPointerEnter={() => onPreview(true)}
             onPointerLeave={() => onPreview(false)}

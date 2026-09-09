@@ -2382,3 +2382,10 @@ body {
         transform: none;
     }
 }
+
+/* A long facet folds; the control that unfolds it is quieter than the values
+   it hides, so it reads as a footnote rather than another choice. */
+.case-chip--more {
+    border-style: dashed;
+    color: var(--ink-3);
+}

@@ -16,8 +16,8 @@ export function formatAmount(amount: number, currency: Currency): string {
     }).format(amount);
 }
 
-export function formatPrice(price: CollectionItem["price"]): string {
-    return formatAmount(price.amount, price.currency);
+export function formatPrice(price: CollectionItem["price"]): string | null {
+    return price ? formatAmount(price.amount, price.currency) : null;
 }
 
 export function formatAcquired(acquired: string | undefined): string | null {

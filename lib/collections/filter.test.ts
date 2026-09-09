@@ -13,7 +13,6 @@ function perfume(id: string, conc: Perfume["concentration"], notes: string[]) {
         price: { amount: 1, currency: "INR" as const },
         why: "w",
         shots: ["bottle"],
-        house: "h",
         concentration: conc,
         notes: { top: notes, heart: [], base: [] },
         volume: 50,

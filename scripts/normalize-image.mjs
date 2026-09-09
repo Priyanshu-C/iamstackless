@@ -9,16 +9,30 @@
 
        raw image (any bg, any size, any source)
          → segment the subject   (rembg, a learned model)
+         → keep only the largest object in frame
          → trim to the object's real bounds
          → pad to square, object at OBJECT_RATIO of the frame
-         → SIZE x SIZE transparent webp, named <id>.webp
+         → SIZE x SIZE transparent webp, named <id>.<angle>.webp
+
+   Angles
+     Every category has a closed, ordered list of them, and the FIRST is
+     canonical — the one the catalogue renders. The vocabulary is duplicated
+     below from lib/collections/angles.ts, which is the source of truth. It
+     is copied rather than imported because this is a standalone ESM script
+     and importing TypeScript would mean adding a build step to the one tool
+     whose whole point is not having one. If you change it there, change it
+     here.
 
    Usage
-     Batch (preferred). Drop files in scripts/incoming/<category>/<id>.<ext>:
+     Batch (preferred). Drop files in
+     scripts/incoming/<category>/<id>.<angle>.<ext>:
        npm run normalize
 
+     An unangled scripts/incoming/<category>/<id>.<ext> is treated as the
+     category's canonical angle, so anything already staged still works.
+
      One file:
-       npm run normalize -- --category watches --id seiko-skx007 ~/Downloads/skx.jpg
+       npm run normalize -- --category watches --id seiko-skx007 --angle caseback ~/Downloads/back.jpg
 
      Flags:
        --keep-bg   skip segmentation (source is already transparent)
@@ -40,6 +54,14 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const SIZE = 800; // output canvas, px
 const OBJECT_RATIO = 0.78; // how much of the frame the object fills
 const CATEGORIES = ["watches", "shoes", "perfumes"];
+
+/** Mirror of lib/collections/angles.ts. First entry is canonical. */
+const ANGLES = {
+    watches: ["dial", "angle", "profile", "caseback"],
+    shoes: ["lateral", "medial", "top", "sole"],
+    perfumes: ["bottle", "angle", "cap", "box"],
+};
+const canonical = (category) => ANGLES[category][0];
 const SOURCE_EXTS = [".png", ".jpg", ".jpeg", ".webp", ".avif", ".tif", ".tiff"];
 
 const INCOMING = path.join(root, "scripts", "incoming");
@@ -81,7 +103,7 @@ async function segmentAll(seg, jobs) {
 
     const keys = new Map();
     for (const job of jobs) {
-        const key = `${job.category}__${job.id}`;
+        const key = `${job.category}__${job.id}__${job.angle}`;
         keys.set(key, job);
         await fs.copyFile(
             job.source,
@@ -104,6 +126,61 @@ async function segmentAll(seg, jobs) {
 }
 
 /* ---- the image work ------------------------------------------------------ */
+
+/**
+ * Keep only the biggest thing in the frame.
+ *
+ * A photograph of one object usually contains a sliver of the next one along,
+ * and the segmenter faithfully cuts that out too. Left alone it widens the
+ * bounding box, so the trim-and-pad below shrinks the actual subject to make
+ * room for a fragment nobody wanted. Labelling the alpha channel and keeping
+ * the largest connected region fixes it at the source.
+ */
+async function keepLargest(buffer) {
+    const { data, info } = await sharp(buffer)
+        .ensureAlpha()
+        .raw()
+        .toBuffer({ resolveWithObject: true });
+    const { width: w, height: h, channels } = info;
+
+    const solid = new Uint8Array(w * h);
+    for (let i = 0; i < w * h; i++) {
+        solid[i] = data[i * channels + 3] > 24 ? 1 : 0;
+    }
+
+    const label = new Int32Array(w * h).fill(-1);
+    let best = -1;
+    let bestArea = 0;
+    let next = 0;
+    const stack = [];
+    for (let start = 0; start < w * h; start++) {
+        if (solid[start] !== 1 || label[start] !== -1) continue;
+        const id = next++;
+        let area = 0;
+        stack.push(start);
+        label[start] = id;
+        while (stack.length) {
+            const j = stack.pop();
+            area++;
+            const jx = j % w;
+            const jy = (j / w) | 0;
+            if (jx > 0 && solid[j - 1] && label[j - 1] === -1) { label[j - 1] = id; stack.push(j - 1); }
+            if (jx < w - 1 && solid[j + 1] && label[j + 1] === -1) { label[j + 1] = id; stack.push(j + 1); }
+            if (jy > 0 && solid[j - w] && label[j - w] === -1) { label[j - w] = id; stack.push(j - w); }
+            if (jy < h - 1 && solid[j + w] && label[j + w] === -1) { label[j + w] = id; stack.push(j + w); }
+        }
+        if (area > bestArea) { bestArea = area; best = id; }
+    }
+    if (best === -1) return buffer;
+
+    const out = Buffer.from(data);
+    for (let i = 0; i < w * h; i++) {
+        if (label[i] !== best) out[i * channels + 3] = 0;
+    }
+    return sharp(out, { raw: { width: w, height: h, channels } })
+        .png()
+        .toBuffer();
+}
 
 /**
  * Trim transparent (or near-uniform) edges, then centre the object on a square
@@ -145,20 +222,21 @@ async function frame(buffer) {
         .toBuffer();
 }
 
-function outputPath(category, id) {
-    return path.join(OUT_BASE, category, `${id}.webp`);
+function outputPath(category, id, angle) {
+    return path.join(OUT_BASE, category, `${id}.${angle}.webp`);
 }
 
-async function alreadyExists(category, id) {
+async function alreadyExists(category, id, angle) {
     return fs
-        .access(outputPath(category, id))
+        .access(outputPath(category, id, angle))
         .then(() => true)
         .catch(() => false);
 }
 
-async function normalise({ source, category, id, cutOut, segmented }) {
-    const outPath = outputPath(category, id);
-    const out = await frame(await fs.readFile(cutOut ?? source));
+async function normalise({ source, category, id, angle, cutOut, segmented }) {
+    const outPath = outputPath(category, id, angle);
+    const raw = await fs.readFile(cutOut ?? source);
+    const out = await frame(segmented ? await keepLargest(raw) : raw);
     await fs.mkdir(path.dirname(outPath), { recursive: true });
     await fs.writeFile(outPath, out);
     const kb = (out.length / 1024).toFixed(0);
@@ -178,10 +256,23 @@ async function collectIncoming() {
         for (const entry of entries) {
             const ext = path.extname(entry).toLowerCase();
             if (!SOURCE_EXTS.includes(ext)) continue;
+            const stem = path.basename(entry, ext);
+            // <id>.<angle> — or a bare <id>, which means the canonical angle
+            // so that anything staged before angles existed still works.
+            const dot = stem.lastIndexOf(".");
+            const maybeAngle = dot === -1 ? null : stem.slice(dot + 1);
+            const known = ANGLES[category].includes(maybeAngle);
+            if (dot !== -1 && !known) {
+                console.error(
+                    `  ${category}/${entry}  UNKNOWN ANGLE "${maybeAngle}" — one of: ${ANGLES[category].join(", ")}`
+                );
+                continue;
+            }
             jobs.push({
                 source: path.join(dir, entry),
                 category,
-                id: path.basename(entry, ext),
+                id: known ? stem.slice(0, dot) : stem,
+                angle: known ? maybeAngle : canonical(category),
             });
         }
     }
@@ -197,11 +288,12 @@ function parseArgs(argv) {
     const positional = argv.filter((a, i) => {
         if (a.startsWith("--")) return false;
         const prev = argv[i - 1];
-        return !(prev === "--category" || prev === "--id");
+        return !(prev === "--category" || prev === "--id" || prev === "--angle");
     });
     return {
         category: value("category"),
         id: value("id"),
+        angle: value("angle"),
         file: positional[0],
         keepBg: flags.has("--keep-bg"),
         force: flags.has("--force"),
@@ -229,17 +321,30 @@ async function main() {
             );
             process.exit(1);
         }
-        jobs = [{ source: args.file, category: args.category, id: args.id }];
+        const angle = args.angle ?? canonical(args.category);
+        if (!ANGLES[args.category].includes(angle)) {
+            console.error(
+                `Unknown angle "${angle}" for ${args.category}. One of: ${ANGLES[args.category].join(", ")}`
+            );
+            process.exit(1);
+        }
+        jobs = [
+            { source: args.file, category: args.category, id: args.id, angle },
+        ];
     } else {
         jobs = await collectIncoming();
         if (jobs.length === 0) {
             console.log(
                 `Nothing to do.\n\n` +
-                    `Drop files in scripts/incoming/<category>/<id>.<ext> and run again,\n` +
-                    `naming each file after the item id in lib/collections/<category>.ts.\n` +
-                    `  e.g. scripts/incoming/watches/seiko-skx007.jpg\n\n` +
-                    `Or normalise one file directly:\n` +
-                    `  npm run normalize -- --category watches --id seiko-skx007 ~/Downloads/skx.jpg`
+                    `Drop files in scripts/incoming/<category>/<id>.<angle>.<ext> and run\n` +
+                    `again, naming each after the item id in lib/collections/<category>.ts.\n` +
+                    `  e.g. scripts/incoming/watches/seiko-skx007.caseback.jpg\n\n` +
+                    `Angles — the first is the one the catalogue renders:\n` +
+                    Object.entries(ANGLES)
+                        .map(([c, a]) => `  ${c.padEnd(9)} ${a.join(", ")}`)
+                        .join("\n") +
+                    `\n\nOr normalise one file directly:\n` +
+                    `  npm run normalize -- --category watches --id seiko-skx007 --angle caseback ~/back.jpg`
             );
             return;
         }
@@ -248,15 +353,18 @@ async function main() {
     // Filter before segmenting — no point paying for images we would skip.
     const kept = [];
     for (const job of jobs) {
-        if (!args.force && (await alreadyExists(job.category, job.id))) {
+        if (
+            !args.force &&
+            (await alreadyExists(job.category, job.id, job.angle))
+        ) {
             console.log(
-                `  ${path.relative(root, outputPath(job.category, job.id))}  skipped (exists — use --force)`
+                `  ${path.relative(root, outputPath(job.category, job.id, job.angle))}  skipped (exists — use --force)`
             );
             continue;
         }
         if (args.dryRun) {
             console.log(
-                `  ${path.relative(root, outputPath(job.category, job.id))}  would write`
+                `  ${path.relative(root, outputPath(job.category, job.id, job.angle))}  would write`
             );
             continue;
         }
@@ -289,7 +397,7 @@ async function main() {
 
     let failed = 0;
     for (const job of jobs) {
-        const key = `${job.category}__${job.id}`;
+        const key = `${job.category}__${job.id}__${job.angle}`;
         try {
             const { rel, status } = await normalise({
                 ...job,
@@ -299,7 +407,9 @@ async function main() {
             console.log(`  ${rel}  ${status}`);
         } catch (error) {
             failed++;
-            console.error(`  ${job.category}/${job.id}  FAILED — ${error.message}`);
+            console.error(
+                `  ${job.category}/${job.id}.${job.angle}  FAILED — ${error.message}`
+            );
         }
     }
     if (cleanup) await cleanup();

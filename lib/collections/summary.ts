@@ -15,6 +15,8 @@ export type DrawerSummary = {
     span: { first: string; last: string } | null;
     /** Items still waiting for their one line of why. */
     unnoted: number;
+    /** Items whose price has not been recorded. Counted, never guessed. */
+    unpriced: number;
     /** How many carry an acquisition date — which decides how the drawer is
         actually ordered, and therefore what the page may claim about it. */
     dated: number;
@@ -25,13 +27,18 @@ export function summarise(items: AnyItem[]): DrawerSummary {
     const spend = new Map<Currency, number>();
     const dates: string[] = [];
     let unnoted = 0;
+    let unpriced = 0;
 
     for (const item of items) {
         brands.set(item.brand, (brands.get(item.brand) ?? 0) + 1);
-        spend.set(
-            item.price.currency,
-            (spend.get(item.price.currency) ?? 0) + item.price.amount
-        );
+        if (item.price) {
+            spend.set(
+                item.price.currency,
+                (spend.get(item.price.currency) ?? 0) + item.price.amount
+            );
+        } else {
+            unpriced += 1;
+        }
         if (item.acquired) dates.push(item.acquired);
         if (!item.why) unnoted += 1;
     }
@@ -52,6 +59,7 @@ export function summarise(items: AnyItem[]): DrawerSummary {
                 ? { first: dates[0], last: dates[dates.length - 1] }
                 : null,
         unnoted,
+        unpriced,
         dated: dates.length,
     };
 }

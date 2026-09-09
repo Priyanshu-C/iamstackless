@@ -53,7 +53,9 @@ function Entry({ item, category }: { item: AnyItem; category: CategorySlug }) {
             <dl className="case-slip-rows">
                 <div className="case-slip-row">
                     <dt>Paid</dt>
-                    <dd>{formatPrice(item.price)}</dd>
+                    <dd data-blank={item.price ? undefined : true}>
+                        {formatPrice(item.price) ?? "not recorded"}
+                    </dd>
                 </div>
                 <div className="case-slip-row">
                     <dt>Acquired</dt>
@@ -125,6 +127,14 @@ function Summary({
                             {summary.span.first === summary.span.last
                                 ? formatMonth(summary.span.first)
                                 : `${formatMonth(summary.span.first)} — ${formatMonth(summary.span.last)}`}
+                        </dd>
+                    </div>
+                ) : null}
+                {summary.unpriced > 0 ? (
+                    <div className="case-slip-row">
+                        <dt>Unpriced</dt>
+                        <dd data-blank="true">
+                            {summary.unpriced} of {summary.count}
                         </dd>
                     </div>
                 ) : null}

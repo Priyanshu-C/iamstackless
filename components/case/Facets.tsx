@@ -4,6 +4,11 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import type { Facet } from "@/lib/collections";
 
+/** Past this many values a facet stops being a row of controls and becomes a
+    wall. Perfume notes run to fifty across a dozen bottles, most of them on a
+    single item. They stay reachable, behind a count. */
+const WALL = 12;
+
 /** Filter state lives in the URL, so a filtered drawer is linkable and
     survives a reload. OR within a facet, AND across facets.
 
@@ -23,6 +28,7 @@ export default function Facets({
     const pathname = usePathname();
     const params = useSearchParams();
     const [open, setOpen] = useState(false);
+    const [expanded, setExpanded] = useState<Record<string, boolean>>({});
 
     if (facets.length === 0) return null;
 
@@ -61,11 +67,25 @@ export default function Facets({
             </button>
 
             <div className="case-facets-body">
-                {facets.map((facet) => (
+                {facets.map((facet) => {
+                    const long = facet.values.length > WALL;
+                    const on = facet.values.filter((v) => isOn(facet.key, v));
+                    const show =
+                        !long || expanded[facet.key]
+                            ? facet.values
+                            : // A chosen value stays visible even while the
+                              // rest of a long facet is folded away.
+                              Array.from(
+                                  new Set([
+                                      ...on,
+                                      ...facet.values.slice(0, WALL),
+                                  ])
+                              );
+                    return (
                     <div className="case-facet" key={facet.key}>
                         <span className="case-facet-label">{facet.label}</span>
                         <div className="case-facet-values">
-                            {facet.values.map((value) => {
+                            {show.map((value) => {
                                 const on = isOn(facet.key, value);
                                 const count = facet.counts[value] ?? 0;
                                 return (
@@ -87,9 +107,27 @@ export default function Facets({
                                     </button>
                                 );
                             })}
+                            {long ? (
+                                <button
+                                    type="button"
+                                    className="case-chip case-chip--more"
+                                    aria-expanded={Boolean(expanded[facet.key])}
+                                    onClick={() =>
+                                        setExpanded((p) => ({
+                                            ...p,
+                                            [facet.key]: !p[facet.key],
+                                        }))
+                                    }
+                                >
+                                    {expanded[facet.key]
+                                        ? "Fewer"
+                                        : `${facet.values.length - show.length} more`}
+                                </button>
+                            ) : null}
                         </div>
                     </div>
-                ))}
+                    );
+                })}
 
                 <p className="case-facets-result" aria-live="polite">
                     {activeCount === 0 ? (

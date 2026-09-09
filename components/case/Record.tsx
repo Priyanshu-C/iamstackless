@@ -30,7 +30,6 @@ const SPEC_ORDER: Record<string, { key: string; label: string }[]> = {
         { key: "released", label: "Released" },
     ],
     perfume: [
-        { key: "house", label: "House" },
         { key: "concentration", label: "Concentration" },
         { key: "volume", label: "Volume" },
         { key: "perfumer", label: "Perfumer" },
@@ -81,7 +80,9 @@ export default function Record({
             <dl className="case-record-rows">
                 <div className="case-record-row">
                     <dt>Paid</dt>
-                    <dd>{formatPrice(item.price)}</dd>
+                    <dd data-blank={item.price ? undefined : true}>
+                        {formatPrice(item.price) ?? "not recorded"}
+                    </dd>
                 </div>
                 <div className="case-record-row">
                     <dt>Acquired</dt>

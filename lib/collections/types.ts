@@ -15,8 +15,14 @@ export type CollectionItem = {
     /** "YYYY-MM" — the month it was acquired. Optional: only Priyanshu knows
         this, so an item can sit in the case before the date is filled in. */
     acquired?: string;
-    /** What was actually paid. No conversion is performed. */
-    price: { amount: number; currency: Currency };
+    /** What was actually paid. No conversion is performed.
+
+        Optional for the same reason as `acquired` and `why`: only Priyanshu
+        knows it. A listing's price is what something costs, not what he gave
+        for it, and the two are rarely the same. Items that arrive as a
+        photograph rather than as a receipt sit in the case unpriced until he
+        fills it in, and the ledger shows the blank. */
+    price?: { amount: number; currency: Currency };
     /** One line. Why this one, and not another. Optional for the same reason
         as `acquired` — it is never invented, only supplied. */
     why?: string;
@@ -65,11 +71,12 @@ export type Shoe = CollectionItem & {
 };
 
 export type Perfume = CollectionItem & {
-    house: string;
     concentration: "EDT" | "EDP" | "parfum";
     notes: { top: string[]; heart: string[]; base: string[] };
-    /** Bottle size in millilitres. */
-    volume: number;
+    /** Bottle size in millilitres — set only where the bottle itself states
+        it. A retailer's listed size is the size they sell, not necessarily
+        the one on the shelf here. */
+    volume?: number;
     perfumer?: string;
     released?: string;
 };

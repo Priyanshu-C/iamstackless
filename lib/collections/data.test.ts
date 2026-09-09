@@ -42,9 +42,14 @@ describe.each(CATEGORIES)("$label", (category) => {
         }
     });
 
-    it("records a price above zero", () => {
+    // Price is optional for the same reason `acquired` and `why` are: only
+    // the owner knows it, and a listing's price is not what he paid. Validate
+    // the shape when it is there; absence is legitimate.
+    it("records a price above zero when it records one at all", () => {
         for (const item of category.items) {
+            if (item.price === undefined) continue;
             expect(item.price.amount, item.id).toBeGreaterThan(0);
+            expect(["INR", "USD"], item.id).toContain(item.price.currency);
         }
     });
 
