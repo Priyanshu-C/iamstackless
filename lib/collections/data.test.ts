@@ -3,6 +3,12 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { CATEGORIES } from "./index";
 import { shotPath } from "./angles";
+import {
+    formatAcquired,
+    formatPrice,
+    itemFacts,
+    itemSpec,
+} from "../../components/case/format";
 
 const PUBLIC = path.resolve(__dirname, "../../public");
 
@@ -68,6 +74,43 @@ describe.each(CATEGORIES)("$label", (category) => {
                     existsSync(path.join(PUBLIC, rel)),
                     `${item.id} ${angle} -> ${rel}`
                 ).toBe(true);
+            }
+        }
+    });
+});
+
+/* Optional fields are the norm in this catalogue — price, acquired, why,
+   volume, size, and every researched spec may legitimately be absent. Any
+   line that interpolates one without checking renders the string
+   "undefined" to a real reader, which is the failure mode this catches. */
+describe("nothing renders as 'undefined'", () => {
+    const items = CATEGORIES.flatMap((c) => c.items);
+
+    it("in the short facts line", () => {
+        for (const item of items) {
+            const line = itemFacts(item).join(" · ");
+            expect(line, item.id).not.toMatch(/undefined|null|NaN/);
+        }
+    });
+
+    it("in the long spec line", () => {
+        for (const item of items) {
+            const spec = itemSpec(item);
+            if (!spec) continue;
+            expect(spec.value, item.id).not.toMatch(/undefined|null|NaN/);
+            expect(spec.value.trim(), item.id).not.toBe("");
+        }
+    });
+
+    it("in a formatted price or date", () => {
+        for (const item of items) {
+            const price = formatPrice(item.price);
+            if (price !== null) {
+                expect(price, item.id).not.toMatch(/undefined|NaN/);
+            }
+            const acquired = formatAcquired(item.acquired);
+            if (acquired !== null) {
+                expect(acquired, item.id).not.toMatch(/undefined|NaN|Invalid/);
             }
         }
     });

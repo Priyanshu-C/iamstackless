@@ -1,14 +1,26 @@
 [
   {
+    "date": "2026-09-09",
+    "scope": "section",
+    "macrostructure": "Split Studio",
+    "theme": "custom",
+    "theme_axes": "light / grotesk-sans / warm",
+    "vibe": "a vitrine and its placard",
+    "enrichment": "none \u2014 the objects are the imagery",
+    "nav": "rail + masthead return",
+    "footer": "Ft2 inline-rule colophon",
+    "brief": "The Showroom \u2014 a page per object, with a category-consistent angle vocabulary"
+  },
+  {
     "date": "2026-09-08",
     "scope": "section",
     "macrostructure": "Plate & Slip",
     "theme": "custom",
     "theme_axes": "light / grotesk-sans / warm",
     "vibe": "a printer's type case, quiet and ruled",
-    "enrichment": "none — the objects are the imagery",
+    "enrichment": "none \u2014 the objects are the imagery",
     "nav": "rail (bottom, both doors)",
-    "footer": "none — the rail is the footer",
-    "brief": "The Case · /collections — redesign of the private collections catalogue"
+    "footer": "none \u2014 the rail is the footer",
+    "brief": "The Case \u00b7 /collections \u2014 redesign of the private collections catalogue"
   }
 ]

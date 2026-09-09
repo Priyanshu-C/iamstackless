@@ -55,7 +55,8 @@ export function itemFacts(item: AnyItem): string[] {
         if (item.material) facts.push(item.material);
         if (item.size) facts.push(item.size);
     } else if ("concentration" in item) {
-        facts.push(item.concentration, `${item.volume}ml`);
+        facts.push(item.concentration);
+        if (item.volume) facts.push(`${item.volume}ml`);
     }
     return facts;
 }

@@ -209,3 +209,86 @@ Extends the existing integrity suite, which runs over the real data files and is
 - Any write path from the browser (original spec stands).
 - Current market value, wear logs, servicing history (original decision 3's *other* rejections stand — dossier depth here means description and provenance, not valuation).
 - Generating, upscaling or compositing imagery that was not photographed. A blank is the honest render.
+
+---
+
+## Decisions added during implementation
+
+These came out of the work rather than the design, and each is recorded the
+same way: what was chosen, and what was rejected.
+
+### 17 · `price` is optional
+
+Thirteen perfumes arrived as photographs, not receipts. `price` joins
+`acquired` and `why` as something only the owner knows, and the drawer counts
+what is unpriced rather than filling it in.
+
+*Rejected:* substituting the listed retail price. A listing's price is what a
+thing costs, not what he paid, and the original spec is explicit that the
+number shown is the number paid. Silently swapping one for the other would
+make the drawer's spend total a fiction while looking exactly like a fact.
+
+### 18 · `volume` comes off the bottle, not off a listing
+
+Set only where the label in the photograph states it — seven of thirteen. The
+rest are absent.
+
+*Rejected:* filling from the retailer's most common size. A house sells the
+same fragrance in 30, 50 and 100ml; which one is on the shelf here is not
+something a listing can tell you.
+
+### 19 · `house` deleted from `Perfume`
+
+It duplicated `brand`, which the facets already use.
+
+*Rejected:* keeping both and rendering "House" in the record — a row that
+restates the line directly above it.
+
+### 20 · A facet past twelve values folds
+
+Perfume notes run to roughly fifty across thirteen bottles, most on a single
+item, and the filter row became five rows of chips taller than the plate. Over
+twelve values a facet shows the first twelve plus a count; anything already
+selected stays visible while the rest is folded.
+
+*Rejected:* hiding values that only one item carries. "Which one has the oud"
+is a real question, and a facet that quietly drops its rarest values answers it
+wrongly.
+
+### 21 · The perfumes are the owner's own photographs
+
+Five flat-lays, thirteen bottles, segmented apart automatically: sample the
+background from the frame's border, threshold on distance and saturation,
+erode, dilate, label the blobs and keep the largest. Two had to be cropped by
+hand where shadows merged neighbouring bottles into one blob.
+
+This makes the perfume drawer the only one shot by the owner rather than
+sourced from press imagery — a departure from original decision 4, and an
+improvement on it. The normaliser puts them on the same 800px frame as
+everything else, so they sit in the plate as siblings regardless.
+
+*Rejected:* press renders for the perfumes. He photographed them; using a
+manufacturer's studio shot instead would have been both more work and less
+true.
+
+### 22 · The normaliser keeps only the largest object it finds
+
+A photograph of one bottle usually contains a sliver of the next one along,
+and the segmenter cut those out too. Left alone, the sliver widened the
+bounding box, so the trim-and-pad step shrank the actual subject to make room
+for a fragment nobody wanted. The alpha channel is labelled and only the
+largest connected region survives.
+
+## Still outstanding
+
+- **`why` is empty on all twenty-five items.** By design — it is the one field
+  nothing but the owner may write. Every showroom page ends on the ruled blank.
+- **`price` and `acquired` are empty on the thirteen perfumes.**
+- **One angle per object.** The architecture carries four per category; the
+  photography carries one. Every unphotographed angle renders as a labelled
+  blank, which is both the honest render and the shortest possible list of
+  what to shoot next.
+- **Stronger With You Intensely has no note pyramid.** Its notes are
+  deliberately empty pending a source for the flanker specifically — the base
+  Stronger With You is a different fragrance and its pyramid must not be
+  borrowed.
