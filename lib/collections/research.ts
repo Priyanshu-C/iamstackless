@@ -345,6 +345,15 @@ export const RESEARCH: Record<string, Research> = {
             "https://snkrdunk.com/en/magazine/2025/04/11/adidas-superstar-ii-chicago-release-date-price-where-to-buy/",
         ],
     },
+    "armani-stronger-with-you-intensely": {
+        standing:
+            "A 2019 flanker of the 2017 original; common in collections, neither rare nor discontinued.",
+        note: "An eau de parfum flanker in Emporio Armani's Stronger With You line, one of more than a dozen spin-offs from the 2017 eau de toilette. It keeps the pink pepper and lavender-sage frame of the original but replaces its chestnut-smoke base with toffee, cinnamon, tonka bean, vanilla, amber and suede — sweeter and warmer, at the higher concentration. It turns up often because it is a mainstream department-store fragrance with heavy sales, not because it is scarce. Fragrantica credits a perfumer for the 2017 original but names none for this one.",
+        sources: [
+            "https://www.fragrantica.com/perfume/Giorgio-Armani/Emporio-Armani-Stronger-With-You-Intensely-52802.html",
+            "https://www.fragrantica.com/perfume/Giorgio-Armani/Emporio-Armani-Stronger-With-You-45258.html",
+        ],
+    },
 };
 
 export function researchFor(id: string): Research | null {

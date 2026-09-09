@@ -123,10 +123,14 @@ export const perfumes: Perfume[] = [
         brand: "Emporio Armani",
         shots: ["bottle"],
         concentration: "EDP",
-        // Pyramid and year pending a source for the Intensely flanker
-        // specifically — the original Stronger With You is a different
-        // fragrance and its notes must not be borrowed for this bottle.
-        notes: { top: [], heart: [], base: [] },
+        released: "2019",
+        // Intensely's own pyramid, not the 2017 original's — the two differ
+        // in the base, which is the whole point of the flanker.
+        notes: {
+            top: ["pink pepper", "juniper", "violet"],
+            heart: ["toffee", "cinnamon", "lavender", "sage"],
+            base: ["vanilla", "amber", "tonka bean", "suede"],
+        },
     },
     {
         id: "lattafa-asad",

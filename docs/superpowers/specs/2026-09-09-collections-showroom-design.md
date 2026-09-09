@@ -288,7 +288,9 @@ largest connected region survives.
   photography carries one. Every unphotographed angle renders as a labelled
   blank, which is both the honest render and the shortest possible list of
   what to shoot next.
-- **Stronger With You Intensely has no note pyramid.** Its notes are
-  deliberately empty pending a source for the flanker specifically — the base
-  Stronger With You is a different fragrance and its pyramid must not be
-  borrowed.
+- ~~**Stronger With You Intensely has no note pyramid.**~~ Resolved
+  2026-09-09. Sourced from the flanker's own Fragrantica entry rather than the
+  2017 original's: the two share a top and heart but differ in the base, which
+  is the point of the flanker. No perfumer is credited for Intensely, so that
+  field stays blank while the original's is documented — a good example of why
+  borrowing the parent's data would have been wrong.
