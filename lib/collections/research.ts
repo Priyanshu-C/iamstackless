@@ -136,6 +136,215 @@ export const RESEARCH: Record<string, Research> = {
             "https://www.mavive.com/en/to-be-the-kingthe-queen/81-eau-de-toilette-for-him-333.html",
         ],
     },
+    "diesel-dz4323": {
+        standing:
+            "Mass-market fashion chronograph; oversized case is the whole idea, no in-house movement, no collector market.",
+        note: "The Mega Chief line is Diesel's oversized quartz chronograph collection, made under the Fossil Group watch license rather than by an in-house movement maker. The DZ4323 pairs a 59mm stainless steel case (black-plated, per Watch Connection) with a black leather strap and mineral crystal, and carries a 10 ATM (100m) water resistance rating that exceeds what its fashion-watch role requires. The movement is a generic quartz chronograph module; no specific caliber is published for it anywhere in Diesel's or retailers' listings. It trades as a current-production fashion accessory, not as a piece with any secondary or collector market.",
+        specs: {
+            caseMaterial: "Stainless steel (black-plated)",
+            crystal: "Mineral crystal",
+            waterResistance: "10 ATM / 100m",
+            lugWidth: "26mm (strap width)",
+        },
+        sources: [
+            "https://www.tictacarea.com/en/diesel-watches/diesel-dz4323-watch-diesel-mega-chief-dz4323",
+            "https://www.watch-connection.com/products/diesel-mega-chief-black-dial-black-leather-strap-watch-for-men-dz4323",
+            "https://watchdirect.shop/products/diesel-dz4323-multi-colour-dial-mens-watch",
+        ],
+    },
+    "diesel-dz4581": {
+        standing:
+            "Same Mega Chief format on a two-tone bracelet; a fashion watch, not a collected one.",
+        note: "The DZ4581 is a 51mm variant of the same Mega Chief architecture as the DZ4323, substituting a two-tone (silver and gold) stainless steel bracelet with deployant clasp for a leather strap. The case is 14mm thick, fitted with mineral crystal over a black sunray dial with chronograph sub-dials and a date window, and rated to 100m water resistance. The movement is a quartz chronograph module; Diesel does not publish a specific caliber name for it. Like the DZ4323, it is a current production fashion item with no distinguishing rarity or collector history.",
+        specs: {
+            caseMaterial: "Stainless steel",
+            crystal: "Mineral crystal",
+            waterResistance: "100m",
+            lugWidth: "26mm",
+        },
+        sources: [
+            "https://www.watchnation.com/products/diesel-mega-chief-chronograph-two-tone-stainless-steel-watch-mens-dz4581",
+            "https://phoenixjewellers.ca/products/diesel-two-tone-mega-chief-dz4581",
+        ],
+    },
+    "seiko-ssk035k1": {
+        standing:
+            "Automatic GMT built on the SKX diver silhouette; a well-received recent addition to a long-running case shape.",
+        note: "The SSK035K1 is part of Seiko's 2024 SKX Sports Style GMT expansion, which puts a GMT complication and a jubilee-style bracelet onto the 42.5mm case and 4 o'clock crown position that defined the SKX007-generation dive watches for more than two decades. It runs Seiko's in-house 4R34 automatic caliber (24 jewels, roughly 41-hour power reserve, hand-winding and hacking) under a Hardlex crystal with a magnified date window, on a 22mm lug width. Water resistance is 100m, down from the 200m of the original SKX divers this case shape descends from. The GMT versions of the SKX Sports Style line have been received more favorably than the earlier non-GMT SKX Sports Style watches, largely on the strength of the added complication and upgraded bracelet at a comparatively low price.",
+        specs: {
+            caseMaterial: "Stainless steel",
+            crystal: "Hardlex (magnified date window)",
+            waterResistance: "100m / 10 bar",
+            calibre: "4R34 automatic",
+            lugWidth: "22mm",
+            powerReserve: "Approx. 41 hours",
+            released: "2024",
+        },
+        sources: [
+            "https://www.seikowatches.com/us-en/products/5sports/ssk035",
+            "https://timeandtidewatches.com/seiko-5-skx-sports-style-gmt-hands-on/",
+        ],
+    },
+    "timex-tweg26713": {
+        standing:
+            "First-ever chronograph and first quartz movement carried by the Marlin name; a design extension, not a period reissue.",
+        note: "Timex's Marlin name dates to a 1950s-60s dress watch line, revived in 2017 as a small hand-wound mechanical reissue. The Chronograph Tachymeter series that includes the TWEG26713 departs from that revival: it is the first chronograph and the first quartz-powered watch to carry the Marlin name, rather than a reproduction of a period original. This reference has a stainless steel case around 42mm with a domed acrylic (Hesalite-type) crystal, a tachymeter scale, and 50m water resistance, on a two-tone steel bracelet with deployant clasp. It reads as a current product using retro Marlin styling cues -- applied indices, a domed crystal -- rather than a faithful copy of any specific vintage Marlin chronograph, since no chronograph existed in the original 1950s-70s Marlin line.",
+        specs: {
+            caseMaterial: "Stainless steel (two-tone)",
+            crystal: "Acrylic (domed, Hesalite-type)",
+            waterResistance: "50m",
+            lugWidth: "22mm",
+        },
+        sources: [
+            "https://shop.timexindia.com/products/timex-marlin-champagne-round-dial-analog-men-watch-tweg26713",
+            "https://masterhorologer.com/2026/05/01/hands-on-review-timex-marlin-chronograph-tachymeter/",
+            "https://timeandtidewatches.com/the-evolution-of-the-timex-marlin/",
+        ],
+    },
+    "casio-gst-s110d": {
+        standing:
+            "Foundational steel-bezel G-STEEL, Casio's dress-leaning shock-resistant line; mainstream and still in production, not a rarity.",
+        note: "The GST-S110D-1A launched June 26, 2015 as part of the first steel-cased generation of Casio's G-STEEL line, introducing the 'layer guard structure' -- a stainless steel outer bezel over a cushioning resin inner bezel -- aimed at a dressier, more metal-forward alternative to resin-cased G-Shocks, at a lower price than the metal MTG series. It runs Casio's Tough Solar module 5445, is rated to 200m water resistance under mineral crystal, and combines analog hands with a digital LCD, including a hand-shift function that moves the hands aside to read the display. It is a mainstream, long-running line rather than a discontinued or sought-after reference.",
+        specs: {
+            caseMaterial: "Resin case with stainless steel bezel and band",
+            crystal: "Mineral",
+            waterResistance: "200m",
+            calibre: "Tough Solar, Module 5445",
+            released: "June 2015",
+        },
+        sources: [
+            "https://www.g-central.com/specs/g-shock-gst-s100-gst-s110/",
+            "https://www.g-central.com/g-steel-gsts100-and-gsts110-models-revealed/",
+        ],
+    },
+    "adidas-adimatic-mid-ynuk": {
+        standing:
+            "Limited collaboration reissue of a 1990s skate silhouette, part of a small Y2K-themed capsule.",
+        note: "The Adimatic Mid YNuK is a mid-cut reissue of adidas's Adimatic, a suede skate shoe that dates to the mid-1990s and built a cult following in the Japanese skate scene. This release paired the silhouette with graphics and packaging by Crude, a Portugal-based artist, as one of four shoes (alongside a low-top Adimatic, a Campus 00s, and a Supermodified) in a capsule themed around early-2000s art, fashion, and nu-metal aesthetics. It is a design collaboration on an existing archival shoe rather than a new silhouette, and distribution was limited to select retailers before selling out.",
+        specs: {
+            styleCode: "IE2174",
+            silhouette: "Adimatic Mid",
+            released: "2023",
+            upper: "Suede, with contrasting 3-Stripes and white laces",
+            midsole:
+                'Stacked "zigzag" midsole carried over from the original Adimatic design',
+            closure: "Lace-up",
+        },
+        sources: [
+            "https://www.solesense.com/en-us/adidas-crude-from-portugal-x-adimatic-mid-ynuk-ie2174",
+            "https://sneakernews.com/2023/05/17/adidas-adimatic-campus-supermodified-ynuk-release-date/",
+            "https://en.otokomaeken.com/masterpiece/273846",
+            "https://www.soleretriever.com/news/articles/adidas-adimatic-2022",
+        ],
+    },
+    "adidas-adifom-climacool": {
+        standing:
+            "Mass-market foam lifestyle sneaker, adidas's foam-line answer to the Yeezy Foam Runner rather than a specialist or heritage piece.",
+        note: "The Adifom Climacool is a slip-on-styled, foam-shelled sneaker in adidas's adiFOM family, built the same way as its predecessor the adiFOM Q: a breathable mesh inner bootie surrounded by a molded, bio-based foam exoskeleton, with a ClimaCool tongue tab reviving the name of adidas's early-2000s ventilation tech rather than any specific technical link to it. It retailed at $120 at a mainstream, wide-release level (not a limited drop), and multiple outlets have since discounted it well below that price, which is consistent with ordinary retail sneaker performance rather than sustained demand.",
+        specs: {
+            styleCode: "IF3909",
+            silhouette: "adiFOM Climacool",
+            released: "July 2023",
+            upper: "Textile mesh inner bootie with a molded bio-based foam outer shell/cage (upper contains at least 50% recycled content)",
+            midsole:
+                "Molded adiFOM foam construction (foam forms both midsole and outer shell)",
+            closure: "Lace",
+        },
+        sources: [
+            "https://www.highsnobiety.com/p/adidas-adifom-climacool/",
+            "https://thesolesupplier.co.uk/news/adidas-adifom-climacool-steps-in-to-fill-the-foam-runner-void/",
+            "https://captaincreps.com/product/adidas-adifom-climacool-white-black-if3909/",
+            "https://www.modalite.net/us/men/adidas/shoes/adifom-climacool-shoes/6988486/",
+        ],
+    },
+    "jordan-one-take-5": {
+        standing:
+            'Budget-tier signature basketball shoe from a line already being phased out, in an outdoor-oriented "PF" build — an ordinary mass-market performance shoe, not a collector piece.',
+        note: "This is the fifth and, per one performance review, likely final signature shoe in Russell Westbrook's Jordan One Take line, retailing at $100. The base One Take 5 launched in December 2023 with a Zoom Air unit under the forefoot on a phylon midsole, a TPU shank plate, and a mixed mesh/leather/suede/textile upper with two forefoot straps for lockdown. \"PF\" ('Performance Fit,' per sneaker-terminology write-ups) denotes a variant built with a harder, more durable outsole compound and a wider fit intended for outdoor-court play. This Stone Blue/Mystic Navy/Midnight Navy/Bleached Coral PF colorway (style FD2336-400) is one of several colorways issued through 2024 in the line's ordinary retail cycle, not a special or limited release.",
+        specs: {
+            styleCode: "FD2336-400",
+            silhouette: "Jordan One Take 5 PF",
+            upper: "Mixed construction: short-cut suede at the heel, synthetic leather at the midfoot, textile/mesh wrap at the forefoot, plus a thick lateral rubber panel and TPU detailing",
+            midsole:
+                "Phylon midsole with a top-loaded Zoom Air unit in the forefoot and a TPU shank plate for torsional support",
+            closure: "Laces plus two forefoot straps for containment",
+        },
+        sources: [
+            "https://weartesters.com/jordan-one-take-5-review/",
+            "https://www.soleretriever.com/news/articles/russell-westbrook-jordan-one-take-5-release-date-2023",
+            "https://sneakerbardetroit.com/jordan-one-take-5/",
+            "https://decentfoot.com/what-is-pf-in-jordan-shoes/",
+            "https://www.kickscrew.com/products/air-jordan-one-take-5-pf-stone-blue-navy-fd2336-400",
+        ],
+    },
+    "nike-air-max-sc": {
+        standing:
+            "Ordinary mass-market Air Max; sold continuously as Nike's cheapest Air model, with no distinct collector standing.",
+        note: 'The Air Max SC is Nike\'s entry-level Air Max, sitting below the retro-numbered models (Air Max 1, 90, 95, etc.) in Nike\'s own hierarchy; sneaker press has noted the initials are informally read as "Super Cheap." It pairs a mesh-and-synthetic-leather upper with a foam midsole carrying a visible Max Air unit in the heel, closed with ordinary lacing. No officially catalogued "White / Sea Green" colorway could be confirmed — the closest documented releases are White/Gorge Green (CW4555-109) and White/Stadium Green (CW4555-110), so the style code and release date for this specific pair are left blank rather than guessed.',
+        specs: {
+            silhouette: "Air Max SC",
+            upper: "Mesh with synthetic and leather overlays",
+            midsole: "Foam midsole with a visible Max Air unit in the heel",
+            closure: "Standard lace-up",
+        },
+        sources: [
+            "https://www.nike.com/t/air-max-sc-mens-shoes-LR42xg",
+            "https://runrepeat.com/nike-air-max-sc",
+            "https://stockx.com/nike-air-max-sc-white-gorge-green",
+        ],
+    },
+    "jordan-access-ps": {
+        standing:
+            "Budget Jordan Brand basketball shoe; this is a toddler/preschool-size run of an accessible adult silhouette, not a collector item.",
+        note: "The Jordan Access is Jordan Brand's lower-priced basketball-styled lifestyle shoe, positioned well below premium Air Jordan retros. The Black/Gym Red/White PS (preschool) colorway carries style code AV7942-006, released August 1, 2019 at $65 retail. Construction is a perforated leather, synthetic and textile upper over a Nike Air-cushioned unit with foam in the heel and forefoot, closed with standard lacing and a padded tongue with an interior strap.",
+        specs: {
+            styleCode: "AV7942-006",
+            silhouette: "Jordan Access",
+            released: "August 2019",
+            upper: "Perforated leather, synthetic, and textile",
+            midsole: "Nike Air-cushioned unit with foam in heel and forefoot",
+            closure: "Lace-up, padded tongue with interior strap",
+        },
+        sources: [
+            "https://stockx.com/air-jordan-access-black-gym-red-white-ps",
+            "https://www.nike.com/id/t/jordan-access-mens-shoes-wVQn6G",
+            "https://stockx.com/air-jordan-access-bred",
+        ],
+    },
+    "adidas-samba-xlg": {
+        standing:
+            "Current-line, thick-soled Samba variant riding the broader 2020s Samba boom; sold at standard retail, not vintage or scarce.",
+        note: "The Samba XLG is an oversized reworking of the Samba OG terrace shoe, launched by adidas Originals in August 2023 with a doubled-up gum rubber sole and a full-length EVA midsole in place of the OG's slim leather sole. This Cream White/Gum pair carries style code JQ8182 and a $110 retail price; its own release date could not be confirmed distinctly from the general line's 2023 debut. Construction across the XLG line is leather with a full leather lining and padded tongue; a specific closure description for this pair was not found, though it is laced in the standard Samba pattern.",
+        specs: {
+            styleCode: "JQ8182",
+            silhouette: "Samba XLG",
+            upper: "Leather with full leather lining",
+            midsole:
+                "Full-length EVA midsole under a doubled-up gum rubber sole",
+        },
+        sources: [
+            "https://stockx.com/adidas-samba-xlg-cream-white-gum",
+            "https://www.sneakerfreaker.com/features/adidas-samba-differences-buyers-guide",
+            "https://thesolesupplier.co.uk/release-dates/adidas/samba/adidas-samba-xlg-white-black-gum/",
+            "https://www.soleretriever.com/news/articles/adidas-samba-xlg-wheat-release-date-2024",
+        ],
+    },
+    "adidas-superstar-2": {
+        standing:
+            "Recently revived adidas Originals line, not a vintage pair; the collectible interest, if any, lies in the color-shift stripe detail rather than scarcity.",
+        note: 'The Superstar II is the padded, chunkier update of adidas\'s 1969 Superstar shell-toe — historically known for a thicker, heavily padded "fat tongue" and a more deeply gridded shell toe than the OG, and closely tied to 1990s hip-hop and skate culture. "Superstar II" existed for years only as an occasional heritage reissue name before adidas revived it as a standing product line in February 2025. This Core Black/Matte Silver/Cloud White pair (JQ3209, $100 retail) is part of that 2025 relaunch and is distinguished by a color-shift ("lenticular") treatment on the 3-Stripes that changes appearance with viewing angle. Its exact release date could not be pinned down — one source lists January 2025, others suggest July 2025 — so it is left blank rather than guessed; upper material and closure for this specific colorway were not confirmed either, though tumbled leather uppers are documented on sibling releases in the same 2025 line.',
+        specs: {
+            styleCode: "JQ3209",
+            silhouette: "Superstar II",
+        },
+        sources: [
+            "https://stockx.com/adidas-superstar-ii-core-black-matte-silver-cloud-white",
+            "https://www.sivasdescalzo.com/us/blog/evolution-adidas-superstar",
+            "https://limitededt.in/products/superstar-2-core-black-matte-silver-cloud-white",
+            "https://en.wikipedia.org/wiki/Adidas_Superstar",
+            "https://snkrdunk.com/en/magazine/2025/04/11/adidas-superstar-ii-chicago-release-date-price-where-to-buy/",
+        ],
+    },
 };
 
 export function researchFor(id: string): Research | null {

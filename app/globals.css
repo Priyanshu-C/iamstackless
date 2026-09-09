@@ -2232,6 +2232,9 @@ body {
     line-height: 1.35;
     font-variant-numeric: tabular-nums;
     min-width: 0;
+    /* A value long enough to wrap does so against a fixed edge rather than
+       ragging out from wherever the label happens to end. */
+    max-width: 62%;
     overflow-wrap: anywhere;
 }
 .case-record-row dd[data-blank] {
@@ -2282,7 +2285,7 @@ body {
     max-width: 40ch;
 }
 .case-why-blank {
-    margin: 0;
+    margin: var(--s-2xs) 0 0;
     font-size: var(--t-label);
     line-height: 1.5;
     color: var(--ink-3);
