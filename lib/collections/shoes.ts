@@ -53,7 +53,7 @@ export const shoes: Shoe[] = [
         name: "Adimatic Mid YNuK",
         brand: "Crude From Portugal × Adidas",
         price: { amount: 15016, currency: "INR" },
-        shots: ["lateral"],
+        shots: ["lateral", "medial"],
         colourway: "YNuK",
     },
     {
@@ -62,7 +62,7 @@ export const shoes: Shoe[] = [
         name: "Superstar 2",
         brand: "Adidas",
         price: { amount: 11999, currency: "INR" },
-        shots: ["lateral"],
+        shots: ["lateral", "medial"],
         colourway: "Core Black / Matte Silver / Cloud White",
     },
     {
