@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "test": "vitest run",
-    "normalize": "node scripts/normalize-image.mjs"
+    "normalize": "node scripts/normalize-image.mjs",
+    "shots": "node scripts/fetch-shots.mjs",
+    "sheet": "node scripts/contact-sheet.mjs"
   },
   "dependencies": {
     "@nextui-org/react": "^2.4.1",

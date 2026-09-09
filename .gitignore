@@ -38,3 +38,6 @@ next-env.d.ts
 # raw collection images, staged for `npm run normalize`
 scripts/incoming/*/*
 !scripts/incoming/*/README.md
+
+# contact sheets are a local check, not an artefact
+scripts/sheets/
