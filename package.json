@@ -12,6 +12,9 @@
     "shots": "node scripts/fetch-shots.mjs",
     "sheet": "node scripts/contact-sheet.mjs"
   },
+  "engines": {
+    "node": "26.x"
+  },
   "dependencies": {
     "@nextui-org/react": "^2.4.1",
     "clsx": "^2.1.1",
