@@ -173,4 +173,20 @@ export const perfumes: Perfume[] = [
             base: ["tonka bean", "resins", "orange blossom"],
         },
     },
+    {
+        id: "mykonos-inferno",
+        seq: 14,
+        name: "Inferno",
+        brand: "Mykonos",
+        shots: ["bottle", "box"],
+        // Extrait de parfum on the box and the brand page. The pyramid is the
+        // brand's own; Friday Charm's listing drops the pineapple and the
+        // ambroxan, and is the source of the photographs, not the notes.
+        concentration: "parfum",
+        notes: {
+            top: ["blackcurrant", "bergamot", "grapefruit", "caramelized pineapple"],
+            heart: ["clove", "nutmeg", "ginger", "cardamom", "rose"],
+            base: ["patchouli", "oakmoss", "amber", "musk", "vetiver", "tonka bean", "ambroxan"],
+        },
+    },
 ];

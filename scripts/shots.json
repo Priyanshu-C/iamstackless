@@ -299,5 +299,19 @@
     "angle": "box",
     "url": "https://venerafragrances.com/image/catalog/data/products/Police-To-Be-King.jpg",
     "page": "https://venerafragrances.com/police-to-be-the-king-edt-125ml-for-men"
+  },
+  {
+    "id": "mykonos-inferno",
+    "category": "perfumes",
+    "angle": "bottle",
+    "url": "https://cdn.shopify.com/s/files/1/0069/4471/8937/files/inferno_2.jpg?v=1788516298",
+    "page": "https://www.fridaycharm.com/products/mykonos-inferno-extrait-de-parfum-for-unisex"
+  },
+  {
+    "id": "mykonos-inferno",
+    "category": "perfumes",
+    "angle": "box",
+    "url": "https://cdn.shopify.com/s/files/1/0069/4471/8937/files/inferno1.jpg?v=1788515969",
+    "page": "https://www.fridaycharm.com/products/mykonos-inferno-extrait-de-parfum-for-unisex"
   }
 ]

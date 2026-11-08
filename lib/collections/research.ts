@@ -109,6 +109,15 @@ export const RESEARCH: Record<string, Research> = {
             "https://www.mavive.com/en/to-be-the-kingthe-queen/81-eau-de-toilette-for-him-333.html",
         ],
     },
+    "mykonos-inferno": {
+        standing:
+            "A budget extrait from the house Mykonos, which one retailer describes as a take on Creed's Absolu Aventus.",
+        note: "An extrait de parfum sold in 50 ml and 100 ml, built on blackcurrant, citrus and caramelised pineapple over clove, nutmeg and rose, with a patchouli-oakmoss base. The brand describes it as a summer freshness with a darker burn. The Indian retailer Scentira reads it as a take on Creed's Absolu Aventus whose oakmoss base borrows from Nishane's Hacivat; that is a retailer's framing, not the brand's. The brand states neither a perfumer nor a release year.",
+        sources: [
+            "https://officialmykonos.com/products/mykonos-inferno-extrait-de-parfum-100ml",
+            "https://scentira.in/products/mykonos-inferno-extrait-de-parfum",
+        ],
+    },
     "diesel-dz4323": {
         standing:
             "Mass-market fashion chronograph; oversized case is the whole idea, no in-house movement, no collector market.",
