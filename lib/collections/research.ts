@@ -37,15 +37,6 @@ export const RESEARCH: Record<string, Research> = {
             "https://www.nykaa.com/afnan-9pm-vaporisateur-long-lasting-unisex-eau-de-parfum/p/19918951",
         ],
     },
-    "beardo-black-musk": {
-        standing:
-            "A budget Indian eau de parfum from a mass-market grooming brand, undocumented on the major perfume databases.",
-        note: "One of Beardo's lower-priced EDPs, sold mainly through the brand's own site and Indian marketplaces. A straightforward musky-woody scent with no claimed lineage to any designer fragrance, and no perfumer or release year is publicly documented. It reads as a functional, inexpensive daily fragrance rather than an object with independent standing.",
-        sources: [
-            "https://www.parfumo.com/Perfumes/beardo/black-musk",
-            "https://www.amazon.in/Beardo-Black-Perfume-PERFUM-Lasting/dp/B09B57R6W6",
-        ],
-    },
     "versace-eros": {
         standing:
             "One of the best-selling mainstream men's fragrances of the 2010s.",
@@ -62,24 +53,6 @@ export const RESEARCH: Record<string, Research> = {
         sources: [
             "https://beardo.in/products/beardo-godfather-perfume-edp",
             "https://www.amazon.in/Godfather-Perfume-Premium-Fragrance-Aromatic/dp/B08NX1V7MC",
-        ],
-    },
-    "tmc-infinite": {
-        standing:
-            "A celebrity-collaboration EDT from an Indian D2C grooming brand.",
-        note: "A simple citrus-cedar-vetiver eau de toilette released by The Man Company alongside the YouTuber Bhuvan Bam around 2022, part of a marketing tie-in rather than a fragrance credited to a named perfumer. It has no documented relationship to any designer scent, and is a straightforward budget aromatic aimed at buyers of the wider merchandise line.",
-        sources: [
-            "https://www.themancompany.com/products/eau-de-toilette-infinite-100-ml",
-            "https://www.campaignindia.in/article/the-man-company-gets-bhuvan-bam/480313",
-        ],
-    },
-    "bella-vita-ceo-man": {
-        standing:
-            "A mass-market Indian eau de parfum sold on an office-wear, boss-branded positioning.",
-        note: "Bella Vita Luxury's entry-level men's EDP, launched in 2021 by a Gurugram brand built to undercut international designer prices. Reviewers have called it a weak approximation of YSL Y. A later, more concentrated line extension — CEO Man Intense, 2023 — is instead compared to Le Male Le Parfum; the two are different formulas, and that comparison should not be read onto this bottle.",
-        sources: [
-            "https://www.fragrantica.com/perfume/BellaVita/CEO-Man-107163.html",
-            "https://www.bellavitaluxury.co.in/products/ceo-man-mens-luxury-perfume",
         ],
     },
     "lattafa-asad": {
